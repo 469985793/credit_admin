@@ -1,0 +1,84 @@
+[
+  {
+    "path": "/",
+    "name": "index",
+    "component": "/Index",
+    "redirect": "customer",
+    "children": [
+      {
+        "path": "customer",
+        "name": "customer",
+        "component": "/customer/Index"
+      },
+      {
+        "path": "customer/:customerId/detail",
+        "name": "customerDetail",
+        "component": "/customer/detail/Index",
+        "redirect": "customer/:customerId/detail/apply",
+        "children": [
+          {
+            "path": "apply",
+            "name": "customerDetailApply",
+            "component": "/customer/detail/Apply"
+          },
+          {
+            "path": "operator",
+            "name": "customerDetailOperator",
+            "component": "/customer/detail/Operator"
+          },
+          {
+            "path": "alipay",
+            "name": "customerDetailAlipay",
+            "component": "/customer/detail/Alipay"
+          },
+          {
+            "path": "alimarket",
+            "name": "customerDetailAlimarket",
+            "component": "/customer/detail/Alimarket"
+          },
+          {
+            "path": "contact",
+            "name": "customerDetailContact",
+            "component": "/customer/detail/Contact"
+          },
+          {
+            "path": "credit",
+            "name": "customerDetailCredit",
+            "component": "/customer/detail/Credit"
+          },
+          {
+            "path": "social",
+            "name": "customerDetailSocial",
+            "component": "/customer/detail/Social"
+          }
+        ]
+      },
+      {
+        "path": "formList",
+        "name": "formList",
+        "component": "/formList/Index"
+      }
+    ]
+  },
+  {
+    "path": "/login",
+    "name": "login",
+    "component": "/login/Index"
+  },
+  {
+    "path": "/unreadList",
+    "name": "unreadList",
+    "component": "/unreadList/Index"
+  },
+  {
+    "path": "/formEdit/:userId",
+    "name": "formEdit",
+    "component": "/formEdit/Index"
+  },
+  {
+    "path": "/formDetail/:userId",
+    "name": "formDetail",
+    "component": "/formDetail/Index"
+  }
+]
+

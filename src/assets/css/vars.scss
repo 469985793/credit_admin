@@ -1,0 +1,58 @@
+/* colors -------------------  */
+$ent-color-primary: #49c6d8;
+$ent-color-primary-light-1: #e5fafd;
+$ent-color-info: #f5f5f5;
+$ent-color-info-dark-1: #f9f9f9;
+$ent-color-danger: #fa5555;
+
+$ent-color-white: #fff;
+
+/* fonts -------------------  */
+$ent-font-size-base: 14px;
+$ent-font-size-x-small: 11px;
+$ent-font-size-small: 12px;
+$ent-font-size-large: 15px;
+$ent-font-size-x-large: 18px;
+$ent-font-color-placeholder: #aaaaaa;
+$ent-font-color-base: #333333;
+$ent-font-color-base-light-1: #666666;
+$ent-font-color-dark-1: #0c2326;
+
+/* gaps -------------------  */
+$ent-gap-base: 15px;
+$ent-gap-x-small: 7.5px;
+$ent-gap-xx-small: 5px;
+$ent-gap-small: 12px;
+$ent-gap-large: 20px;
+$ent-gap-x-large: 24px;
+$ent-gap-xx-large: 27px;
+$ent-gap-xxx-large: 35px;
+
+/* radius -------------------  */
+$ent-raduis-small: 2.5px;
+$ent-raduis-base: 5px;
+$ent-raduis-large: 10px;
+$ent-raduis-x-large: 22.5px;
+
+/* borders -------------------  */
+$ent-border-color-base: #aaaaaa;
+$ent-border-color-base-light-1: #ececec;
+$ent-border-width-base: 1px;
+$ent-border-style-base: solid;
+$ent-border-base: $ent-border-width-base $ent-border-style-base $ent-border-color-base;
+
+/* line-hight -------------------  */
+$ent-line-height-large: $ent-font-size-large + 5;
+
+/* margin/padding -------------------  */
+$ent-offset-list: (
+  'normal': $ent-gap-base,
+  'small' : $ent-gap-small,
+  'x-small' : $ent-gap-x-small,
+  'large' : $ent-gap-large,
+  'x-large' : $ent-gap-x-large,
+  'xx-large' : $ent-gap-xx-large,
+  'xxx-large': $ent-gap-xxx-large
+);
+
+
