@@ -1,7 +1,10 @@
 <template>
   <div class="v_index_container">
-    <div class="head_box">
+    <div class="head_box" :class="{hide_side_bar: !isShowSideBar}">
       <el-menu mode="horizontal">
+        <div class="left_menu">
+          <span class="el-icon-menu" @click="toggleSideBar"></span>
+        </div>
         <div class="right_menu">
           <el-badge :value="unreadCount" @click.native="goPage('unreadList')">
             <el-button type="text" size="small">未读</el-button>
@@ -25,7 +28,7 @@
         </div>
       </el-menu>
     </div>
-    <aside class="aside_nav">
+    <aside class="aside_nav" :class="{hide_side_bar: !isShowSideBar}">
       <el-menu
         :default-active="activeIndex"
         mode="vertical"
@@ -33,7 +36,8 @@
         @select="handleSelect"
         background-color="#545c64"
         text-color="#fff"
-        active-text-color="#ffd04b">
+        active-text-color="#ffd04b"
+        :collapse="!isShowSideBar">
         <el-menu-item index="1" @click="goPage('formList')">
           <i class="el-icon-menu"></i>
           <span slot="title">控制面板</span>
@@ -52,27 +56,29 @@
             <span slot="title">进度管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="4-1" @click="goPage('formList')">待审核</el-menu-item>
-            <el-menu-item index="4-2" @click="goPage('formList')">审核中</el-menu-item>
-            <el-menu-item index="4-3" @click="goPage('formList')">拒绝受理</el-menu-item>
-            <el-menu-item index="4-4" @click="goPage('formList')">已放款</el-menu-item>
-            <el-menu-item index="4-5" @click="goPage('formList')">预期</el-menu-item>
+            <el-menu-item index="4-1" @click="goPage('/process/waitVerify')">待审核</el-menu-item>
+            <el-menu-item index="4-2" @click="goPage('/process/verify')">审核中</el-menu-item>
+            <el-menu-item index="4-3" @click="goPage('/process/refuse')">拒绝受理</el-menu-item>
+            <el-menu-item index="4-4" @click="goPage('/process/waitLoan')">待放款</el-menu-item>
+            <el-menu-item index="4-5" @click="goPage('/process/loan')">已放款</el-menu-item>
+            <el-menu-item index="4-6" @click="goPage('/process/overdue')">逾期</el-menu-item>
+            <el-menu-item index="4-7" @click="goPage('/process/acquitt')">已结清</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
     </aside>
-    <div class="content_box">
+    <div class="content_box" :class="{hide_side_bar: !isShowSideBar}">
       <router-view></router-view>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
   name: 'VIndex',
   data() {
     return {
+      isShowSideBar: true,
       activeIndex: '1',
       unreadCount: '0'
     }
@@ -81,6 +87,9 @@ export default {
     this.getUnreadCount();
   },
   methods: {
+    toggleSideBar() {
+      this.isShowSideBar = !this.isShowSideBar;
+    },
     getUnreadCount() {
       // this.httpService.get('apiConfig.server.unread', (res) => {
       //   if (res.data.code === 0) {
@@ -115,9 +124,18 @@ export default {
     top: 0;
     left: 200px;
     z-index: 22;
-
+    &.hide_side_bar {
+      width: calc(100% - 65px);
+      left: 65px;
+    }
     .el-menu {
       height: 100%;
+      .left_menu {
+        line-height: 58px;
+        height: 50px;
+        float: left;
+        padding: 0 10px;
+      }
       .right_menu {
         float: right;
         right: 0;
@@ -156,8 +174,10 @@ export default {
     bottom: 0;
     left: 0;
     z-index: 111;
-    background: rgb(84, 92, 100);
     text-align: left;
+    &.hide_side_bar {
+      width: 65px;
+    }
     .el-menu {
       height: 100%;
       overflow: hidden;
@@ -172,6 +192,9 @@ export default {
     right: 0;
     bottom: 0;
     width: auto;
+    &.hide_side_bar {
+      left: 65px;
+    }
   }
 }
 </style>

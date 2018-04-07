@@ -1,5 +1,5 @@
 <template>
-  <div class="v_customer_container">
+  <div class="v_loan_container">
     <el-form :inline="true">
       <el-form-item>
         <el-input size="small" v-model="searchText" placeholder="姓名/手机号"></el-input>
@@ -8,6 +8,13 @@
         <el-radio-group v-model="order">
           <el-radio label="ascend">时间升序</el-radio>
           <el-radio label="descend">时间降序</el-radio>
+        </el-radio-group>
+      </el-form-item>
+      <el-form-item>
+        <el-radio-group v-model="readStatus" size="small">
+          <el-radio-button label="全部"></el-radio-button>
+          <el-radio-button label="已读"></el-radio-button>
+          <el-radio-button label="未读"></el-radio-button>
         </el-radio-group>
       </el-form-item>
       <el-form-item>
@@ -51,25 +58,41 @@
         width="120">
       </el-table-column>
       <el-table-column
+        label="状态"
+        width="60">
+        <template slot-scope="scope">
+          <span class="highlight" v-if="scope.row.status === '11101'">未读</span>
+          <span v-else>已读</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="审核"
+        width="80">
+        <template slot-scope="scope">
+          <span v-if="scope.row.reserveOne === '1'">通过</span>
+          <span class="highlight" v-else>不通过</span>
+        </template>
+      </el-table-column>
+      <el-table-column
         prop="remark"
         label="备注"
         width="120">
       </el-table-column>
       <el-table-column
         prop="crtTime"
-        label="申请时间"
+        label="创建时间"
         width="120">
       </el-table-column>
       <el-table-column
         prop="modiJobno"
-        label="操作人"
+        label="修改人"
         width="80">
       </el-table-column>
       <el-table-column
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="goPage(scope.row.dkId, 'detail')" type="primary" size="small">查看</el-button>
-          <el-button class="edit_btn" @click="isShowDialog = true" type="warning" size="small">编辑</el-button>
+          <el-button @click="goPage(scope.row.dkId, 'formDetail')" type="primary" size="small">查看</el-button>
+          <el-button class="edit_btn" @click="goPage(scope.row.dkId, 'formEdit')" type="warning" size="small">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,35 +107,6 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
-    <el-dialog title="编辑-客户中心" :visible.sync="isShowDialog">
-      <el-form :model="dialogFormData" label-position="left" label-width="90px">
-        <el-form-item label="姓名">
-          <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号"></el-input>
-        </el-form-item>
-        <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
-        </el-form-item>
-        <el-form-item label="月收入">
-          <el-input v-model="dialogFormData.name" placeholder="月收入"></el-input>
-        </el-form-item>
-        <el-form-item label="芝麻分">
-          <el-input v-model="dialogFormData.name" placeholder="芝麻分"></el-input>
-        </el-form-item>
-        <el-form-item label="申请记录">
-          <el-input v-model="dialogFormData.money" placeholder="申请记录"></el-input>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="备注"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="primary" @click="isShowDialog = false">保存</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
@@ -120,14 +114,9 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCustomer',
+  name: 'VLoan',
   data() {
     return {
-      isShowDialog: false,
-      dialogFormData: {
-        name: '',
-        money: ''
-      },
       searchText: '',
       readStatus: '全部',
       order: 'ascend',
@@ -223,8 +212,8 @@ export default {
         return '11102'
       }
     },
-    goPage(customerId, page) {
-      this.$router.push({path: '/customer/' + customerId + '/' + page});
+    goPage(userId, page) {
+      this.$router.push({path: '/' + page + '/' + userId});
     },
     doQuery() {
       this.isLoading = true;
@@ -248,7 +237,7 @@ export default {
 <style lang="scss">
 @import '../../assets/css/vars.scss';
 
-.v_customer_container {
+.v_loan_container {
   .highlight {
     color: $ent-color-danger;
   }

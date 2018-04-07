@@ -50,8 +50,61 @@
             "path": "social",
             "name": "customerDetailSocial",
             "component": "/customer/detail/Social"
+          },
+          {
+            "path": "record",
+            "name": "customerDetailRecord",
+            "component": "/customer/detail/Record"
           }
         ]
+      },
+      {
+        "path": "/process",
+        "name": "process",
+        "component": "/process/Index",
+        "redirect": "/process/waitVerify",
+        "children": [
+          {
+            "path": "waitVerify",
+            "name": "processWaitVerify",
+            "component": "/process/WaitVerify"
+          },
+          {
+            "path": "verify",
+            "name": "processverify",
+            "component": "/process/Verify"
+          },
+          {
+            "path": "refuse",
+            "name": "processRefuse",
+            "component": "/process/Refuse"
+          },
+          {
+            "path": "waitLoan",
+            "name": "processWaitLoan",
+            "component": "/process/WaitLoan"
+          },
+          {
+            "path": "loan",
+            "name": "processLoan",
+            "component": "/process/Loan"
+          },
+          {
+            "path": "acquitt",
+            "name": "processAcquitt",
+            "component": "/process/Acquitt"
+          },
+          {
+            "path": "overdue",
+            "name": "processOverdue",
+            "component": "/process/Overdue"
+          }
+        ]
+      },
+      {
+        "path": "/process/:applyId/detail",
+        "name": "processDetail",
+        "component": "/process/Detail"
       },
       {
         "path": "formList",

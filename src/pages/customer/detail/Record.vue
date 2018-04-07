@@ -1,16 +1,6 @@
 <template>
-  <div class="v_customer_detail_container">
-    <el-tabs v-model="activeTab" tab-position="top" @tab-click="goPage">
-      <el-tab-pane label="申请表" name="apply"></el-tab-pane>
-      <el-tab-pane label="支付宝认证" name="alipay"></el-tab-pane>
-      <el-tab-pane label="淘宝认证" name="alimarket"></el-tab-pane>
-      <el-tab-pane label="运营商认证" name="operator"></el-tab-pane>
-      <el-tab-pane label="征信报告" name="credit"></el-tab-pane>
-      <el-tab-pane label="社保公积金" name="social"></el-tab-pane>
-      <el-tab-pane label="通讯录" name="contact"></el-tab-pane>
-      <el-tab-pane label="申请记录" name="record"></el-tab-pane>
-    </el-tabs>
-    <router-view></router-view>
+  <div class="v_customer_detail_record_container">
+    申请记录
   </div>
 </template>
 
@@ -18,11 +8,9 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCustomerDetail',
+  name: 'VCustomerDetailRecord',
   data() {
     return {
-      activeTab: 'apply',
-      customerId: this.$route.params.customerId,
       searchText: '',
       readStatus: '全部',
       order: 'ascend',
@@ -118,8 +106,8 @@ export default {
         return '11102'
       }
     },
-    goPage(tab) {
-      this.$router.push({path: '/customer/' + this.customerId + '/detail/' + tab.name});
+    goPage(userId, page) {
+      this.$router.push({path: '/' + page + '/' + userId});
     },
     doQuery() {
       this.isLoading = true;
@@ -143,7 +131,7 @@ export default {
 <style lang="scss">
 @import '../../../assets/css/vars.scss';
 
-.v_customer_detail_container {
+.v_customer_detail_record_container {
   .highlight {
     color: $ent-color-danger;
   }

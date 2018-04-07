@@ -1,5 +1,5 @@
 <template>
-  <div class="v_customer_container">
+  <div class="v_overdue_container">
     <el-form :inline="true">
       <el-form-item>
         <el-input size="small" v-model="searchText" placeholder="姓名/手机号"></el-input>
@@ -16,22 +16,27 @@
     </el-form>
     <el-table
       :data="dataList"
+      stripe
       style="width: 100%"
-      height="100%">
+      height="100%"
+      @cell-click="goPage">
       <el-table-column
+        fixed
         prop="dkId"
         label="id"
         width="60">
       </el-table-column>
       <el-table-column
+        fixed
         label="姓名"
         width="80">
         <template slot-scope="scope">
-          <el-badge v-if="scope.row.status === '11101'" is-dot class="item">{{scope.row.userName}}</el-badge>
-          <span v-else>{{scope.row.userName}}</span>
+          <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
+          <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
         </template>
       </el-table-column>
       <el-table-column
+        fixed
         prop="telNum"
         label="手机号"
         width="120">
@@ -48,28 +53,88 @@
       <el-table-column
         prop="monthIncome"
         label="月收入"
-        width="120">
+        width="80">
       </el-table-column>
       <el-table-column
-        prop="remark"
+        prop="monthIncome"
+        label="申请金额"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="芝麻分"
+        width="70">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="申请记录"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        label="已认证"
+        width="180">
+        <template slot-scope="scope">
+          <div class="verify_item_box">
+            <el-tag size="mini" type="success">支付宝</el-tag>
+            <el-tag size="mini" type="success">支付宝</el-tag>
+            <el-tag size="mini" type="success">支付宝</el-tag>
+            <el-tag size="mini" type="success">支付宝</el-tag>
+            <el-tag size="mini" type="success">支付宝</el-tag>
+            <el-tag size="mini" type="success">支付宝</el-tag>
+          </div>
+        </template>
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="初审备注"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="终审备注"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="放款备注"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
         label="备注"
-        width="120">
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="放款金额"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="crtTime"
+        label="放款时间"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="crtTime"
+        label="应还款时间"
+        width="90">
       </el-table-column>
       <el-table-column
         prop="crtTime"
         label="申请时间"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        prop="modiJobno"
-        label="操作人"
         width="80">
       </el-table-column>
       <el-table-column
+        fixed="right"
+        prop="crtTime"
+        label="还款时间"
+        width="90">
+      </el-table-column>
+      <el-table-column
+        fixed="right"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="goPage(scope.row.dkId, 'detail')" type="primary" size="small">查看</el-button>
-          <el-button class="edit_btn" @click="isShowDialog = true" type="warning" size="small">编辑</el-button>
+          <el-button @click.stop="isShowDialog = true" type="primary" size="small">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,8 +149,8 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
-    <el-dialog title="编辑-客户中心" :visible.sync="isShowDialog">
-      <el-form :model="dialogFormData" label-position="left" label-width="90px">
+    <el-dialog title="编辑-已结清" :visible.sync="isShowDialog">
+      <el-form :model="dialogFormData" label-position="left" label-width="80px">
         <el-form-item label="姓名">
           <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
         </el-form-item>
@@ -95,17 +160,26 @@
         <el-form-item label="申请金额">
           <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
         </el-form-item>
-        <el-form-item label="月收入">
-          <el-input v-model="dialogFormData.name" placeholder="月收入"></el-input>
-        </el-form-item>
         <el-form-item label="芝麻分">
-          <el-input v-model="dialogFormData.name" placeholder="芝麻分"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
         </el-form-item>
         <el-form-item label="申请记录">
           <el-input v-model="dialogFormData.money" placeholder="申请记录"></el-input>
         </el-form-item>
+        <el-form-item label="放款金额">
+          <el-input v-model="dialogFormData.name" placeholder="放款金额"></el-input>
+        </el-form-item>
+        <el-form-item label="初审备注">
+          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注"></el-input>
+        </el-form-item>
         <el-form-item label="备注">
           <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="备注"></el-input>
+        </el-form-item>
+        <el-form-item label="审批人">
+          <el-select v-model="dialogFormData.name" placeholder="审批人">
+            <el-option label="晓彬" value="shanghai"></el-option>
+            <el-option label="彬哥" value="beijing"></el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -120,7 +194,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCustomer',
+  name: 'VOverdue',
   data() {
     return {
       isShowDialog: false,
@@ -160,6 +234,32 @@ export default {
         },
         {
           dkId: '3',
+          userName: '张三3',
+          telNum: '1222929929',
+          currentAddress: '上海市',
+          monthIncome: '1000元',
+          contactQq: '1000元',
+          crtTime: '2016-06-6',
+          status: '11102',
+          reserveOne: '0',
+          remark: '这个是个穷小子',
+          modiJobno: '罗晓彬'
+        },
+        {
+          dkId: '4',
+          userName: '张三3',
+          telNum: '1222929929',
+          currentAddress: '上海市',
+          monthIncome: '1000元',
+          contactQq: '1000元',
+          crtTime: '2016-06-6',
+          status: '11102',
+          reserveOne: '0',
+          remark: '这个是个穷小子',
+          modiJobno: '罗晓彬'
+        },
+        {
+          dkId: '5',
           userName: '张三3',
           telNum: '1222929929',
           currentAddress: '上海市',
@@ -223,8 +323,8 @@ export default {
         return '11102'
       }
     },
-    goPage(customerId, page) {
-      this.$router.push({path: '/customer/' + customerId + '/' + page});
+    goPage(row, column, cell, event) {
+      this.$router.push({path: '/customer/' + row.dkId + '/detail'});
     },
     doQuery() {
       this.isLoading = true;
@@ -248,9 +348,17 @@ export default {
 <style lang="scss">
 @import '../../assets/css/vars.scss';
 
-.v_customer_container {
+.v_overdue_container {
   .highlight {
     color: $ent-color-danger;
+  }
+  .verify_item_box {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    & > span {
+      margin-bottom: 2px;
+    }
   }
 
   /* overwrite */
@@ -298,9 +406,3 @@ export default {
   }
 }
 </style>
-
-
-
-
-
-
