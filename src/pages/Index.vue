@@ -3,7 +3,8 @@
     <div class="head_box" :class="{hide_side_bar: !isShowSideBar}">
       <el-menu mode="horizontal">
         <div class="left_menu">
-          <span class="el-icon-menu" @click="toggleSideBar"></span>
+          <VHamburger class="hamburger-container" @click.native="toggleSideBar" :isActive="isShowSideBar"></VHamburger>
+          <VBreadcrumb></VBreadcrumb>
         </div>
         <div class="right_menu">
           <el-badge :value="unreadCount" @click.native="goPage('unreadList')">
@@ -29,43 +30,46 @@
       </el-menu>
     </div>
     <aside class="aside_nav" :class="{hide_side_bar: !isShowSideBar}">
-      <el-menu
-        :default-active="activeIndex"
-        mode="vertical"
-        class="el-menu-demo"
-        @select="handleSelect"
-        background-color="#545c64"
-        text-color="#fff"
-        active-text-color="#ffd04b"
-        :collapse="!isShowSideBar">
-        <el-menu-item index="1" @click="goPage('formList')">
-          <i class="el-icon-menu"></i>
-          <span slot="title">控制面板</span>
-        </el-menu-item>
-        <el-menu-item index="2" @click="goPage('formList')">
-          <i class="el-icon-menu"></i>
-          <span slot="title">权限管理</span>
-        </el-menu-item>
-        <el-menu-item index="3" @click="goPage('/customer')">
-          <i class="el-icon-menu"></i>
-          <span slot="title">客户中心</span>
-        </el-menu-item>
-        <el-submenu index="4">
-          <template slot="title">
-            <i class="el-icon-location"></i>
-            <span slot="title">进度管理</span>
-          </template>
-          <el-menu-item-group>
-            <el-menu-item index="4-1" @click="goPage('/process/waitVerify')">待审核</el-menu-item>
-            <el-menu-item index="4-2" @click="goPage('/process/verify')">审核中</el-menu-item>
-            <el-menu-item index="4-3" @click="goPage('/process/refuse')">拒绝受理</el-menu-item>
-            <el-menu-item index="4-4" @click="goPage('/process/waitLoan')">待放款</el-menu-item>
-            <el-menu-item index="4-5" @click="goPage('/process/loan')">已放款</el-menu-item>
-            <el-menu-item index="4-6" @click="goPage('/process/overdue')">逾期</el-menu-item>
-            <el-menu-item index="4-7" @click="goPage('/process/acquitt')">已结清</el-menu-item>
-          </el-menu-item-group>
-        </el-submenu>
-      </el-menu>
+      <VScrollBar>
+        <el-menu
+          :collapse-transition="false"
+          :default-active="activeIndex"
+          mode="vertical"
+          class="el-menu-demo"
+          @select="handleSelect"
+          background-color="#545c64"
+          text-color="#fff"
+          active-text-color="#ffd04b"
+          :collapse="!isShowSideBar">
+          <el-menu-item index="1" @click="goPage('formList')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">控制面板</span>
+          </el-menu-item>
+          <el-menu-item index="2" @click="goPage('formList')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">权限管理</span>
+          </el-menu-item>
+          <el-menu-item index="3" @click="goPage('/customer')">
+            <i class="el-icon-menu"></i>
+            <span slot="title">客户中心</span>
+          </el-menu-item>
+          <el-submenu index="4">
+            <template slot="title">
+              <i class="el-icon-location"></i>
+              <span slot="title">进度管理</span>
+            </template>
+            <el-menu-item-group>
+              <el-menu-item index="4-1" @click="goPage('/process/waitVerify')">待审核</el-menu-item>
+              <el-menu-item index="4-2" @click="goPage('/process/verify')">审核中</el-menu-item>
+              <el-menu-item index="4-3" @click="goPage('/process/refuse')">拒绝受理</el-menu-item>
+              <el-menu-item index="4-4" @click="goPage('/process/waitLoan')">待放款</el-menu-item>
+              <el-menu-item index="4-5" @click="goPage('/process/loan')">已放款</el-menu-item>
+              <el-menu-item index="4-6" @click="goPage('/process/overdue')">逾期</el-menu-item>
+              <el-menu-item index="4-7" @click="goPage('/process/acquitt')">已结清</el-menu-item>
+            </el-menu-item-group>
+          </el-submenu>
+        </el-menu>
+      </VScrollBar>
     </aside>
     <div class="content_box" :class="{hide_side_bar: !isShowSideBar}">
       <router-view></router-view>
@@ -74,6 +78,10 @@
 </template>
 
 <script>
+import VHamburger from '../components/base/hamburger'
+import VBreadcrumb from '../components/base/breadcrumb'
+import VScrollBar from '../components/base/scrollBar'
+
 export default {
   name: 'VIndex',
   data() {
@@ -82,6 +90,9 @@ export default {
       activeIndex: '1',
       unreadCount: '0'
     }
+  },
+  components: {
+    VHamburger, VBreadcrumb, VScrollBar
   },
   created() {
     this.getUnreadCount();
@@ -124,6 +135,7 @@ export default {
     top: 0;
     left: 200px;
     z-index: 22;
+    transition: all 0.3s ease-in-out;
     &.hide_side_bar {
       width: calc(100% - 65px);
       left: 65px;
@@ -131,10 +143,16 @@ export default {
     .el-menu {
       height: 100%;
       .left_menu {
-        line-height: 58px;
+        line-height: 50px;
         height: 50px;
         float: left;
         padding: 0 10px;
+        display: flex;
+        align-items: center;
+        & > span {
+          font-size: 20px;
+          color: rgba(0, 0, 0, 0.4);
+        }
       }
       .right_menu {
         float: right;
@@ -175,12 +193,14 @@ export default {
     left: 0;
     z-index: 111;
     text-align: left;
+    transition: all 0.5s ease;
     &.hide_side_bar {
       width: 65px;
     }
     .el-menu {
       height: 100%;
-      overflow: hidden;
+      width: 100%;
+      border: none;
     }
   }
   .content_box {
@@ -192,6 +212,7 @@ export default {
     right: 0;
     bottom: 0;
     width: auto;
+    transition: all 0.3s ease-in-out;
     &.hide_side_bar {
       left: 65px;
     }

@@ -4,12 +4,12 @@
       <h3 class="title">急我贷后台</h3>
       <el-form-item prop="userName" class="user_box">
         <span class="iconfont icon-user"></span>
-        <el-input name="userName" type="text" clearable v-model="formData.info.userName" autoComplete="on" placeholder="userName" />
+        <el-input name="userName" type="text" clearable v-model="formData.info.userName" autoComplete="on" placeholder="用户名" />
       </el-form-item>
       <el-form-item prop="password">
         <span class="iconfont icon-password"></span>
         <el-input name="password" clearable :type="passwordType" @keyup.enter.native="doLogin" v-model="formData.info.password" autoComplete="on"
-          placeholder="password"></el-input>
+          placeholder="密码"></el-input>
           <span class="show_password" @click="showPassword">
             <span class="iconfont icon-eye"></span>
           </span>
@@ -93,14 +93,18 @@ export default {
     position: fixed;
     height: 100%;
     width:100%;
-    background-color: #2d3a4b;
+    background: url('https://file.iviewui.com/iview-admin/login_bg.jpg');
     .form_box {
-      position: absolute;
-      left: 0;
-      right: 0;
-      width: 400px;
       padding: 35px 35px 15px 35px;
-      margin: 120px auto;
+      position: absolute;
+      right: 160px;
+      top: 50%;
+      -webkit-transform: translateY(-60%);
+      transform: translateY(-60%);
+      width: 300px;
+      box-shadow: 0 0 13px rgba(255, 255, 255, 0.3);
+      background: rgba(0, 0, 0, 0.1);
+      border-radius: 5px;
       .title {
         font-size: 26px;
         font-weight: 400;
@@ -123,8 +127,7 @@ export default {
       }
       /*  overwrite start */
       .el-form-item {
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        background: rgba(0, 0, 0, 0.1);
+        background: rgba(0, 0, 0, 0.4);
         border-radius: 5px;
         color: #454545;
         .el-form-item__content {

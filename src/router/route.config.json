@@ -3,58 +3,69 @@
     "path": "/",
     "name": "index",
     "component": "/Index",
-    "redirect": "customer",
+    "meta": { "title": "首页", "icon": "example" },
+    "redirect": "/customer",
     "children": [
       {
         "path": "customer",
         "name": "customer",
-        "component": "/customer/Index"
+        "component": "/customer/Index",
+        "meta": { "title": "客户中心", "icon": "example" }
       },
       {
         "path": "customer/:customerId/detail",
         "name": "customerDetail",
         "component": "/customer/detail/Index",
-        "redirect": "customer/:customerId/detail/apply",
+        "meta": { "title": "客户中心详情", "icon": "example" },
+        "redirect": "/customer/:customerId/detail/apply",
         "children": [
           {
             "path": "apply",
             "name": "customerDetailApply",
-            "component": "/customer/detail/Apply"
+            "component": "/customer/detail/Apply",
+            "meta": { "title": "申请表", "icon": "example" }
           },
           {
             "path": "operator",
             "name": "customerDetailOperator",
-            "component": "/customer/detail/Operator"
+            "component": "/customer/detail/Operator",
+            "meta": { "title": "运营商认证", "icon": "example" }
           },
           {
             "path": "alipay",
             "name": "customerDetailAlipay",
-            "component": "/customer/detail/Alipay"
+            "component": "/customer/detail/Alipay",
+            "meta": { "title": "支付宝认证", "icon": "example" }
           },
           {
             "path": "alimarket",
             "name": "customerDetailAlimarket",
-            "component": "/customer/detail/Alimarket"
+            "component": "/customer/detail/Alimarket",
+            "meta": { "title": "淘宝认证", "icon": "example" }
           },
           {
             "path": "contact",
             "name": "customerDetailContact",
-            "component": "/customer/detail/Contact"
+            "component": "/customer/detail/Contact",
+            "meta": { "title": "通讯录认证", "icon": "example" }
           },
           {
             "path": "credit",
             "name": "customerDetailCredit",
-            "component": "/customer/detail/Credit"
+            "component": "/customer/detail/Credit",
+            "meta": { "title": "征信报告", "icon": "example" }
           },
           {
             "path": "social",
             "name": "customerDetailSocial",
-            "component": "/customer/detail/Social"
+            "component": "/customer/detail/Social",
+            "meta": { "title": "社保公积金", "icon": "example" }
           },
           {
             "path": "record",
             "name": "customerDetailRecord",
-            "component": "/customer/detail/Record"
+            "component": "/customer/detail/Record",
+            "meta": { "title": "申请记录", "icon": "example" }
           }
         ]
       },
@@ -62,76 +73,90 @@
         "path": "/process",
         "name": "process",
         "component": "/process/Index",
+        "meta": { "title": "进度管理", "icon": "example" },
         "redirect": "/process/waitVerify",
         "children": [
           {
             "path": "waitVerify",
             "name": "processWaitVerify",
-            "component": "/process/WaitVerify"
+            "component": "/process/WaitVerify",
+            "meta": { "title": "待审核", "icon": "example" }
           },
           {
             "path": "verify",
             "name": "processverify",
-            "component": "/process/Verify"
+            "component": "/process/Verify",
+            "meta": { "title": "审核中", "icon": "example" }
           },
           {
             "path": "refuse",
             "name": "processRefuse",
-            "component": "/process/Refuse"
+            "component": "/process/Refuse",
+            "meta": { "title": "拒绝受理", "icon": "example" }
           },
           {
             "path": "waitLoan",
             "name": "processWaitLoan",
-            "component": "/process/WaitLoan"
+            "component": "/process/WaitLoan",
+            "meta": { "title": "待放款", "icon": "example" }
           },
           {
             "path": "loan",
             "name": "processLoan",
-            "component": "/process/Loan"
+            "component": "/process/Loan",
+            "meta": { "title": "已放款", "icon": "example" }
           },
           {
             "path": "acquitt",
             "name": "processAcquitt",
-            "component": "/process/Acquitt"
+            "component": "/process/Acquitt",
+            "meta": { "title": "已结清", "icon": "example" }
           },
           {
             "path": "overdue",
             "name": "processOverdue",
-            "component": "/process/Overdue"
+            "component": "/process/Overdue",
+            "meta": { "title": "逾期", "icon": "example" }
           }
         ]
       },
       {
         "path": "/process/:applyId/detail",
         "name": "processDetail",
-        "component": "/process/Detail"
+        "component": "/process/Detail",
+        "meta": { "title": "申请表", "icon": "example" }
       },
       {
         "path": "formList",
         "name": "formList",
-        "component": "/formList/Index"
+        "component": "/formList/Index",
+        "meta": { "title": "申请表", "icon": "example" }
       }
     ]
   },
   {
     "path": "/login",
     "name": "login",
-    "component": "/login/Index"
+    "component": "/login/Index",
+    "meta": { "title": "登录", "icon": "example" }
   },
   {
     "path": "/unreadList",
     "name": "unreadList",
-    "component": "/unreadList/Index"
+    "component": "/unreadList/Index",
+    "meta": { "title": "未读", "icon": "example" }
   },
   {
     "path": "/formEdit/:userId",
     "name": "formEdit",
-    "component": "/formEdit/Index"
+    "component": "/formEdit/Index",
+    "meta": { "title": "申请表", "icon": "example" }
   },
   {
     "path": "/formDetail/:userId",
     "name": "formDetail",
-    "component": "/formDetail/Index"
+    "component": "/formDetail/Index",
+    "meta": { "title": "申请表", "icon": "example" }
   }
 ]
 
