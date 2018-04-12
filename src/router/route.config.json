@@ -16,7 +16,7 @@
         "path": "customer/:customerId/detail",
         "name": "customerDetail",
         "component": "/customer/detail/Index",
-        "meta": { "title": "客户中心详情", "icon": "example" },
+        "meta": { "title": "客户详情", "icon": "example" },
         "redirect": "/customer/:customerId/detail/apply",
         "children": [
           {

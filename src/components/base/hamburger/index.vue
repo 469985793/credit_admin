@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="el-icon-tickets hamburger" :class="{'is-active':isActive}"></span>
+    <span class="el-icon-tickets hamburger" :class="{'is_active':isActive}"></span>
   </div>
 </template>
 
@@ -27,7 +27,7 @@ export default {
     transform-origin: 50% 50%;
 }
 
-.hamburger.is-active {
+.hamburger.is_active {
     transform: rotate(90deg);
 }
 </style>

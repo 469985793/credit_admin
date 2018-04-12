@@ -25,7 +25,8 @@ Vue.use(Vuex)
 const state = {
   tabHistory: 'find',
   userAccountId: '',
-  token: ''
+  token: '',
+  sideBar: ''
 }
 
 export default new Vuex.Store({

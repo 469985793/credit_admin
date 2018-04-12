@@ -30,46 +30,7 @@
       </el-menu>
     </div>
     <aside class="aside_nav" :class="{hide_side_bar: !isShowSideBar}">
-      <VScrollBar>
-        <el-menu
-          :collapse-transition="false"
-          :default-active="activeIndex"
-          mode="vertical"
-          class="el-menu-demo"
-          @select="handleSelect"
-          background-color="#545c64"
-          text-color="#fff"
-          active-text-color="#ffd04b"
-          :collapse="!isShowSideBar">
-          <el-menu-item index="1" @click="goPage('formList')">
-            <i class="el-icon-menu"></i>
-            <span slot="title">控制面板</span>
-          </el-menu-item>
-          <el-menu-item index="2" @click="goPage('formList')">
-            <i class="el-icon-menu"></i>
-            <span slot="title">权限管理</span>
-          </el-menu-item>
-          <el-menu-item index="3" @click="goPage('/customer')">
-            <i class="el-icon-menu"></i>
-            <span slot="title">客户中心</span>
-          </el-menu-item>
-          <el-submenu index="4">
-            <template slot="title">
-              <i class="el-icon-location"></i>
-              <span slot="title">进度管理</span>
-            </template>
-            <el-menu-item-group>
-              <el-menu-item index="4-1" @click="goPage('/process/waitVerify')">待审核</el-menu-item>
-              <el-menu-item index="4-2" @click="goPage('/process/verify')">审核中</el-menu-item>
-              <el-menu-item index="4-3" @click="goPage('/process/refuse')">拒绝受理</el-menu-item>
-              <el-menu-item index="4-4" @click="goPage('/process/waitLoan')">待放款</el-menu-item>
-              <el-menu-item index="4-5" @click="goPage('/process/loan')">已放款</el-menu-item>
-              <el-menu-item index="4-6" @click="goPage('/process/overdue')">逾期</el-menu-item>
-              <el-menu-item index="4-7" @click="goPage('/process/acquitt')">已结清</el-menu-item>
-            </el-menu-item-group>
-          </el-submenu>
-        </el-menu>
-      </VScrollBar>
+      <VSideBar :isCollapse="!isShowSideBar"></VSideBar>
     </aside>
     <div class="content_box" :class="{hide_side_bar: !isShowSideBar}">
       <router-view></router-view>
@@ -80,19 +41,18 @@
 <script>
 import VHamburger from '../components/base/hamburger'
 import VBreadcrumb from '../components/base/breadcrumb'
-import VScrollBar from '../components/base/scrollBar'
+import VSideBar from '../components/layout/sidebar/Index'
 
 export default {
   name: 'VIndex',
   data() {
     return {
       isShowSideBar: true,
-      activeIndex: '1',
       unreadCount: '0'
     }
   },
   components: {
-    VHamburger, VBreadcrumb, VScrollBar
+    VHamburger, VBreadcrumb, VSideBar
   },
   created() {
     this.getUnreadCount();
@@ -113,12 +73,6 @@ export default {
       //     });
       //   }
       // });
-    },
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    goPage(page) {
-      this.$router.push({path: page});
     }
   }
 }
@@ -143,23 +97,19 @@ export default {
     .el-menu {
       height: 100%;
       .left_menu {
-        line-height: 50px;
-        height: 50px;
+        height: 100%;
         float: left;
         padding: 0 10px;
         display: flex;
         align-items: center;
-        & > span {
-          font-size: 20px;
-          color: rgba(0, 0, 0, 0.4);
-        }
+        outline: none;
       }
       .right_menu {
         float: right;
         right: 0;
         height: 100%;
         display: flex;
-        align-items: flex-end;
+        align-items: center;
         padding-right: $ent-gap-xxx-large;
         & > div {
           margin-left: $ent-gap-large;

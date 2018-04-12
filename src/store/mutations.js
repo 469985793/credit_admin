@@ -13,3 +13,8 @@ export const TOKEN = (state, token) => {
   state.token = token;
   return state.token;
 }
+
+export const SIDE_BAR = (state, sideBar) => {
+  state.sideBar = sideBar;
+  return state.sideBar;
+}

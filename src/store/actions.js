@@ -10,3 +10,6 @@ export const TOKEN = ({ commit }, token) => {
   commit('TOKEN', token);
 }
 
+export const SIDE_BAR = ({ commit }, sideBar) => {
+  commit('SIDE_BAR', sideBar);
+}

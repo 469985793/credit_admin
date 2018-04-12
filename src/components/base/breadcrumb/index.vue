@@ -10,9 +10,6 @@
 
 <script>
 export default {
-  created() {
-    this.getBreadcrumb()
-  },
   data() {
     return {
       matchPageList: null
@@ -22,6 +19,9 @@ export default {
     $route() {
       this.getBreadcrumb()
     }
+  },
+  created() {
+    this.getBreadcrumb()
   },
   methods: {
     getBreadcrumb() {
