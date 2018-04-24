@@ -28,7 +28,7 @@ export default {
       this.matchPageList = this.$route.matched.filter(item => item.name)
     },
     filterPath(item) {
-      if (item.path === '/customer/:customerId/detail') {
+      if (item.path === '/customer/detail/:customerId') {
         return '';
       } else {
         return item.redirect || item.path;

@@ -119,7 +119,7 @@ export default {
       }
     },
     goPage(tab) {
-      this.$router.push({path: '/customer/' + this.customerId + '/detail/' + tab.name});
+      this.$router.push({path: '/customer/' + 'detail/' + this.customerId + '/' + tab.name});
     },
     doQuery() {
       this.isLoading = true;

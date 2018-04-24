@@ -2,7 +2,7 @@
   <VScrollBar>
     <el-menu
       :collapse-transition="false"
-      :default-active="$route.path"
+      :default-active="activeMenu"
       mode="vertical"
       class="el-menu-demo"
       background-color="#545c64"
@@ -21,7 +21,7 @@
         <i class="el-icon-menu"></i>
         <span slot="title">信用查询</span>
       </el-menu-item>
-      <el-menu-item index="/customer" @click="goPage('/customer')">
+      <el-menu-item index="/customer/list" @click="goPage('/customer/list')">
         <i class="el-icon-menu"></i>
         <span slot="title">客户中心</span>
       </el-menu-item>
@@ -59,6 +59,16 @@ import VScrollBar from '../../base/scrollBar'
 export default {
   props: {
     isCollapse: false
+  },
+  computed: {
+    activeMenu(menu) {
+      let path = this.$route.path;
+      if (path.indexOf('customer/detail') !== -1) {
+        return '/customer/list'
+      } else {
+        return path;
+      }
+    }
   },
   components: { VScrollBar },
   methods: {
