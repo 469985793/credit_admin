@@ -2,13 +2,18 @@
   <div class="v_customer_container">
     <el-form :inline="true">
       <el-form-item>
-        <el-input size="small" v-model="searchText" placeholder="姓名/手机号"></el-input>
+        <el-input size="small" v-model="searchData.name" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-radio-group v-model="order">
-          <el-radio label="ascend">时间升序</el-radio>
-          <el-radio label="descend">时间降序</el-radio>
-        </el-radio-group>
+        <el-input size="small" v-model="searchData.telNum" placeholder="手机号"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker
+          size="small"
+          v-model="searchData.date"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
@@ -20,7 +25,7 @@
       height="100%">
       <el-table-column
         prop="dkId"
-        label="id"
+        label="序号"
         width="60">
       </el-table-column>
       <el-table-column
@@ -37,18 +42,34 @@
         width="120">
       </el-table-column>
       <el-table-column
-        label="居住地址"
+        prop="telNum"
+        label="身份证号"
         width="120">
-        <template slot-scope="scope">
-          <el-tooltip :content="scope.row.currentAddress" placement="top">
-            <span>{{scope.row.currentAddress}}</span>
-          </el-tooltip>
-        </template>
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="性别"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="申请金额"
+        width="80">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
         label="月收入"
-        width="120">
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="结清次数"
+        width="80">
+      </el-table-column>
+      <el-table-column
+        prop="modiJobno"
+        label="客户经理"
+        width="80">
       </el-table-column>
       <el-table-column
         prop="remark"
@@ -61,14 +82,9 @@
         width="120">
       </el-table-column>
       <el-table-column
-        prop="modiJobno"
-        label="操作人"
-        width="80">
-      </el-table-column>
-      <el-table-column
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="goPage(scope.row.dkId, 'detail')" type="primary" size="small">查看</el-button>
+          <el-button @click="goPage(scope.row.dkId, 'detail')" type="primary" size="small">查看详情</el-button>
           <el-button class="edit_btn" @click="isShowDialog = true" type="warning" size="small">编辑</el-button>
         </template>
       </el-table-column>
@@ -84,13 +100,19 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
-    <el-dialog title="编辑-客户中心" :visible.sync="isShowDialog">
+    <el-dialog title="客户中心" :visible.sync="isShowDialog">
       <el-form :model="dialogFormData" label-position="left" label-width="90px">
         <el-form-item label="姓名">
-          <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="身份证号">
+          <el-input v-model="dialogFormData.name" placeholder="身份证号"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-input v-model="dialogFormData.name" placeholder="性别"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
           <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
@@ -98,11 +120,11 @@
         <el-form-item label="月收入">
           <el-input v-model="dialogFormData.name" placeholder="月收入"></el-input>
         </el-form-item>
-        <el-form-item label="芝麻分">
-          <el-input v-model="dialogFormData.name" placeholder="芝麻分"></el-input>
+        <el-form-item label="结清次数">
+          <el-input v-model="dialogFormData.money" placeholder="结清次数"></el-input>
         </el-form-item>
-        <el-form-item label="申请记录">
-          <el-input v-model="dialogFormData.money" placeholder="申请记录"></el-input>
+        <el-form-item label="客户经理">
+          <el-input v-model="dialogFormData.name" placeholder="客户经理"></el-input>
         </el-form-item>
         <el-form-item label="备注">
           <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="备注"></el-input>
@@ -128,9 +150,12 @@ export default {
         name: '',
         money: ''
       },
-      searchText: '',
+      searchData: {
+        telNum: '',
+        name: '',
+        date: ''
+      },
       readStatus: '全部',
-      order: 'ascend',
       dataList: [
         {
           dkId: '1',

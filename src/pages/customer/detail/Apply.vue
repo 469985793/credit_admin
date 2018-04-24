@@ -1,6 +1,6 @@
 <template>
   <div class="v_customer_detail_apply_container">
-    申请
+    申请列表
   </div>
 </template>
 

@@ -2,13 +2,18 @@
   <div class="v_verify_container">
     <el-form :inline="true">
       <el-form-item>
-        <el-input size="small" v-model="searchText" placeholder="姓名/手机号"></el-input>
+        <el-input size="small" v-model="searchData.name" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-radio-group v-model="order">
-          <el-radio label="ascend">时间升序</el-radio>
-          <el-radio label="descend">时间降序</el-radio>
-        </el-radio-group>
+        <el-input size="small" v-model="searchData.telNum" placeholder="手机号"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker
+          size="small"
+          v-model="searchData.date"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
@@ -21,51 +26,44 @@
       height="100%"
       @cell-click="goPage">
       <el-table-column
+        fixed="left"
         prop="dkId"
-        label="id"
+        label="序号"
         width="60">
       </el-table-column>
       <el-table-column
-        label="姓名"
-        width="80">
+        fixed="left"
+        label="姓名">
         <template slot-scope="scope">
           <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
           <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
         </template>
       </el-table-column>
       <el-table-column
+        fixed="left"
         prop="telNum"
-        label="手机号"
-        width="120">
+        label="手机号">
       </el-table-column>
       <el-table-column
-        label="居住地址"
-        width="120">
-        <template slot-scope="scope">
-          <el-tooltip :content="scope.row.currentAddress" placement="top">
-            <span>{{scope.row.currentAddress}}</span>
-          </el-tooltip>
-        </template>
+        fixed="left"
+        prop="telNum"
+        label="身份证号">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
-        label="月收入"
-        width="80">
+        prop="telNum"
+        label="性别">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="申请金额"
-        width="80">
+        label="申请金额">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="芝麻分"
-        width="70">
+        label="月收入">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="申请记录"
-        width="80">
+        label="芝麻分">
       </el-table-column>
       <el-table-column
         label="已认证"
@@ -83,15 +81,26 @@
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="初审备注"
-        width="80">
+        label="结清次数">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="初审备注">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="初审人">
+      </el-table-column>
+      <el-table-column
+        prop="monthIncome"
+        label="初审时间">
       </el-table-column>
       <el-table-column
         prop="crtTime"
-        label="申请时间"
-        width="80">
+        label="申请时间">
       </el-table-column>
       <el-table-column
+        fixed="right"
         label="操作">
         <template slot-scope="scope">
           <el-button @click.stop="isShowDialog = true" type="primary" size="small">终审审核</el-button>
@@ -112,34 +121,43 @@
     <el-dialog title="终审确认" :visible.sync="isShowDialog">
       <el-form :model="dialogFormData" label-position="left" label-width="90px">
         <el-form-item label="姓名">
-          <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="身份证号">
+          <el-input v-model="dialogFormData.money" placeholder="身份证号"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-input v-model="dialogFormData.money" placeholder="性别"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
           <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
         </el-form-item>
-        <el-form-item label="芝麻分">
-          <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
+        <el-form-item label="月收入">
+          <el-input v-model="dialogFormData.money" placeholder="月收入"></el-input>
         </el-form-item>
-        <el-form-item label="申请记录">
-          <el-input v-model="dialogFormData.money" placeholder="申请记录"></el-input>
+        <el-form-item label="芝麻分">
+          <el-input v-model="dialogFormData.name" placeholder="芝麻分"></el-input>
+        </el-form-item>
+        <el-form-item label="已认证">
+          <el-input v-model="dialogFormData.money" placeholder="已认证" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="结清次数">
+          <el-input v-model="dialogFormData.money" placeholder="结清次数" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="初审备注">
+          <el-input v-model="dialogFormData.money" placeholder="初审备注" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="初审时间">
+          <el-input v-model="dialogFormData.money" placeholder="初审时间"></el-input>
         </el-form-item>
         <el-form-item label="审批金额">
           <el-input v-model="dialogFormData.name" placeholder="审批金额"></el-input>
         </el-form-item>
-        <el-form-item label="初审备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注"></el-input>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="备注"></el-input>
-        </el-form-item>
-        <el-form-item label="审批人">
-          <el-select v-model="dialogFormData.name" placeholder="审批人">
-            <el-option label="晓彬" value="shanghai"></el-option>
-            <el-option label="彬哥" value="beijing"></el-option>
-          </el-select>
+        <el-form-item label="添加备注">
+          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="添加备注"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -163,7 +181,11 @@ export default {
         name: '',
         money: ''
       },
-      searchText: '',
+      searchData: {
+        telNum: '',
+        name: '',
+        date: ''
+      },
       readStatus: '全部',
       order: 'ascend',
       dataList: [

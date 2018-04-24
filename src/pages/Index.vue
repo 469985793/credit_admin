@@ -7,22 +7,14 @@
           <VBreadcrumb></VBreadcrumb>
         </div>
         <div class="right_menu">
-          <el-badge :value="unreadCount" @click.native="goPage('unreadList')">
-            <el-button type="text" size="small">未读</el-button>
-          </el-badge>
           <el-dropdown class="avatar_container" trigger="click">
             <div class="avatar_wrapper">
               <img class="user_avatar" src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80">
               <i class="el-icon-caret-bottom"></i>
             </div>
             <el-dropdown-menu class="user-dropdown" slot="dropdown">
-              <router-link class="inlineBlock" to="/">
-                <el-dropdown-item>
-                  Home
-                </el-dropdown-item>
-              </router-link>
-              <el-dropdown-item divided>
-                <span>LogOut</span>
+              <el-dropdown-item to="/login">
+                <span>退出</span>
               </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
@@ -111,6 +103,7 @@ export default {
         display: flex;
         align-items: center;
         padding-right: $ent-gap-xxx-large;
+        outline: none;
         & > div {
           margin-left: $ent-gap-large;
         }

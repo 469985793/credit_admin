@@ -2,20 +2,18 @@
   <div class="v_loan_container">
     <el-form :inline="true">
       <el-form-item>
-        <el-input size="small" v-model="searchText" placeholder="姓名/手机号"></el-input>
+        <el-input size="small" v-model="searchData.name" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-radio-group v-model="order">
-          <el-radio label="ascend">时间升序</el-radio>
-          <el-radio label="descend">时间降序</el-radio>
-        </el-radio-group>
+        <el-input size="small" v-model="searchData.telNum" placeholder="手机号"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-radio-group v-model="readStatus" size="small">
-          <el-radio-button label="全部"></el-radio-button>
-          <el-radio-button label="已读"></el-radio-button>
-          <el-radio-button label="未读"></el-radio-button>
-        </el-radio-group>
+        <el-date-picker
+          size="small"
+          v-model="searchData.date"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
@@ -117,7 +115,11 @@ export default {
   name: 'VLoan',
   data() {
     return {
-      searchText: '',
+      searchData: {
+        telNum: '',
+        name: '',
+        date: ''
+      },
       readStatus: '全部',
       order: 'ascend',
       dataList: [

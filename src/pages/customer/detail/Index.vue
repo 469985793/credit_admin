@@ -1,7 +1,7 @@
 <template>
   <div class="v_customer_detail_container">
     <el-tabs v-model="activeTab" tab-position="top" @tab-click="goPage">
-      <el-tab-pane label="申请表" name="apply"></el-tab-pane>
+      <el-tab-pane label="申请列表" name="apply"></el-tab-pane>
       <el-tab-pane label="支付宝认证" name="alipay"></el-tab-pane>
       <el-tab-pane label="淘宝认证" name="alimarket"></el-tab-pane>
       <el-tab-pane label="运营商认证" name="operator"></el-tab-pane>

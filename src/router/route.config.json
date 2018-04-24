@@ -3,9 +3,27 @@
     "path": "/",
     "name": "index",
     "component": "/Index",
-    "meta": { "title": "首页", "icon": "example" },
-    "redirect": "/customer",
+    "meta": { "title": "控制面板", "icon": "example" },
+    "redirect": "/dashboard",
     "children": [
+      {
+        "path": "/dashboard",
+        "name": "dashboard",
+        "component": "/dashboard/Index",
+        "meta": { "title": "控制面板", "icon": "example" }
+      },
+      {
+        "path": "/authority",
+        "name": "authority",
+        "component": "/authority/Index",
+        "meta": { "title": "权限管理", "icon": "example" }
+      },
+      {
+        "path": "/creditQuery",
+        "name": "creditQuery",
+        "component": "/creditQuery/Index",
+        "meta": { "title": "信用查询", "icon": "example" }
+      },
       {
         "path": "customer",
         "name": "customer",
@@ -105,18 +123,6 @@
             "name": "processLoan",
             "component": "/process/Loan",
             "meta": { "title": "已放款", "icon": "example" }
-          },
-          {
-            "path": "acquitt",
-            "name": "processAcquitt",
-            "component": "/process/Acquitt",
-            "meta": { "title": "已结清", "icon": "example" }
-          },
-          {
-            "path": "overdue",
-            "name": "processOverdue",
-            "component": "/process/Overdue",
-            "meta": { "title": "逾期", "icon": "example" }
           }
         ]
       },
@@ -124,13 +130,33 @@
         "path": "/process/:applyId/detail",
         "name": "processDetail",
         "component": "/process/Detail",
-        "meta": { "title": "申请表", "icon": "example" }
+        "meta": { "title": "申请列表", "icon": "example" }
       },
       {
-        "path": "formList",
-        "name": "formList",
-        "component": "/formList/Index",
-        "meta": { "title": "申请表", "icon": "example" }
+        "path": "/postLoan",
+        "name": "postLoan",
+        "component": "/postLoan/Index",
+        "meta": { "title": "贷后管理", "icon": "example" },
+        "children": [
+          {
+            "path": "repay",
+            "name": "postLoanRepay",
+            "component": "/postLoan/Repay",
+            "meta": { "title": "还款", "icon": "example" }
+          },
+          {
+            "path": "acquitt",
+            "name": "postLoanAcquitt",
+            "component": "/postLoan/Acquitt",
+            "meta": { "title": "已结清", "icon": "example" }
+          },
+          {
+            "path": "overdue",
+            "name": "postLoanOverdue",
+            "component": "/postLoan/Overdue",
+            "meta": { "title": "逾期", "icon": "example" }
+          }
+        ]
       }
     ]
   },
@@ -139,24 +165,6 @@
     "name": "login",
     "component": "/login/Index",
     "meta": { "title": "登录", "icon": "example" }
-  },
-  {
-    "path": "/unreadList",
-    "name": "unreadList",
-    "component": "/unreadList/Index",
-    "meta": { "title": "未读", "icon": "example" }
-  },
-  {
-    "path": "/formEdit/:userId",
-    "name": "formEdit",
-    "component": "/formEdit/Index",
-    "meta": { "title": "申请表", "icon": "example" }
-  },
-  {
-    "path": "/formDetail/:userId",
-    "name": "formDetail",
-    "component": "/formDetail/Index",
-    "meta": { "title": "申请表", "icon": "example" }
   }
 ]
 

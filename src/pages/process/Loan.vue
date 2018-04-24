@@ -2,13 +2,18 @@
   <div class="v_loan_container">
     <el-form :inline="true">
       <el-form-item>
-        <el-input size="small" v-model="searchText" placeholder="姓名/手机号"></el-input>
+        <el-input size="small" v-model="searchData.name" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-radio-group v-model="order">
-          <el-radio label="ascend">时间升序</el-radio>
-          <el-radio label="descend">时间降序</el-radio>
-        </el-radio-group>
+        <el-input size="small" v-model="searchData.telNum" placeholder="手机号"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker
+          size="small"
+          v-model="searchData.date"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
@@ -21,113 +26,67 @@
       height="100%"
       @cell-click="goPage">
       <el-table-column
-        fixed
+        fixed="left"
         prop="dkId"
-        label="id"
+        label="序号"
         width="60">
       </el-table-column>
       <el-table-column
-        fixed
-        label="姓名"
-        width="80">
+        fixed="left"
+        label="姓名">
         <template slot-scope="scope">
           <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
           <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
         </template>
       </el-table-column>
       <el-table-column
+        fixed="left"
+        prop="telNum"
+        label="手机号">
+      </el-table-column>
+      <el-table-column
+        fixed="left"
+        prop="telNum"
+        label="身份证号">
+      </el-table-column>
+      <el-table-column
         fixed
         prop="telNum"
-        label="手机号"
-        width="120">
-      </el-table-column>
-      <el-table-column
-        label="居住地址"
-        width="120">
-        <template slot-scope="scope">
-          <el-tooltip :content="scope.row.currentAddress" placement="top">
-            <span>{{scope.row.currentAddress}}</span>
-          </el-tooltip>
-        </template>
+        label="性别">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="月收入"
-        width="80">
+        label="申请金额">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="申请金额"
-        width="80">
+        label="审批金额">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="芝麻分"
-        width="70">
+        label="放款金额">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="申请记录"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        label="已认证"
-        width="180">
-        <template slot-scope="scope">
-          <div class="verify_item_box">
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-          </div>
-        </template>
+        label="放款时间">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="初审备注"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="终审备注"
-        width="80">
+        label="应还款时间">
       </el-table-column>
       <el-table-column
         prop="crtTime"
-        label="申请时间"
-        width="80">
+        label="申请时间">
       </el-table-column>
       <el-table-column
-        fixed="right"
         prop="monthIncome"
-        label="审批金额"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        fixed="right"
-        prop="monthIncome"
-        label="放款金额"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        fixed="right"
-        prop="crtTime"
-        label="放款时间"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        fixed="right"
-        prop="crtTime"
-        label="应还款时间"
-        width="90">
+        label="结清次数">
       </el-table-column>
       <el-table-column
         fixed="right"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click.stop="isShowDialog = true" type="primary" size="small">编辑</el-button>
+          <el-button @click.stop="isShowDialog = true" type="primary" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -142,53 +101,54 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
-    <el-dialog title="编辑-已放款" :visible.sync="isShowDialog">
+    <el-dialog title="已放款" :visible.sync="isShowDialog">
       <el-form :model="dialogFormData" label-position="left" label-width="90px">
         <el-form-item label="姓名">
-          <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="姓名" :readonly="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="手机号" :readonly="true"></el-input>
+        </el-form-item>
+        <el-form-item label="身份证号">
+          <el-input v-model="dialogFormData.name" placeholder="身份证号" :readonly="true"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-input v-model="dialogFormData.name" placeholder="性别" :readonly="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="申请金额" :readonly="true"></el-input>
         </el-form-item>
-        <el-form-item label="芝麻分">
-          <el-input v-model="dialogFormData.name" placeholder="芝麻分"></el-input>
+        <el-form-item label="申请时间">
+          <el-input v-model="dialogFormData.name" placeholder="申请时间" :readonly="true"></el-input>
         </el-form-item>
-        <el-form-item label="申请记录">
-          <el-input v-model="dialogFormData.money" placeholder="申请记录"></el-input>
+        <el-form-item label="结清次数">
+          <el-input v-model="dialogFormData.name" placeholder="结清次数" :readonly="true"></el-input>
         </el-form-item>
-        <el-form-item label="放款金额">
-          <el-input v-model="dialogFormData.name" placeholder="放款金额"></el-input>
-        </el-form-item>
-        <el-form-item label="放/还款时间">
-          <el-date-picker
-            v-model="dialogFormData.money"
-            type="daterange"
-            align="right"
-            unlink-panels
-            range-separator="至"
-            start-placeholder="放款时间"
-            end-placeholder="应还款时间">
-          </el-date-picker>
-        </el-form-item>
-        <el-form-item label="初审备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注"></el-input>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="备注"></el-input>
-        </el-form-item>
-        <el-form-item label="审批人">
-          <el-select v-model="dialogFormData.name" placeholder="审批人">
-            <el-option label="晓彬" value="shanghai"></el-option>
-            <el-option label="彬哥" value="beijing"></el-option>
-          </el-select>
+        <el-form-item label="审核" class="verify_modal_box">
+          <el-tabs tab-position="right">
+            <el-tab-pane label="初审">
+              <el-input v-model="dialogFormData.name" placeholder="初审人" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="初审时间" :readonly="true"></el-input>
+              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注" :readonly="true"></el-input>
+            </el-tab-pane>
+            <el-tab-pane label="终审">
+              <el-input v-model="dialogFormData.name" placeholder="终审人" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="审批金额" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="终审时间" :readonly="true"></el-input>
+              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="终审备注" :readonly="true"></el-input>
+            </el-tab-pane>
+            <el-tab-pane label="放款">
+              <el-input v-model="dialogFormData.name" placeholder="放款人" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="放款金额" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="放款时间" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="应还款时间" :readonly="true"></el-input>
+              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="放款备注" :readonly="true"></el-input>
+            </el-tab-pane>
+          </el-tabs>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="primary" @click="isShowDialog = false">保存</el-button>
+        <el-button @click="isShowDialog = false">关闭</el-button>
       </div>
     </el-dialog>
   </div>
@@ -206,7 +166,11 @@ export default {
         name: '',
         money: ''
       },
-      searchText: '',
+      searchData: {
+        telNum: '',
+        name: '',
+        date: ''
+      },
       readStatus: '全部',
       order: 'ascend',
       dataList: [
@@ -364,7 +328,11 @@ export default {
       margin-bottom: 2px;
     }
   }
-
+  .verify_modal_box {
+    & .el-input {
+      margin: $ent-gap-x-small 0;
+    }
+  }
   /* overwrite */
   .el-table {
     font-size: 13px;

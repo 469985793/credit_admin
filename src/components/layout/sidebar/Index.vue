@@ -9,13 +9,17 @@
       text-color="#fff"
       active-text-color="#ffd04b"
       :collapse="isCollapse">
-      <el-menu-item index="/formList" @click="goPage('formList')">
+      <el-menu-item index="/dashboard" @click="goPage('/dashboard')">
         <i class="el-icon-menu"></i>
         <span slot="title">控制面板</span>
       </el-menu-item>
-      <el-menu-item index="/formList" @click="goPage('formList')">
+      <el-menu-item index="/authority" @click="goPage('/authority')">
         <i class="el-icon-menu"></i>
         <span slot="title">权限管理</span>
+      </el-menu-item>
+      <el-menu-item index="/creditQuery" @click="goPage('/creditQuery')">
+        <i class="el-icon-menu"></i>
+        <span slot="title">信用查询</span>
       </el-menu-item>
       <el-menu-item index="/customer" @click="goPage('/customer')">
         <i class="el-icon-menu"></i>
@@ -32,8 +36,17 @@
           <el-menu-item index="/process/refuse" @click="goPage('/process/refuse')">拒绝受理</el-menu-item>
           <el-menu-item index="/process/waitLoan" @click="goPage('/process/waitLoan')">待放款</el-menu-item>
           <el-menu-item index="/process/loan" @click="goPage('/process/loan')">已放款</el-menu-item>
-          <el-menu-item index="/process/overdue" @click="goPage('/process/overdue')">逾期</el-menu-item>
-          <el-menu-item index="/process/acquitt" @click="goPage('/process/acquitt')">已结清</el-menu-item>
+        </el-menu-item-group>
+      </el-submenu>
+      <el-submenu index="/postLoan">
+        <template slot="title">
+          <i class="el-icon-location"></i>
+          <span slot="title">贷后管理</span>
+        </template>
+        <el-menu-item-group>
+          <el-menu-item index="/postLoan/repay" @click="goPage('/postLoan/repay')">还款</el-menu-item>
+          <el-menu-item index="/postLoan/acquitt" @click="goPage('/postLoan/acquitt')">已结清</el-menu-item>
+          <el-menu-item index="/postLoan/overdue" @click="goPage('/postLoan/overdue')">逾期</el-menu-item>
         </el-menu-item-group>
       </el-submenu>
     </el-menu>

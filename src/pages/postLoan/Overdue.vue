@@ -2,13 +2,18 @@
   <div class="v_overdue_container">
     <el-form :inline="true">
       <el-form-item>
-        <el-input size="small" v-model="searchText" placeholder="姓名/手机号"></el-input>
+        <el-input size="small" v-model="searchData.name" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-radio-group v-model="order">
-          <el-radio label="ascend">时间升序</el-radio>
-          <el-radio label="descend">时间降序</el-radio>
-        </el-radio-group>
+        <el-input size="small" v-model="searchData.telNum" placeholder="手机号"></el-input>
+      </el-form-item>
+      <el-form-item>
+        <el-date-picker
+          size="small"
+          v-model="searchData.date"
+          type="date"
+          placeholder="选择日期">
+        </el-date-picker>
       </el-form-item>
       <el-form-item>
         <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
@@ -23,13 +28,12 @@
       <el-table-column
         fixed
         prop="dkId"
-        label="id"
+        label="序号"
         width="60">
       </el-table-column>
       <el-table-column
         fixed
-        label="姓名"
-        width="80">
+        label="姓名">
         <template slot-scope="scope">
           <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
           <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
@@ -38,103 +42,53 @@
       <el-table-column
         fixed
         prop="telNum"
-        label="手机号"
-        width="120">
+        label="手机号">
       </el-table-column>
       <el-table-column
-        label="居住地址"
-        width="120">
-        <template slot-scope="scope">
-          <el-tooltip :content="scope.row.currentAddress" placement="top">
-            <span>{{scope.row.currentAddress}}</span>
-          </el-tooltip>
-        </template>
+        fixed
+        prop="telNum"
+        label="身份证号">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
-        label="月收入"
-        width="80">
+        fixed
+        prop="telNum"
+        label="性别">
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="申请金额"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="芝麻分"
-        width="70">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="申请记录"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        label="已认证"
-        width="180">
-        <template slot-scope="scope">
-          <div class="verify_item_box">
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-          </div>
-        </template>
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="初审备注"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="终审备注"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="放款备注"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="备注"
-        width="80">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="放款金额"
-        width="80">
+        label="放款金额">
       </el-table-column>
       <el-table-column
         prop="crtTime"
-        label="放款时间"
-        width="80">
+        label="放款时间">
       </el-table-column>
       <el-table-column
         prop="crtTime"
-        label="应还款时间"
-        width="90">
-      </el-table-column>
-      <el-table-column
-        prop="crtTime"
-        label="申请时间"
-        width="80">
+        label="应还款时间">
       </el-table-column>
       <el-table-column
         fixed="right"
-        prop="crtTime"
-        label="还款时间"
-        width="90">
+        prop="monthIncome"
+        label="再款时间">
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        prop="monthIncome"
+        label="逾期天数">
+      </el-table-column>
+      <el-table-column
+        fixed="right"
+        label="状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status === '11101'" type="danger">未催收</el-tag>
+          <el-tag v-else type="primary">催收中</el-tag>
+        </template>
       </el-table-column>
       <el-table-column
         fixed="right"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click.stop="isShowDialog = true" type="primary" size="small">编辑</el-button>
+          <el-button @click.stop="isShowDialog = true" type="primary" size="small">催收</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -149,42 +103,55 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
-    <el-dialog title="编辑-已结清" :visible.sync="isShowDialog">
-      <el-form :model="dialogFormData" label-position="left" label-width="80px">
+    <el-dialog title="逾期" :visible.sync="isShowDialog">
+      <el-form :model="dialogFormData" label-position="left" label-width="100px">
         <el-form-item label="姓名">
-          <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
+        <el-form-item label="身份证号">
+          <el-input v-model="dialogFormData.name" placeholder="身份证号"></el-input>
         </el-form-item>
-        <el-form-item label="芝麻分">
-          <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
-        </el-form-item>
-        <el-form-item label="申请记录">
-          <el-input v-model="dialogFormData.money" placeholder="申请记录"></el-input>
+        <el-form-item label="性别">
+          <el-input v-model="dialogFormData.name" placeholder="性别"></el-input>
         </el-form-item>
         <el-form-item label="放款金额">
-          <el-input v-model="dialogFormData.name" placeholder="放款金额"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="放款金额" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="初审备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注"></el-input>
+        <el-form-item label="放款时间">
+          <el-input v-model="dialogFormData.name" placeholder="放款时间" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="备注"></el-input>
+        <el-form-item label="应还款时间">
+          <el-input v-model="dialogFormData.name" placeholder="应还款时间" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="审批人">
-          <el-select v-model="dialogFormData.name" placeholder="审批人">
-            <el-option label="晓彬" value="shanghai"></el-option>
-            <el-option label="彬哥" value="beijing"></el-option>
-          </el-select>
+        <el-form-item label="逾期天数">
+          <el-input v-model="dialogFormData.name" placeholder="逾期天数" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="罚款金额">
+          <el-input v-model="dialogFormData.name" placeholder="罚款金额" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="剩余金额">
+          <el-input v-model="dialogFormData.name" placeholder="剩余金额" :disabled="true"></el-input>
+        </el-form-item>
+        <el-form-item label="本次还款金额">
+          <el-input v-model="dialogFormData.name" placeholder="本次还款金额"></el-input>
+        </el-form-item>
+        <el-form-item label="再还款时间">
+          <el-date-picker
+            v-model="searchData.date"
+            type="date"
+            placeholder="再还款时间">
+            </el-date-picker>
+        </el-form-item>
+        <el-form-item label="添加备注">
+          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="添加备注"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="primary" @click="isShowDialog = false">保存</el-button>
+        <el-button type="primary" @click="isShowDialog = false">催收</el-button>
       </div>
     </el-dialog>
   </div>
@@ -202,7 +169,11 @@ export default {
         name: '',
         money: ''
       },
-      searchText: '',
+      searchData: {
+        telNum: '',
+        name: '',
+        date: ''
+      },
       readStatus: '全部',
       order: 'ascend',
       dataList: [
@@ -227,7 +198,7 @@ export default {
           monthIncome: '1000元',
           contactQq: '1000元',
           crtTime: '2016-06-6',
-          status: '11101',
+          status: '11102',
           reserveOne: '1',
           remark: '这个是个穷小子',
           modiJobno: '罗晓彬'
