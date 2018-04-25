@@ -42,13 +42,12 @@
             "name": "customerDetail",
             "component": "/customer/detail/Index",
             "meta": { "title": "客户详情", "icon": "example" },
-            "redirect": "detail/:customerId/apply",
             "children": [
               {
-                "path": "apply",
-                "name": "customerDetailApply",
-                "component": "/customer/detail/Apply",
-                "meta": { "title": "申请表", "icon": "example" }
+                "path": "baseInfo",
+                "name": "customerDetailBaseInfo",
+                "component": "/customer/detail/BaseInfo",
+                "meta": { "title": "基本信息", "icon": "example" }
               },
               {
                 "path": "operator",
@@ -87,9 +86,9 @@
                 "meta": { "title": "社保公积金", "icon": "example" }
               },
               {
-                "path": "record",
-                "name": "customerDetailRecord",
-                "component": "/customer/detail/Record",
+                "path": "applyRecord",
+                "name": "customerDetailApplyRecord",
+                "component": "/customer/detail/ApplyRecord",
                 "meta": { "title": "申请记录", "icon": "example" }
               }
             ]
@@ -146,6 +145,7 @@
         "name": "postLoan",
         "component": "/postLoan/Index",
         "meta": { "title": "贷后管理", "icon": "example" },
+        "redirect": "/postLoan/repay",
         "children": [
           {
             "path": "repay",

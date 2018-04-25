@@ -1,14 +1,14 @@
 <template>
   <div class="v_customer_detail_container">
     <el-tabs v-model="activeTab" tab-position="top" @tab-click="goPage">
-      <el-tab-pane label="申请列表" name="apply"></el-tab-pane>
+      <el-tab-pane label="基本信息" name="baseInfo"></el-tab-pane>
       <el-tab-pane label="支付宝认证" name="alipay"></el-tab-pane>
       <el-tab-pane label="淘宝认证" name="alimarket"></el-tab-pane>
       <el-tab-pane label="运营商认证" name="operator"></el-tab-pane>
       <el-tab-pane label="征信报告" name="credit"></el-tab-pane>
       <el-tab-pane label="社保公积金" name="social"></el-tab-pane>
       <el-tab-pane label="通讯录" name="contact"></el-tab-pane>
-      <el-tab-pane label="申请记录" name="record"></el-tab-pane>
+      <el-tab-pane label="申请记录" name="applyRecord"></el-tab-pane>
     </el-tabs>
     <router-view></router-view>
   </div>
@@ -21,11 +21,10 @@ export default {
   name: 'VCustomerDetail',
   data() {
     return {
-      activeTab: 'apply',
+      activeTab: this.$route.path.substr(this.$route.path.lastIndexOf('/') + 1),
       customerId: this.$route.params.customerId,
       searchText: '',
       readStatus: '全部',
-      order: 'ascend',
       dataList: [
         {
           dkId: '1',
@@ -73,16 +72,16 @@ export default {
       totalData: 100
     }
   },
-  created() {
-    this.fetchData();
-  },
   watch: {
     readStatus() {
       this.doQuery();
     },
-    order() {
-      this.doQuery();
+    '$route'(route) {
+      this.activeTab = route.path.substr(route.path.lastIndexOf('/') + 1);
     }
+  },
+  created() {
+    this.fetchData();
   },
   methods: {
     fetchData(isSearch = false) {
@@ -170,26 +169,6 @@ export default {
     margin: $ent-gap-small;
     font-size: 13px;
     font-weight: lighter;
-  }
-  @media screen and (max-width: 767px) {
-    .edit_btn {
-      margin: 2px 0;
-    }
-    .el-pagination {
-      text-align: center;
-    }
-    .el-pagination__jump,
-    .el-pagination__total {
-      display: none !important;
-    }
-    .el-pagination__sizes {
-      display: block !important;
-      margin-bottom: $ent-gap-x-small;
-    }
-    .el-pager {
-      max-width: calc(100% - 100px);
-      overflow: scroll;
-    }
   }
 }
 </style>

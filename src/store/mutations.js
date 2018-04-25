@@ -18,3 +18,27 @@ export const SIDE_BAR = (state, sideBar) => {
   state.sideBar = sideBar;
   return state.sideBar;
 }
+
+export const ADD_TAG_VIEW = (state, newView) => {
+  if (state.tagView.some(view => view.path === newView.path)) {
+    return;
+  }
+  state.tagView.push({
+    name: newView.name,
+    path: newView.path,
+    title: newView.meta.title || '无名'
+  })
+
+  return state.tagView;
+}
+export const DEL_TAG_VIEW = (state, delView) => {
+  for (const [index, view] of state.tagView.entries()) {
+    if (view.path === delView.path) {
+      state.tagView.splice(index, 1);
+      break;
+    }
+  }
+
+  return state.tagView;
+}
+

@@ -239,7 +239,7 @@ export default {
       }
     },
     goPage(customerId, page) {
-      this.$router.push({path: '/customer/' + page + '/' + customerId});
+      this.$router.push({path: '/customer/' + page + '/' + customerId + '/baseInfo'});
     },
     doQuery() {
       this.isLoading = true;

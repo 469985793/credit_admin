@@ -47,7 +47,8 @@ export default {
   position: relative;
   width: 100%;
   height: 100%;
-  background-color: rgb(84, 92, 100);
+  background-color: #304156;
+  overflow: hidden;
   .scroll_wrapper {
     position: absolute;
     width: 100%!important;

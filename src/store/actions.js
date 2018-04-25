@@ -13,3 +13,14 @@ export const TOKEN = ({ commit }, token) => {
 export const SIDE_BAR = ({ commit }, sideBar) => {
   commit('SIDE_BAR', sideBar);
 }
+
+export const ADD_TAG_VIEW = ({ commit }, newView) => {
+  commit('ADD_TAG_VIEW', newView);
+}
+
+export const DEL_TAG_VIEW = ({ commit, state }, delView) => {
+  return new Promise((resolve) => {
+    commit('DEL_TAG_VIEW', delView)
+    resolve([...state.tagView])
+  })
+}

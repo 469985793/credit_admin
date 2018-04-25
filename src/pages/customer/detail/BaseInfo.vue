@@ -1,6 +1,6 @@
 <template>
   <div class="v_customer_detail_record_container">
-    申请记录
+    基本信息
   </div>
 </template>
 

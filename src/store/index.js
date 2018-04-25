@@ -26,7 +26,8 @@ const state = {
   tabHistory: 'find',
   userAccountId: '',
   token: '',
-  sideBar: ''
+  sideBar: false,
+  tagView: []
 }
 
 export default new Vuex.Store({

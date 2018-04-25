@@ -33,8 +33,7 @@
       <el-table-column
         label="姓名">
         <template slot-scope="scope">
-          <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
-          <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
+          <span @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
         </template>
       </el-table-column>
       <el-table-column

@@ -1,7 +1,10 @@
 <template>
   <el-breadcrumb class="v_breadcrumb_container" separator="/">
-    <el-breadcrumb-item v-for="item in matchPageList" :key="item.path">
-        <router-link v-if="item.meta.title" :to="filterPath(item)">
+    <el-breadcrumb-item v-for="(item, index) in matchPageList" :key="item.path">
+        <span class="un_redirect" v-if='item.redirect=== null || index === matchPageList.length - 1'>
+          {{item.meta.title}}
+        </span>
+        <router-link v-else :to="filterPath(item)">
           {{item.meta.title}}
         </router-link>
     </el-breadcrumb-item>
@@ -44,5 +47,9 @@ export default {
   font-size: 14px;
   line-height: 50px;
   margin-left: 10px;
+  .un_redirect {
+    color: #97a8be;
+    cursor: text;
+  }
 }
 </style>
