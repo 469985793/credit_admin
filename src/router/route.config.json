@@ -52,7 +52,7 @@
               {
                 "path": "operator",
                 "name": "customerDetailOperator",
-                "component": "/customer/detail/Operator",
+                "component": "/customer/detail/operator/Index",
                 "meta": { "title": "运营商认证", "icon": "example" }
               },
               {

@@ -1,5 +1,5 @@
 <template>
-  <div class="v_customer_detail_apply_record_container">
+  <div class="v_operator__billrecord_container">
     <el-table
       class="table_box"
       stripe
@@ -7,47 +7,47 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="姓名">
-              <span>{{ props.row.name }}</span>
-            </el-form-item>
             <el-form-item label="手机号">
               <span>{{ props.row.telNum }}</span>
             </el-form-item>
-            <el-form-item label="身份证号">
+            <el-form-item label="账单月">
               <span>{{ props.row.idCardNum }}</span>
             </el-form-item>
-            <el-form-item label="性别">
+            <el-form-item label="账单起始日期">
               <span>{{ props.row.sex }}</span>
             </el-form-item>
-            <el-form-item label="申请金额">
+            <el-form-item label="账单结束日期">
               <span>{{ props.row.applyMoney }}</span>
             </el-form-item>
-            <el-form-item label="申请时间">
+            <el-form-item label="套餐及固定费">
               <span>{{ props.row.applyTime }}</span>
             </el-form-item>
-            <el-form-item label="放款金额">
+            <el-form-item label="增值业务费">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="放款时间">
-              <span>{{ props.row.loadTime }}</span>
+            <el-form-item label="语音费">
+              <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="应还款金额">
-              <span>{{ props.row.shouldRepayMoney }}</span>
+            <el-form-item label="短彩信费">
+              <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="应还款时间">
-              <span>{{ props.row.shouldRepayTime }}</span>
+            <el-form-item label="网络流量费">
+              <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="实际还款金额">
-              <span>{{ props.row.repayMoney }}</span>
+            <el-form-item label="其他费用">
+              <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="实际还款时间">
-              <span>{{ props.row.repayTime }}</span>
+            <el-form-item label="个人实际费用">
+              <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="罚款金额">
-              <span>{{ props.row.amerceMoney }}</span>
+            <el-form-item label="本期已付费用">
+              <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="是否逾期">
-              <span>{{ props.row.isOverdue }}</span>
+            <el-form-item label="本期已未付费用">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="本手机关联号码">
+              <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
           </el-form>
         </template>
@@ -57,26 +57,37 @@
         prop="id">
       </el-table-column>
       <el-table-column
-        label="姓名"
+        label="手机号"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="手机号"
+        label="账单月"
         prop="telNum">
       </el-table-column>
       <el-table-column
-        label="性别"
+        label="账单起始日期"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="申请金额"
+        label="账单结束日期"
         prop="applyMoney">
       </el-table-column>
       <el-table-column
-        label="放款金额"
+        label="总费用"
         prop="loadMoney">
       </el-table-column>
     </el-table>
+    <el-pagination
+      class="page_box"
+      background
+      @size-change="doSizeChange"
+      @current-change="doCurrentChange"
+      :current-page="1"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalData">
+    </el-pagination>
   </div>
 </template>
 
@@ -84,7 +95,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCustomerDetailApplyRecord',
+  name: 'VOperatorBillRecord',
   data() {
     return {
       searchText: '',
@@ -200,9 +211,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../assets/css/vars.scss';
+@import '../../../../assets/css/vars.scss';
 
-.v_customer_detail_apply_record_container {
+.v_operator__billrecord_container {
   .table_box {
     width: 100%;
     .form_list_box {
@@ -214,9 +225,15 @@ export default {
       .el-form-item {
         margin-right: 0;
         margin-bottom: 0;
-        width: 50%;
+        width: 33.3%;
       }
     }
+  }
+  .page_box {
+    text-align: right;
+    margin: $ent-gap-small;
+    font-size: 13px;
+    font-weight: lighter;
   }
 }
 </style>
