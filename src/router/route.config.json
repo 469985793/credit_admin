@@ -3,7 +3,7 @@
     "path": "/",
     "name": "index",
     "component": "/Index",
-    "meta": { "title": "控制面板", "icon": "example" },
+    "meta": { "title": "急我贷", "icon": "example" },
     "redirect": "/dashboard",
     "children": [
       {
