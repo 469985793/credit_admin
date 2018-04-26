@@ -23,8 +23,7 @@
       :data="dataList"
       stripe
       style="width: 100%"
-      height="100%"
-      @cell-click="goPage">
+      height="100%">
       <el-table-column
         fixed
         prop="dkId"
@@ -35,7 +34,7 @@
         fixed
         label="姓名">
         <template slot-scope="scope">
-          <span @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
+          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.id + '/baseInfo')">{{ scope.row.userName }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -111,10 +110,10 @@
           <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="放款金额">
           <el-input v-model="dialogFormData.name" placeholder="放款金额" :disabled="true"></el-input>
@@ -293,8 +292,8 @@ export default {
         return '11102'
       }
     },
-    goPage(row, column, cell, event) {
-      this.$router.push({path: '/customer/' + row.dkId + '/detail'});
+    goPage(page) {
+      this.$router.push({path: page});
     },
     doQuery() {
       this.isLoading = true;
@@ -342,6 +341,9 @@ export default {
     .el-badge__content.is-fixed.is-dot {
       left: -20px;
       top: 2px;
+    }
+    .el-tag:hover {
+      cursor: pointer;
     }
   }
   .el-form-item {

@@ -93,10 +93,10 @@
           <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
           <el-input v-model="dialogFormData.money" placeholder="申请金额" :disabled="true"></el-input>

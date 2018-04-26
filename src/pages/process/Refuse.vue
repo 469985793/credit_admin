@@ -23,8 +23,7 @@
       :data="dataList"
       stripe
       style="width: 100%"
-      height="100%"
-      @cell-click="goPage">
+      height="100%">
       <el-table-column
         prop="dkId"
         label="id"
@@ -33,7 +32,7 @@
       <el-table-column
         label="姓名">
         <template slot-scope="scope">
-          <span @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
+          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.id + '/baseInfo')">{{ scope.row.userName }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -87,19 +86,19 @@
           <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.money" placeholder="身份证号"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.money" placeholder="性别"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="申请金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="结清次数">
-          <el-input v-model="dialogFormData.money" placeholder="结清次数"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="结清次数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请时间">
-          <el-input v-model="dialogFormData.money" placeholder="申请时间"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="申请时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="审核阶段">
           <el-input v-model="dialogFormData.money" placeholder="审核阶段" :disabled="true"></el-input>
@@ -110,16 +109,15 @@
         <el-form-item label="审核人">
           <el-input v-model="dialogFormData.money" placeholder="审核人" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="审核备注">
-          <el-input v-model="dialogFormData.money" placeholder="审核备注" :disabled="true"></el-input>
+        <el-form-item label="审核时间">
+          <el-input v-model="dialogFormData.money" placeholder="审核时间" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="添加备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="添加备注"></el-input>
+        <el-form-item label="拒绝理由">
+          <el-input v-model="dialogFormData.money" placeholder="拒绝理由" :disabled="true"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="primary" @click="isShowDialog = false">保存</el-button>
+        <el-button @click="isShowDialog = false">关闭</el-button>
       </div>
     </el-dialog>
   </div>
@@ -262,8 +260,8 @@ export default {
         return '11102'
       }
     },
-    goPage(row, column, cell, event) {
-      this.$router.push({path: '/customer/' + row.dkId + '/detail'});
+    goPage(page) {
+      this.$router.push({path: page});
     },
     doQuery() {
       this.isLoading = true;
@@ -311,6 +309,9 @@ export default {
     .el-badge__content.is-fixed.is-dot {
       left: -20px;
       top: 2px;
+    }
+    .el-tag:hover {
+      cursor: pointer;
     }
   }
   .el-form-item {

@@ -2,7 +2,7 @@
   <VScrollBar>
     <el-menu
       :default-active="activeMenu"
-      :hide-timeout="0"
+      :unique-opened="true"
       mode="vertical"
       background-color="#304156"
       text-color="#bfcbd9"

@@ -46,28 +46,12 @@
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
-        label="申请金额">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="月收入">
-      </el-table-column>
-      <el-table-column
-        prop="monthIncome"
-        label="结清次数">
-      </el-table-column>
-      <el-table-column
         prop="modiJobno"
         label="客户经理">
       </el-table-column>
       <el-table-column
-        prop="remark"
-        label="备注">
-      </el-table-column>
-      <el-table-column
         prop="crtTime"
-        label="申请时间">
+        label="注册时间">
       </el-table-column>
       <el-table-column
         fixed="right"
@@ -75,7 +59,6 @@
         label="操作">
         <template slot-scope="scope">
           <el-button @click="goPage(scope.row.dkId, 'detail')" type="primary" size="small">查看详情</el-button>
-          <el-button class="edit_btn" @click="isShowDialog = true" type="warning" size="small">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -90,41 +73,6 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
-    <el-dialog title="客户中心" :visible.sync="isShowDialog">
-      <el-form :model="dialogFormData" label-position="left" label-width="90px">
-        <el-form-item label="姓名">
-          <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号"></el-input>
-        </el-form-item>
-        <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别"></el-input>
-        </el-form-item>
-        <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
-        </el-form-item>
-        <el-form-item label="月收入">
-          <el-input v-model="dialogFormData.name" placeholder="月收入"></el-input>
-        </el-form-item>
-        <el-form-item label="结清次数">
-          <el-input v-model="dialogFormData.money" placeholder="结清次数"></el-input>
-        </el-form-item>
-        <el-form-item label="客户经理">
-          <el-input v-model="dialogFormData.name" placeholder="客户经理"></el-input>
-        </el-form-item>
-        <el-form-item label="备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="备注"></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="primary" @click="isShowDialog = false">保存</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
