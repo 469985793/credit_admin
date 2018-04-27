@@ -1,5 +1,6 @@
 <template>
-  <div class="v_operator__baseinfo_container">
+  <div class="v_operator__reportinfo_container">
+    <el-tag class="title_box">申请信息</el-tag>
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="姓名">
         <span>张三</span>
@@ -10,31 +11,43 @@
       <el-form-item label="证件号码">
         <span>3509382899328283823</span>
       </el-form-item>
-      <el-form-item label="入网时间">
+      <el-form-item label="客户提供姓名">
         <span>2019-3-5</span>
       </el-form-item>
-      <el-form-item label="当前余额">
+      <el-form-item label="客户提供身份证号">
         <span>100</span>
       </el-form-item>
-      <el-form-item label="套餐类型">
+      <el-form-item label="性别">
         <span>高端套餐</span>
       </el-form-item>
-      <el-form-item label="状态">
+      <el-form-item label="年龄">
         <span>正常</span>
       </el-form-item>
-      <el-form-item label="账号星级">
+      <el-form-item label="星座">
         <span>五星</span>
       </el-form-item>
-      <el-form-item label="所属运营商">
+      <el-form-item label="邮箱">
         <span>电信</span>
       </el-form-item>
-      <el-form-item label="号码归属省份">
+      <el-form-item label="籍贯">
         <span>上海</span>
       </el-form-item>
-      <el-form-item label="号码归属城市">
+      <el-form-item label="手机号码归属地">
         <span>上海</span>
       </el-form-item>
-      <el-form-item label="最近一次更新时间">
+      <el-form-item label="居住或工作地址">
+        <span>2019-3-25</span>
+      </el-form-item>
+    </el-form>
+    <el-tag class="title_box">数据来源</el-tag>
+    <el-form class="form_list_box" label-position="left" inline>
+      <el-form-item label="数据源名称">
+        <span>张三</span>
+      </el-form-item>
+      <el-form-item label="数据类别">
+        <span>133344232332</span>
+      </el-form-item>
+      <el-form-item label="获取时间">
         <span>2019-3-25</span>
       </el-form-item>
     </el-form>
@@ -45,7 +58,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorBaseInfo',
+  name: 'VOperatorReportInfo',
   data() {
     return {
       dataList: [
@@ -139,7 +152,7 @@ export default {
 <style lang="scss">
 @import '../../../../assets/css/vars.scss';
 
-.v_operator__baseinfo_container {
+.v_operator__reportinfo_container {
   .highlight {
     color: $ent-color-danger;
   }
@@ -158,7 +171,9 @@ export default {
       width: 33.3%;
     }
   }
-
+  .title_box {
+    margin: $ent-gap-xx-small $ent-gap-small;
+  }
   .page_box {
     text-align: right;
     margin: $ent-gap-small;

@@ -12,15 +12,23 @@
       </el-table-column>
       <el-table-column
         prop="telNum"
-        label="充值金额">
+        label="长号">
       </el-table-column>
       <el-table-column
         prop="telNum"
-        label="充值方式">
+        label="短号">
       </el-table-column>
       <el-table-column
         prop="telNum"
-        label="充值时间">
+        label="成员类型">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="加入日期">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="失效日期">
       </el-table-column>
     </el-table>
     <el-pagination

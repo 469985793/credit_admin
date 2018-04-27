@@ -143,6 +143,7 @@ export default {
 @import '../../../assets/css/vars.scss';
 
 .v_customer_detail_container {
+  height: calc(100% - 60px);
   .highlight {
     color: $ent-color-danger;
   }

@@ -7,14 +7,32 @@
       <el-tab-pane label="账单记录">
         <VBillRecord></VBillRecord>
       </el-tab-pane>
+      <el-tab-pane label="亲情网">
+        <VFamily></VFamily>
+      </el-tab-pane>
       <el-tab-pane label="通话记录">
         <VCallRecord></VCallRecord>
       </el-tab-pane>
-      <el-tab-pane label="短信记录">
-        <VMsgRecord></VMsgRecord>
-      </el-tab-pane>
       <el-tab-pane label="充值记录">
         <VRechargeRecord></VRechargeRecord>
+      </el-tab-pane>
+      <el-tab-pane label="报告基本信息">
+        <VReportInfo></VReportInfo>
+      </el-tab-pane>
+      <el-tab-pane label="信息校验">
+        <InfoCheck></InfoCheck>
+      </el-tab-pane>
+      <el-tab-pane label="联系人信息">
+        <VReportInfo></VReportInfo>
+      </el-tab-pane>
+      <el-tab-pane label="服务号通话详情">
+        <VReportInfo></VReportInfo>
+      </el-tab-pane>
+      <el-tab-pane label="消费统计">
+        <VReportInfo></VReportInfo>
+      </el-tab-pane>
+      <el-tab-pane label="漫游详情">
+        <VReportInfo></VReportInfo>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -24,9 +42,11 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 import VBaseInfo from './BaseInfo'
 import VBillRecord from './BillRecord'
+import VFamily from './Family'
 import VCallRecord from './CallRecord'
-import VMsgRecord from './MsgRecord'
 import VRechargeRecord from './RechargeRecord'
+import VReportInfo from './ReportInfo'
+import InfoCheck from './InfoCheck'
 
 export default {
   name: 'VCustomerDetailApply',
@@ -39,7 +59,7 @@ export default {
     }
   },
   components: {
-    VBaseInfo, VBillRecord, VCallRecord, VMsgRecord, VRechargeRecord
+    VBaseInfo, VBillRecord, VFamily, VCallRecord, VRechargeRecord, VReportInfo, InfoCheck
   },
   methods: {
     doSizeChange(pageSize) {
@@ -60,6 +80,7 @@ export default {
 @import '../../../../assets/css/vars.scss';
 
 .v_customer_detail_operator_container {
+  height: 100%;
   .highlight {
     color: $ent-color-danger;
   }
@@ -81,8 +102,12 @@ export default {
     margin-bottom: $ent-gap-x-small;
   } /* overwrite */
   .tab_box {
+    height: 100%;
     .el-tabs__item {
       font-size: 12px;
+      &:nth-child(6) {
+        border-bottom: 1px double $ent-color-primary;
+      }
     }
   }
   .page_box {

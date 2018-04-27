@@ -1,54 +1,22 @@
 <template>
-  <div class="v_operator__msgrecord_container">
+  <div class="v_operator__infocheck_container">
     <el-table
-      class="table_box"
+      :data="dataList"
       stripe
-      :data="dataList">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="手机号">
-              <span>{{ props.row.telNum }}</span>
-            </el-form-item>
-            <el-form-item label="收发时间">
-              <span>{{ props.row.applyTime }}</span>
-            </el-form-item>
-            <el-form-item label="发出地">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="发送/接收">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="短信类型">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="对方号码">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话费(分)">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="业务类型(国内/国外)">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
+      style="width: 100%"
+      height="100%">
       <el-table-column
+        prop="id"
         label="序号"
-        prop="id">
+        width="60">
       </el-table-column>
       <el-table-column
-        label="手机号"
-        prop="name">
+        prop="telNum"
+        label="校验项">
       </el-table-column>
       <el-table-column
-        label="发出地"
-        prop="sex">
-      </el-table-column>
-      <el-table-column
-        label="对方号码"
-        prop="applyMoney">
+        prop="telNum"
+        label="结果">
       </el-table-column>
     </el-table>
     <el-pagination
@@ -69,7 +37,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorMsgRecord',
+  name: 'VOperatorInfoCheck',
   data() {
     return {
       searchText: '',
@@ -187,22 +155,7 @@ export default {
 <style lang="scss">
 @import '../../../../assets/css/vars.scss';
 
-.v_operator__msgrecord_container {
-  .table_box {
-    width: 100%;
-    .form_list_box {
-      font-size: 0;
-      label {
-        width: 140px;
-        color: #99a9bf;
-      }
-      .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 33.3%;
-      }
-    }
-  }
+.v_operator__infocheck_container {
   .page_box {
     text-align: right;
     margin: $ent-gap-small;
