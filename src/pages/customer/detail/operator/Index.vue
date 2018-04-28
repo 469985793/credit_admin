@@ -20,10 +20,16 @@
         <VReportInfo></VReportInfo>
       </el-tab-pane>
       <el-tab-pane label="信息校验">
-        <InfoCheck></InfoCheck>
+        <VInfoCheck></VInfoCheck>
       </el-tab-pane>
       <el-tab-pane label="联系人信息">
-        <VReportInfo></VReportInfo>
+        <VContactInfo></VContactInfo>
+      </el-tab-pane>
+      <el-tab-pane label="联系人分析">
+        <VContactParse></VContactParse>
+      </el-tab-pane>
+      <el-tab-pane label="用户分析">
+        <VUserParse></VUserParse>
       </el-tab-pane>
       <el-tab-pane label="服务号通话详情">
         <VReportInfo></VReportInfo>
@@ -46,7 +52,10 @@ import VFamily from './Family'
 import VCallRecord from './CallRecord'
 import VRechargeRecord from './RechargeRecord'
 import VReportInfo from './ReportInfo'
-import InfoCheck from './InfoCheck'
+import VInfoCheck from './InfoCheck'
+import VContactInfo from './contactInfo/Index'
+import VContactParse from './contactParse/Index'
+import VUserParse from './userParse/Index'
 
 export default {
   name: 'VCustomerDetailApply',
@@ -59,7 +68,16 @@ export default {
     }
   },
   components: {
-    VBaseInfo, VBillRecord, VFamily, VCallRecord, VRechargeRecord, VReportInfo, InfoCheck
+    VBaseInfo,
+    VBillRecord,
+    VFamily,
+    VCallRecord,
+    VRechargeRecord,
+    VReportInfo,
+    VInfoCheck,
+    VContactInfo,
+    VContactParse,
+    VUserParse
   },
   methods: {
     doSizeChange(pageSize) {
