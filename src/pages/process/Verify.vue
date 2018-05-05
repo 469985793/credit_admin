@@ -101,6 +101,7 @@
       </el-table-column>
       <el-table-column
         fixed="right"
+        width="100"
         label="操作">
         <template slot-scope="scope">
           <el-button @click.stop="isShowDialog = true" type="primary" size="small">终审审核</el-button>
