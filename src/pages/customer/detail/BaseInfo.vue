@@ -1,6 +1,6 @@
 <template>
-  <div class="v_customer_detail_apply_container">
-    申请列表
+  <div class="v_customer_detail_record_container">
+    基本信息
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCustomerDetailApply',
+  name: 'VCustomerDetailRecord',
   data() {
     return {
       searchText: '',
@@ -131,7 +131,7 @@ export default {
 <style lang="scss">
 @import '../../../assets/css/vars.scss';
 
-.v_customer_detail_apply_container {
+.v_customer_detail_record_container {
   .highlight {
     color: $ent-color-danger;
   }

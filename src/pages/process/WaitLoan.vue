@@ -23,8 +23,7 @@
       :data="dataList"
       stripe
       style="width: 100%"
-      height="100%"
-      @cell-click="goPage">
+      height="100%">
       <el-table-column
         fixed
         prop="dkId"
@@ -35,8 +34,7 @@
         fixed      
         label="姓名">
         <template slot-scope="scope">
-          <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
-          <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
+          <span>{{scope.row.userName}}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -94,10 +92,10 @@
           <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
           <el-input v-model="dialogFormData.money" placeholder="申请金额" :disabled="true"></el-input>
@@ -263,9 +261,6 @@ export default {
       } else {
         return '11102'
       }
-    },
-    goPage(row, column, cell, event) {
-      this.$router.push({path: '/customer/' + row.dkId + '/detail'});
     },
     doQuery() {
       this.isLoading = true;

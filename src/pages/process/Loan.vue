@@ -23,8 +23,7 @@
       :data="dataList"
       stripe
       style="width: 100%"
-      height="100%"
-      @cell-click="goPage">
+      height="100%">
       <el-table-column
         fixed="left"
         prop="dkId"
@@ -35,8 +34,7 @@
         fixed="left"
         label="姓名">
         <template slot-scope="scope">
-          <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
-          <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
+          <span>{{scope.row.userName}}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -104,45 +102,45 @@
     <el-dialog title="已放款" :visible.sync="isShowDialog">
       <el-form :model="dialogFormData" label-position="left" label-width="90px">
         <el-form-item label="姓名">
-          <el-input v-model="dialogFormData.name" placeholder="姓名" :readonly="true"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号" :readonly="true"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号" :readonly="true"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别" :readonly="true"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额" :readonly="true"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="申请金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请时间">
-          <el-input v-model="dialogFormData.name" placeholder="申请时间" :readonly="true"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="申请时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="结清次数">
-          <el-input v-model="dialogFormData.name" placeholder="结清次数" :readonly="true"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="结清次数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="审核" class="verify_modal_box">
           <el-tabs tab-position="right">
             <el-tab-pane label="初审">
-              <el-input v-model="dialogFormData.name" placeholder="初审人" :readonly="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="初审时间" :readonly="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="初审人" :disabled="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="初审时间" :disabled="true"></el-input>
+              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注" :disabled="true"></el-input>
             </el-tab-pane>
             <el-tab-pane label="终审">
-              <el-input v-model="dialogFormData.name" placeholder="终审人" :readonly="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="审批金额" :readonly="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="终审时间" :readonly="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="终审备注" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="终审人" :disabled="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="审批金额" :disabled="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="终审时间" :disabled="true"></el-input>
+              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="终审备注" :disabled="true"></el-input>
             </el-tab-pane>
             <el-tab-pane label="放款">
-              <el-input v-model="dialogFormData.name" placeholder="放款人" :readonly="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="放款金额" :readonly="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="放款时间" :readonly="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="应还款时间" :readonly="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="放款备注" :readonly="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="放款人" :disabled="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="放款金额" :disabled="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="放款时间" :disabled="true"></el-input>
+              <el-input v-model="dialogFormData.name" placeholder="应还款时间" :disabled="true"></el-input>
+              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="放款备注" :disabled="true"></el-input>
             </el-tab-pane>
           </el-tabs>
         </el-form-item>
@@ -290,9 +288,6 @@ export default {
       } else {
         return '11102'
       }
-    },
-    goPage(row, column, cell, event) {
-      this.$router.push({path: '/customer/' + row.dkId + '/detail'});
     },
     doQuery() {
       this.isLoading = true;

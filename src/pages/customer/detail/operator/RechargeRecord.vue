@@ -1,6 +1,39 @@
 <template>
-  <div class="v_customer_detail_record_container">
-    申请记录
+  <div class="v_operator__family_container">
+    <el-table
+      :data="dataList"
+      stripe
+      style="width: 100%"
+      height="100%">
+      <el-table-column
+        prop="id"
+        label="序号"
+        width="60">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="充值金额">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="充值方式">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="充值时间">
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      class="page_box"
+      background
+      @size-change="doSizeChange"
+      @current-change="doCurrentChange"
+      :current-page="1"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalData">
+    </el-pagination>
   </div>
 </template>
 
@@ -8,7 +41,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCustomerDetailRecord',
+  name: 'VOperatorFamily',
   data() {
     return {
       searchText: '',
@@ -16,43 +49,38 @@ export default {
       order: 'ascend',
       dataList: [
         {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
+          id: '1',
+          name: '小丽',
+          telNum: 13303939393,
+          idCardNum: 350838383898288222,
+          sex: '女',
+          applyMoney: 1000,
+          applyTime: '2018-3-4',
+          loadMoney: 1000,
+          loadTime: '2018-5-4',
+          shouldRepayMoney: 1000,
+          shouldRepayTime: '2018-3-4',
+          amerceMoney: 200,
+          repayMoney: 1000,
+          repayTime: '2018-3-4',
+          isOverdue: '否'
         },
         {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
+          id: '2',
+          name: '张三',
+          telNum: 13303939393,
+          idCardNum: 350838383898288222,
+          sex: '男',
+          applyMoney: 1000,
+          applyTime: '2018-3-4',
+          loadMoney: 1000,
+          loadTime: '2018-5-4',
+          shouldRepayMoney: 1000,
+          shouldRepayTime: '2018-3-4',
+          amerceMoney: 200,
+          repayMoney: 1000,
+          repayTime: '2018-3-4',
+          isOverdue: '否'
         }
       ],
       isLoading: false,
@@ -129,61 +157,14 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../assets/css/vars.scss';
+@import '../../../../assets/css/vars.scss';
 
-.v_customer_detail_record_container {
-  .highlight {
-    color: $ent-color-danger;
-  }
-
-  /* overwrite */
-  .el-table {
-    font-size: 13px;
-    .cell {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-    }
-    .el-badge__content.is-fixed.is-dot {
-      left: -20px;
-      top: 2px;
-    }
-  }
-  .el-form-item {
-    margin-bottom: $ent-gap-x-small;
-  } /* overwrite */
-
+.v_operator__family_container {
   .page_box {
     text-align: right;
     margin: $ent-gap-small;
     font-size: 13px;
     font-weight: lighter;
   }
-  @media screen and (max-width: 767px) {
-    .edit_btn {
-      margin: 2px 0;
-    }
-    .el-pagination {
-      text-align: center;
-    }
-    .el-pagination__jump,
-    .el-pagination__total {
-      display: none !important;
-    }
-    .el-pagination__sizes {
-      display: block !important;
-      margin-bottom: $ent-gap-x-small;
-    }
-    .el-pager {
-      max-width: calc(100% - 100px);
-      overflow: scroll;
-    }
-  }
 }
 </style>
-
-
-
-
-
-

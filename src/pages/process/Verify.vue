@@ -23,8 +23,7 @@
       :data="dataList"
       stripe
       style="width: 100%"
-      height="100%"
-      @cell-click="goPage">
+      height="100%">
       <el-table-column
         fixed="left"
         prop="dkId"
@@ -35,8 +34,7 @@
         fixed="left"
         label="姓名">
         <template slot-scope="scope">
-          <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
-          <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
+          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.id + '/baseInfo')">{{ scope.row.userName }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -100,6 +98,7 @@
         label="申请时间">
       </el-table-column>
       <el-table-column
+        width="100"
         fixed="right"
         width="100"
         label="操作">
@@ -128,10 +127,10 @@
           <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.money" placeholder="身份证号"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.money" placeholder="性别"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
           <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
@@ -140,7 +139,7 @@
           <el-input v-model="dialogFormData.money" placeholder="月收入"></el-input>
         </el-form-item>
         <el-form-item label="芝麻分">
-          <el-input v-model="dialogFormData.name" placeholder="芝麻分"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="芝麻分" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="已认证">
           <el-input v-model="dialogFormData.money" placeholder="已认证" :disabled="true"></el-input>
@@ -152,7 +151,7 @@
           <el-input v-model="dialogFormData.money" placeholder="初审备注" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="初审时间">
-          <el-input v-model="dialogFormData.money" placeholder="初审时间"></el-input>
+          <el-input v-model="dialogFormData.money" placeholder="初审时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="审批金额">
           <el-input v-model="dialogFormData.name" placeholder="审批金额"></el-input>
@@ -307,8 +306,8 @@ export default {
         return '11102'
       }
     },
-    goPage(row, column, cell, event) {
-      this.$router.push({path: '/customer/' + row.dkId + '/detail'});
+    goPage(page) {
+      this.$router.push({path: page});
     },
     doQuery() {
       this.isLoading = true;
@@ -356,6 +355,9 @@ export default {
     .el-badge__content.is-fixed.is-dot {
       left: -20px;
       top: 2px;
+    }
+    .el-tag:hover {
+      cursor: pointer;
     }
   }
   .el-form-item {

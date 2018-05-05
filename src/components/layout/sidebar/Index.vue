@@ -1,13 +1,12 @@
 <template>
   <VScrollBar>
     <el-menu
-      :collapse-transition="false"
       :default-active="activeMenu"
+      :unique-opened="true"
       mode="vertical"
-      class="el-menu-demo"
-      background-color="#545c64"
-      text-color="#fff"
-      active-text-color="#ffd04b"
+      background-color="#304156"
+      text-color="#bfcbd9"
+      active-text-color="#409EFF"
       :collapse="isCollapse">
       <el-menu-item index="/dashboard" @click="goPage('/dashboard')">
         <i class="el-icon-menu"></i>

@@ -13,6 +13,7 @@ export default {
 
 <style lang="scss">
 .v_customer_list_container {
+  height: calc(100% - 60px);
 }
 </style>
 

@@ -1,5 +1,5 @@
 <template>
-  <div class="v_customer_detail_apply_container">
+  <div class="v_customer_detail_operator_container">
     运营商
   </div>
 </template>
@@ -11,109 +11,13 @@ export default {
   name: 'VCustomerDetailApply',
   data() {
     return {
-      searchText: '',
-      readStatus: '全部',
-      order: 'ascend',
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
       totalData: 100
     }
   },
-  created() {
-    this.fetchData();
-  },
-  watch: {
-    readStatus() {
-      this.doQuery();
-    },
-    order() {
-      this.doQuery();
-    }
-  },
   methods: {
-    fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
-      }
-    },
-    goPage(userId, page) {
-      this.$router.push({path: '/' + page + '/' + userId});
-    },
-    doQuery() {
-      this.isLoading = true;
-      this.fetchData(true);
-      console.log('submit!');
-    },
     doSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.fetchData();
@@ -131,7 +35,7 @@ export default {
 <style lang="scss">
 @import '../../../assets/css/vars.scss';
 
-.v_customer_detail_apply_container {
+.v_customer_detail_operator_container {
   .highlight {
     color: $ent-color-danger;
   }

@@ -25,6 +25,7 @@
       <VSideBar :isCollapse="!isShowSideBar"></VSideBar>
     </aside>
     <div class="content_box" :class="{hide_side_bar: !isShowSideBar}">
+      <VTagView></VTagView>
       <router-view></router-view>
     </div>
   </div>
@@ -34,6 +35,7 @@
 import VHamburger from '../components/base/hamburger'
 import VBreadcrumb from '../components/base/breadcrumb'
 import VSideBar from '../components/layout/sidebar/Index'
+import VTagView from '../components/base/tagView/Index'
 
 export default {
   name: 'VIndex',
@@ -44,7 +46,7 @@ export default {
     }
   },
   components: {
-    VHamburger, VBreadcrumb, VSideBar
+    VHamburger, VBreadcrumb, VSideBar, VTagView
   },
   created() {
     this.getUnreadCount();
@@ -83,8 +85,8 @@ export default {
     z-index: 22;
     transition: all 0.3s ease-in-out;
     &.hide_side_bar {
-      width: calc(100% - 65px);
-      left: 65px;
+      width: calc(100% - 36px);
+      left: 36px;
     }
     .el-menu {
       height: 100%;
@@ -136,14 +138,25 @@ export default {
     left: 0;
     z-index: 111;
     text-align: left;
-    transition: all 0.5s ease;
+    transition: all 0.28s ease-in-out;
     &.hide_side_bar {
-      width: 65px;
+      width: 36px;
+      .el-tooltip {
+        padding: 0 5px !important;
+      }
+      .el-submenu {
+        &>.el-submenu__title {
+          padding-left: 5px !important;
+        }
+      }
     }
     .el-menu {
       height: 100%;
       width: 100%;
       border: none;
+    }
+    .horizontal-collapse-transition {
+      transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;
     }
   }
   .content_box {
@@ -157,7 +170,7 @@ export default {
     width: auto;
     transition: all 0.3s ease-in-out;
     &.hide_side_bar {
-      left: 65px;
+      left: 36px;
     }
   }
 }

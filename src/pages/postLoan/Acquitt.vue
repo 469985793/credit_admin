@@ -23,8 +23,7 @@
       :data="dataList"
       stripe
       style="width: 100%"
-      height="100%"
-      @cell-click="goPage">
+      height="100%">
       <el-table-column
         fixed
         prop="dkId"
@@ -35,8 +34,7 @@
         fixed
         label="姓名">
         <template slot-scope="scope">
-          <el-badge v-if="scope.row.status === '11101'" is-dot class="item" @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</el-badge>
-          <span v-else @click="goPage('/customer/' + scope.row.id + '/detail')">{{scope.row.userName}}</span>
+          <span>{{scope.row.userName}}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -250,9 +248,6 @@ export default {
       } else {
         return '11102'
       }
-    },
-    goPage(row, column, cell, event) {
-      this.$router.push({path: '/customer/' + row.dkId + '/detail'});
     },
     doQuery() {
       this.isLoading = true;
