@@ -1,5 +1,5 @@
 <template>
-  <div class="v_operator__recentlocation_container">
+  <div class="v_credit_discredit">
     <el-table
       class="table_box"
       stripe
@@ -7,46 +7,37 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="通话归属地">
+            <el-form-item label="映射ID">
               <span>{{ props.row.telNum }}</span>
             </el-form-item>
-            <el-form-item label="通话次数">
+            <el-form-item label="银行卡绑定的时间">
               <span>{{ props.row.applyTime }}</span>
             </el-form-item>
-            <el-form-item label="通话号码数">
+            <el-form-item label="卡预留的手机号码">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话总时长">
+            <el-form-item label="银行卡后4位">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫次数">
+            <el-form-item label="作用未知">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫次数">
+            <el-form-item label="姓名">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫总时长">
+            <el-form-item label="银行名称">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫总时长">
+            <el-form-item label="银行卡类型">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="平均主叫时长">
+            <el-form-item label="编号">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="平均被叫时长">
+            <el-form-item label="是否已开通快捷支付">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫次数比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="被叫次数比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫时长比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="被叫时长比例">
+            <el-form-item label="加密标识">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
           </el-form>
@@ -57,19 +48,19 @@
         prop="id">
       </el-table-column>
       <el-table-column
-        label="通话归属地"
+        label="姓名"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="通话次数"
+        label="卡预留的手机号码"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="主叫次数"
+        label="银行卡后4位"
         prop="applyMoney">
       </el-table-column>
       <el-table-column
-        label="被叫次数"
+        label="银行卡绑定的时间"
         prop="applyMoney">
       </el-table-column>
     </el-table>
@@ -91,7 +82,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorRecentLocation',
+  name: 'VCreditDiscredit',
   data() {
     return {
       searchText: '',
@@ -207,16 +198,15 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../../assets/css/vars.scss';
+@import '../../../../assets/css/vars.scss';
 
-.v_operator__recentlocation_container {
-  
+.v_credit_discredit {
   .table_box {
     width: 100%;
     .form_list_box {
       font-size: 0;
       label {
-        width: 130px;
+        width: 180px;
         color: #99a9bf;
       }
       .el-form-item {

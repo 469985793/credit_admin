@@ -1,5 +1,5 @@
 <template>
-  <div class="v_operator__recentlocation_container">
+  <div class="v_insurance_record">
     <el-table
       class="table_box"
       stripe
@@ -7,46 +7,40 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="通话归属地">
+            <el-form-item label="出账">
               <span>{{ props.row.telNum }}</span>
             </el-form-item>
-            <el-form-item label="通话次数">
+            <el-form-item label="入账">
               <span>{{ props.row.applyTime }}</span>
             </el-form-item>
-            <el-form-item label="通话号码数">
+            <el-form-item label="补贴入账">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话总时长">
+            <el-form-item label="补贴出账">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫次数">
+            <el-form-item label="缴存时间">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫次数">
+            <el-form-item label="缴存年月">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫总时长">
+            <el-form-item label="缴存公司名称">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫总时长">
+            <el-form-item label="公司缴存金额">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="平均主叫时长">
+            <el-form-item label="个人缴存金额">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="平均被叫时长">
+            <el-form-item label="公司缴存比例">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫次数比例">
+            <el-form-item label="个人缴存比例">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫次数比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫时长比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="被叫时长比例">
+            <el-form-item label="补缴">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
           </el-form>
@@ -57,19 +51,19 @@
         prop="id">
       </el-table-column>
       <el-table-column
-        label="通话归属地"
+        label="出账"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="通话次数"
+        label="入账"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="主叫次数"
+        label="余额"
         prop="applyMoney">
       </el-table-column>
       <el-table-column
-        label="被叫次数"
+        label="缴存年月"
         prop="applyMoney">
       </el-table-column>
     </el-table>
@@ -91,7 +85,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorRecentLocation',
+  name: 'VInsuranceRecord',
   data() {
     return {
       searchText: '',
@@ -207,16 +201,15 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../../assets/css/vars.scss';
+@import '../../../../assets/css/vars.scss';
 
-.v_operator__recentlocation_container {
-  
+.v_insurance_record {
   .table_box {
     width: 100%;
     .form_list_box {
       font-size: 0;
       label {
-        width: 130px;
+        width: 180px;
         color: #99a9bf;
       }
       .el-form-item {

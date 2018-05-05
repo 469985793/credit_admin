@@ -1,5 +1,5 @@
 <template>
-  <div class="v_operator__recentlocation_container">
+  <div class="v_insurance_classifyinfo">
     <el-table
       class="table_box"
       stripe
@@ -7,46 +7,109 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="通话归属地">
+            <el-form-item label="贷款人姓名">
               <span>{{ props.row.telNum }}</span>
             </el-form-item>
-            <el-form-item label="通话次数">
+            <el-form-item label="联系手机">
               <span>{{ props.row.applyTime }}</span>
             </el-form-item>
-            <el-form-item label="通话号码数">
+            <el-form-item label="贷款状态">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话总时长">
+            <el-form-item label="承办银行">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫次数">
+            <el-form-item label="贷款类型">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫次数">
+            <el-form-item label="贷款人身份证">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫总时长">
+            <el-form-item label="当前贷款购房地址">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫总时长">
+            <el-form-item label="通讯地址">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="平均主叫时长">
+            <el-form-item label="贷款合同号">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="平均被叫时长">
+            <el-form-item label="贷款期数">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫次数比例">
+            <el-form-item label="贷款金额">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫次数比例">
+            <el-form-item label="月还款额度">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫时长比例">
+            <el-form-item label="贷款开始时间">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫时长比例">
+            <el-form-item label="贷款结束日期">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="还款方式">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="每月还款日">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="扣款账号">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="扣款银行账号姓名">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="贷款利率">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="罚息利率">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="商业贷款合同编号">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="商业贷款银行">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="商业贷款金额">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="第二还款人银行账号">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="第二还款人姓名">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="第二还款人身份证">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="第二还款人手机">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="第二还款人工作单位">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="贷款余额">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="剩余期数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="最后还款日期">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="逾期本金">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="逾期利息">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="逾期罚息">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="逾期天数">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
           </el-form>
@@ -57,19 +120,19 @@
         prop="id">
       </el-table-column>
       <el-table-column
-        label="通话归属地"
+        label="贷款人姓名"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="通话次数"
+        label="联系手机"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="主叫次数"
+        label="贷款状态"
         prop="applyMoney">
       </el-table-column>
       <el-table-column
-        label="被叫次数"
+        label="贷款类型"
         prop="applyMoney">
       </el-table-column>
     </el-table>
@@ -91,7 +154,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorRecentLocation',
+  name: 'VInsuranceClassifyInfo',
   data() {
     return {
       searchText: '',
@@ -207,16 +270,15 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../../assets/css/vars.scss';
+@import '../../../../assets/css/vars.scss';
 
-.v_operator__recentlocation_container {
-  
+.v_insurance_classifyinfo {
   .table_box {
     width: 100%;
     .form_list_box {
       font-size: 0;
       label {
-        width: 130px;
+        width: 150px;
         color: #99a9bf;
       }
       .el-form-item {

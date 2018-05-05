@@ -1,5 +1,5 @@
 <template>
-  <div class="v_operator__recentlocation_container">
+  <div class="v_credit_discredit">
     <el-table
       class="table_box"
       stripe
@@ -7,46 +7,58 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="通话归属地">
+            <el-form-item label="姓名">
               <span>{{ props.row.telNum }}</span>
             </el-form-item>
-            <el-form-item label="通话次数">
+            <el-form-item label="身份证号">
               <span>{{ props.row.applyTime }}</span>
             </el-form-item>
-            <el-form-item label="通话号码数">
+            <el-form-item label="案件编号">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话总时长">
+            <el-form-item label="年龄">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫次数">
+            <el-form-item label="性别">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫次数">
+            <el-form-item label="地区">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫总时长">
+            <el-form-item label="法人">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫总时长">
+            <el-form-item label="执行法院">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="平均主叫时长">
+            <el-form-item label="判决书确定的义务">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="平均被叫时长">
+            <el-form-item label="履行情况">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫次数比例">
+            <el-form-item label="失信被执行人行为情形">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫次数比例">
+            <el-form-item label="被执行日期">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫时长比例">
+            <el-form-item label="立案号">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="被叫时长比例">
+            <el-form-item label="立案日期">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="案件受理机构">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="被执行日期">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="执行部分">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="未执行部分">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
           </el-form>
@@ -57,19 +69,19 @@
         prop="id">
       </el-table-column>
       <el-table-column
-        label="通话归属地"
+        label="姓名"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="通话次数"
+        label="身份证号"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="主叫次数"
+        label="案件编号"
         prop="applyMoney">
       </el-table-column>
       <el-table-column
-        label="被叫次数"
+        label="法人"
         prop="applyMoney">
       </el-table-column>
     </el-table>
@@ -91,7 +103,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorRecentLocation',
+  name: 'VCreditDiscredit',
   data() {
     return {
       searchText: '',
@@ -207,16 +219,15 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../../assets/css/vars.scss';
+@import '../../../../assets/css/vars.scss';
 
-.v_operator__recentlocation_container {
-  
+.v_credit_discredit {
   .table_box {
     width: 100%;
     .form_list_box {
       font-size: 0;
       label {
-        width: 130px;
+        width: 180px;
         color: #99a9bf;
       }
       .el-form-item {

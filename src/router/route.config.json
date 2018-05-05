@@ -58,13 +58,13 @@
               {
                 "path": "alipay",
                 "name": "customerDetailAlipay",
-                "component": "/customer/detail/Alipay",
+                "component": "/customer/detail/alipay/Index",
                 "meta": { "title": "支付宝认证", "icon": "example" }
               },
               {
                 "path": "alimarket",
                 "name": "customerDetailAlimarket",
-                "component": "/customer/detail/Alimarket",
+                "component": "/customer/detail/aliMarket/Index",
                 "meta": { "title": "淘宝认证", "icon": "example" }
               },
               {
@@ -76,14 +76,20 @@
               {
                 "path": "credit",
                 "name": "customerDetailCredit",
-                "component": "/customer/detail/Credit",
+                "component": "/customer/detail/credit/Index",
                 "meta": { "title": "征信报告", "icon": "example" }
               },
               {
-                "path": "social",
-                "name": "customerDetailSocial",
-                "component": "/customer/detail/Social",
-                "meta": { "title": "社保公积金", "icon": "example" }
+                "path": "insurance",
+                "name": "customerDetailInsurance",
+                "component": "/customer/detail/insurance/Index",
+                "meta": { "title": "社保", "icon": "example" }
+              },
+              {
+                "path": "housingFund",
+                "name": "customerDetailHousingFund",
+                "component": "/customer/detail/housingFund/Index",
+                "meta": { "title": "公积金", "icon": "example" }
               },
               {
                 "path": "applyRecord",

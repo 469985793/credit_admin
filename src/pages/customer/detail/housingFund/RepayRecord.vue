@@ -1,75 +1,39 @@
 <template>
-  <div class="v_operator__recentlocation_container">
+  <div class="v_insurance_medical_record">
     <el-table
       class="table_box"
       stripe
       :data="dataList">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="通话归属地">
-              <span>{{ props.row.telNum }}</span>
-            </el-form-item>
-            <el-form-item label="通话次数">
-              <span>{{ props.row.applyTime }}</span>
-            </el-form-item>
-            <el-form-item label="通话号码数">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话总时长">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫次数">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="被叫次数">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫总时长">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="被叫总时长">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="平均主叫时长">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="平均被叫时长">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫次数比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="被叫次数比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫时长比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="被叫时长比例">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
       <el-table-column
         label="序号"
         prop="id">
       </el-table-column>
       <el-table-column
-        label="通话归属地"
+        label="还款日期"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="通话次数"
+        label="记账日期"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="主叫次数"
+        label="还款金额"
         prop="applyMoney">
       </el-table-column>
       <el-table-column
-        label="被叫次数"
+        label="还款本金"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="还款利息"
+        prop="sex">
+      </el-table-column>
+      <el-table-column
+        label="还款罚息"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="贷款合同号"
         prop="applyMoney">
       </el-table-column>
     </el-table>
@@ -91,7 +55,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorRecentLocation',
+  name: 'VInsuranceMedicalRecord',
   data() {
     return {
       searchText: '',
@@ -207,16 +171,15 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../../assets/css/vars.scss';
+@import '../../../../assets/css/vars.scss';
 
-.v_operator__recentlocation_container {
-  
+.v_insurance_medical_record {
   .table_box {
     width: 100%;
     .form_list_box {
       font-size: 0;
       label {
-        width: 130px;
+        width: 180px;
         color: #99a9bf;
       }
       .el-form-item {

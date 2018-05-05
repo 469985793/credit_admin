@@ -6,7 +6,8 @@
       <el-tab-pane label="淘宝认证" name="alimarket"></el-tab-pane>
       <el-tab-pane label="运营商认证" name="operator"></el-tab-pane>
       <el-tab-pane label="征信报告" name="credit"></el-tab-pane>
-      <el-tab-pane label="社保公积金" name="social"></el-tab-pane>
+      <el-tab-pane label="社保" name="insurance"></el-tab-pane>
+      <el-tab-pane label="公积金" name="housingFund"></el-tab-pane>
       <el-tab-pane label="通讯录" name="contact"></el-tab-pane>
       <el-tab-pane label="申请记录" name="applyRecord"></el-tab-pane>
     </el-tabs>
