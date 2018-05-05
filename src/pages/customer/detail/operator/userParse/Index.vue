@@ -1,30 +1,42 @@
 <template>
   <div class="v_operator__index_container">
-    <el-tabs class="tab_box_luo" type="card" tab-position="top">
-      <el-tab-pane label="风险分析" name="10">风险分析</el-tab-pane>
-      <el-tab-pane label="活跃度分析" name="11">活跃度分析</el-tab-pane>
-      <el-tab-pane label="消费分析" name="12">消费分析</el-tab-pane>
-      <el-tab-pane label="漫游分析" name="13">漫游分析</el-tab-pane>
-      <el-tab-pane label="第三方通话分析" name="15">第三方通话分析</el-tab-pane>
-      <el-tab-pane label="稳定性分析" name="16">稳定性分析</el-tab-pane>
+    <el-tabs v-model="activeTab" class="tab_box_luo" type="card" tab-position="top">
+      <el-tab-pane label="风险分析" name="1">
+        <VRisk></VRisk>
+      </el-tab-pane>
+      <el-tab-pane label="活跃度分析" name="2">
+        <VActiveDegree></VActiveDegree>
+      </el-tab-pane>
+      <el-tab-pane label="消费分析" name="3">
+        <VConsumption></VConsumption>
+      </el-tab-pane>
+      <el-tab-pane label="漫游分析" name="4">
+        <VRoam></VRoam>
+      </el-tab-pane>
+      <el-tab-pane label="第三方通话分析" name="5">
+        <VThirdPart></VThirdPart>
+      </el-tab-pane>
+      <el-tab-pane label="稳定性分析" name="6">
+        <VStability></VStability>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
 // import { apiConfig } from '../../configs/api/apiConfig'
-import VBaseInfo from '../BaseInfo'
-import VBillRecord from '../BillRecord'
-import VFamily from '../Family'
-import VCallRecord from '../CallRecord'
-import VRechargeRecord from '../RechargeRecord'
-import VReportInfo from '../ReportInfo'
-import InfoCheck from '../InfoCheck'
+import VActiveDegree from './ActiveDegree'
+import VConsumption from './Consumption'
+import VThirdPart from './ThirdPart'
+import VStability from './Stability'
+import VRoam from './Roam'
+import VRisk from './Risk'
 
 export default {
   name: 'VCustomerDetailApply',
   data() {
     return {
+      activeTab: '1',
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
@@ -32,7 +44,7 @@ export default {
     }
   },
   components: {
-    VBaseInfo, VBillRecord, VFamily, VCallRecord, VRechargeRecord, VReportInfo, InfoCheck
+    VActiveDegree, VConsumption, VThirdPart, VStability, VRoam, VRisk
   },
   methods: {
     doSizeChange(pageSize) {
@@ -78,6 +90,8 @@ export default {
     height: 100%;
     .el-tabs__item {
       font-size: 12px;
+      line-height: 30px;
+      height: 30px;
       &:nth-child(6) {
         border: none;
       }

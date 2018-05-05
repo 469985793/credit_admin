@@ -1,5 +1,5 @@
 <template>
-  <div class="v_operator__callrecord_container">
+  <div class="v_operator__roam_container">
     <el-table
       class="table_box"
       stripe
@@ -7,28 +7,25 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="手机号">
+            <el-form-item label="漫游地">
               <span>{{ props.row.telNum }}</span>
             </el-form-item>
-            <el-form-item label="对方号码">
+            <el-form-item label="近三个月漫游地漫游天数">
+              <span>{{ props.row.idCardNum }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月漫游地漫游天数">
+              <span>{{ props.row.sex }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月漫游地连续漫游一天以上次数">
+              <span>{{ props.row.applyMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月漫游地连续漫游一天以上次数">
               <span>{{ props.row.applyTime }}</span>
             </el-form-item>
-            <el-form-item label="呼出地">
+            <el-form-item label="近三个月漫游地连续漫游最大天数">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话地类型">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫被叫">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话费(分)">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话时间">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话时长(s)">
+            <el-form-item label="近六个月漫游地连续漫游最大天数">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
           </el-form>
@@ -39,16 +36,16 @@
         prop="id">
       </el-table-column>
       <el-table-column
-        label="手机号"
+        label="漫游地"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="呼出地"
-        prop="sex">
+        label="近三个月漫游地漫游天数"
+        prop="telNum">
       </el-table-column>
       <el-table-column
-        label="对方号码"
-        prop="applyMoney">
+        label="近六个月漫游地漫游天数"
+        prop="sex">
       </el-table-column>
     </el-table>
     <el-pagination
@@ -69,7 +66,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorCallRecord',
+  name: 'VOperatorRoam',
   data() {
     return {
       searchText: '',
@@ -79,8 +76,8 @@ export default {
         {
           id: '1',
           name: '小丽',
-          telNum: 13303939393,
-          idCardNum: 350838383898288222,
+          telNum: 55,
+          idCardNum: 444,
           sex: '女',
           applyMoney: 1000,
           applyTime: '2018-3-4',
@@ -96,8 +93,8 @@ export default {
         {
           id: '2',
           name: '张三',
-          telNum: 13303939393,
-          idCardNum: 350838383898288222,
+          telNum: 55,
+          idCardNum: 444,
           sex: '男',
           applyMoney: 1000,
           applyTime: '2018-3-4',
@@ -185,17 +182,16 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../assets/css/vars.scss';
+@import '../../../../../assets/css/vars.scss';
 
-.v_operator__callrecord_container {
-  height: 100%;
-  overflow-y: scroll;
+.v_operator__roam_container {
   .table_box {
     width: 100%;
     .form_list_box {
       font-size: 0;
       label {
-        width: 130px;
+        font-size: $ent-font-size-small;
+        width: 220px;
         color: #99a9bf;
       }
       .el-form-item {

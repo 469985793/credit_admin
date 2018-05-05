@@ -12,23 +12,31 @@
       </el-table-column>
       <el-table-column
         prop="telNum"
-        label="长号">
+        label="通话地">
       </el-table-column>
       <el-table-column
         prop="telNum"
-        label="短号">
+        label="对方号码">
       </el-table-column>
       <el-table-column
         prop="telNum"
-        label="成员类型">
+        label="通话号码数">
       </el-table-column>
       <el-table-column
         prop="telNum"
-        label="加入日期">
+        label="通话次数">
       </el-table-column>
       <el-table-column
         prop="telNum"
-        label="失效日期">
+        label="通话时长">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="主叫次数">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="被叫次数">
       </el-table-column>
     </el-table>
     <el-pagination

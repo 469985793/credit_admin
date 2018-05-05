@@ -1,54 +1,46 @@
 <template>
-  <div class="v_operator__callrecord_container">
+  <div class="v_operator__dialogtime_container">
     <el-table
-      class="table_box"
+      :data="dataList"
       stripe
-      :data="dataList">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="手机号">
-              <span>{{ props.row.telNum }}</span>
-            </el-form-item>
-            <el-form-item label="对方号码">
-              <span>{{ props.row.applyTime }}</span>
-            </el-form-item>
-            <el-form-item label="呼出地">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话地类型">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫被叫">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话费(分)">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话时间">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话时长(s)">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
+      style="width: 100%"
+      height="100%">
       <el-table-column
+        prop="id"
         label="序号"
-        prop="id">
+        width="60">
       </el-table-column>
       <el-table-column
-        label="手机号"
-        prop="name">
+        prop="telNum"
+        label="通话时间段">
       </el-table-column>
       <el-table-column
-        label="呼出地"
-        prop="sex">
+        prop="telNum"
+        label="通话次数">
       </el-table-column>
       <el-table-column
-        label="对方号码"
-        prop="applyMoney">
+        prop="telNum"
+        label="通话号码数">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="通话总时长">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="主叫号码数">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="被叫号码数">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="第一次通话时间">
+      </el-table-column>
+      <el-table-column
+        prop="telNum"
+        label="最后一次通话时间">
       </el-table-column>
     </el-table>
     <el-pagination
@@ -69,7 +61,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorCallRecord',
+  name: 'VOperatorDialogTime',
   data() {
     return {
       searchText: '',
@@ -185,26 +177,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../assets/css/vars.scss';
+@import '../../../../../assets/css/vars.scss';
 
-.v_operator__callrecord_container {
-  height: 100%;
-  overflow-y: scroll;
-  .table_box {
-    width: 100%;
-    .form_list_box {
-      font-size: 0;
-      label {
-        width: 130px;
-        color: #99a9bf;
-      }
-      .el-form-item {
-        margin-right: 0;
-        margin-bottom: 0;
-        width: 33.3%;
-      }
-    }
-  }
+.v_operator__dialogtime_container {
   .page_box {
     text-align: right;
     margin: $ent-gap-small;

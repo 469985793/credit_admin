@@ -32,13 +32,16 @@
         <VUserParse></VUserParse>
       </el-tab-pane>
       <el-tab-pane label="服务号通话详情">
-        <VReportInfo></VReportInfo>
+        <VServiceDetail></VServiceDetail>
       </el-tab-pane>
-      <el-tab-pane label="消费统计">
-        <VReportInfo></VReportInfo>
+      <el-tab-pane label="消费详情">
+        <VConsumptionDetail></VConsumptionDetail>
       </el-tab-pane>
       <el-tab-pane label="漫游详情">
-        <VReportInfo></VReportInfo>
+        <VRoamDetail></VRoamDetail>
+      </el-tab-pane>
+      <el-tab-pane label="手机活跃度详情">
+        <VActiveDegreeDetail></VActiveDegreeDetail>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -52,6 +55,10 @@ import VFamily from './Family'
 import VCallRecord from './CallRecord'
 import VRechargeRecord from './RechargeRecord'
 import VReportInfo from './ReportInfo'
+import VActiveDegreeDetail from './ActiveDegreeDetail'
+import VConsumptionDetail from './ConsumptionDetail'
+import VServiceDetail from './ServiceDetail'
+import VRoamDetail from './RoamDetail'
 import VInfoCheck from './InfoCheck'
 import VContactInfo from './contactInfo/Index'
 import VContactParse from './contactParse/Index'
@@ -74,6 +81,10 @@ export default {
     VCallRecord,
     VRechargeRecord,
     VReportInfo,
+    VActiveDegreeDetail,
+    VConsumptionDetail,
+    VServiceDetail,
+    VRoamDetail,
     VInfoCheck,
     VContactInfo,
     VContactParse,

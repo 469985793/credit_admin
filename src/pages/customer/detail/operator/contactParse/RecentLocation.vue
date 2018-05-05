@@ -1,5 +1,5 @@
 <template>
-  <div class="v_operator__callrecord_container">
+  <div class="v_operator__recentlocation_container">
     <el-table
       class="table_box"
       stripe
@@ -7,28 +7,46 @@
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="手机号">
+            <el-form-item label="通话归属地">
               <span>{{ props.row.telNum }}</span>
             </el-form-item>
-            <el-form-item label="对方号码">
+            <el-form-item label="通话次数">
               <span>{{ props.row.applyTime }}</span>
             </el-form-item>
-            <el-form-item label="呼出地">
+            <el-form-item label="通话号码数">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话地类型">
+            <el-form-item label="通话总时长">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="主叫被叫">
+            <el-form-item label="主叫次数">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话费(分)">
+            <el-form-item label="被叫次数">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话时间">
+            <el-form-item label="主叫总时长">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
-            <el-form-item label="通话时长(s)">
+            <el-form-item label="被叫总时长">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="平均主叫时长">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="平均被叫时长">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="主叫次数比例">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="被叫次数比例">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="主叫时长比例">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="被叫时长比例">
               <span>{{ props.row.loadMoney }}</span>
             </el-form-item>
           </el-form>
@@ -39,15 +57,19 @@
         prop="id">
       </el-table-column>
       <el-table-column
-        label="手机号"
+        label="通话归属地"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="呼出地"
+        label="通话次数"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="对方号码"
+        label="主叫次数"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="被叫次数"
         prop="applyMoney">
       </el-table-column>
     </el-table>
@@ -69,7 +91,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorCallRecord',
+  name: 'VOperatorRecentLocation',
   data() {
     return {
       searchText: '',
@@ -185,11 +207,9 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../assets/css/vars.scss';
+@import '../../../../../assets/css/vars.scss';
 
-.v_operator__callrecord_container {
-  height: 100%;
-  overflow-y: scroll;
+.v_operator__recentlocation_container {
   .table_box {
     width: 100%;
     .form_list_box {

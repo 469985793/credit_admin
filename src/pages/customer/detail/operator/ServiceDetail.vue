@@ -1,53 +1,43 @@
 <template>
-  <div class="v_operator__callrecord_container">
+  <div class="v_service_detail_container">
     <el-table
       class="table_box"
       stripe
       :data="dataList">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="手机号">
-              <span>{{ props.row.telNum }}</span>
-            </el-form-item>
-            <el-form-item label="对方号码">
-              <span>{{ props.row.applyTime }}</span>
-            </el-form-item>
-            <el-form-item label="呼出地">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话地类型">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="主叫被叫">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话费(分)">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话时间">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="通话时长(s)">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
       <el-table-column
         label="序号"
         prop="id">
       </el-table-column>
       <el-table-column
-        label="手机号"
+        label="服务号码"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="呼出地"
+        label="月份"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="对方号码"
+        label="通话次数"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="通话总时长"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="主叫次数"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="被叫次数"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="主叫总时长"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="被叫总时长"
         prop="applyMoney">
       </el-table-column>
     </el-table>
@@ -69,7 +59,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VOperatorCallRecord',
+  name: 'VOperatorServiceDetail',
   data() {
     return {
       searchText: '',
@@ -187,15 +177,14 @@ export default {
 <style lang="scss">
 @import '../../../../assets/css/vars.scss';
 
-.v_operator__callrecord_container {
-  height: 100%;
-  overflow-y: scroll;
+.v_service_detail_container {
   .table_box {
     width: 100%;
     .form_list_box {
       font-size: 0;
       label {
-        width: 130px;
+        font-size: $ent-font-size-x-small;
+        width: 190px;
         color: #99a9bf;
       }
       .el-form-item {

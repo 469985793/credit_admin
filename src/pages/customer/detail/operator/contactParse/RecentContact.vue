@@ -1,34 +1,124 @@
 <template>
   <div class="v_operator__recentcontact_container">
     <el-table
-      :data="dataList"
+      class="table_box"
       stripe
-      style="width: 100%"
-      height="100%">
+      :data="dataList">
+      <el-table-column type="expand">
+        <template slot-scope="props">
+          <el-form class="form_list_box" label-position="left" inline>
+            <el-form-item label="对方号码">
+              <span>{{ props.row.telNum }}</span>
+            </el-form-item>
+            <el-form-item label="通话归属地">
+              <span>{{ props.row.applyTime }}</span>
+            </el-form-item>
+            <el-form-item label="近一周联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近一月联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三月联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六月联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三月通话时长">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六月通话时长">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月主叫次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月主叫次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月被叫次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月被叫次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月早上(05: 30-11:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月早上(05: 30-11:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月中午(11: 30-13:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月中午(11: 30-13:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月下午(13: 30-17:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月下午(13: 30-17:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月晚上(17: 30-23:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月晚上(17: 30-23:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月凌晨(23: 30-05:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月凌晨(23: 30-05:30)联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月工作日联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月工作日联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月周末联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月周末联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月节假日联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月节假日联系次数">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近三个月是否全天联系">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+            <el-form-item label="近六个月是否全天联系">
+              <span>{{ props.row.loadMoney }}</span>
+            </el-form-item>
+          </el-form>
+        </template>
+      </el-table-column>
       <el-table-column
-        prop="id"
         label="序号"
-        width="60">
+        prop="id">
       </el-table-column>
       <el-table-column
-        prop="telNum"
-        label="长号">
+        label="对方号码"
+        prop="name">
       </el-table-column>
       <el-table-column
-        prop="telNum"
-        label="短号">
+        label="通话归属地"
+        prop="sex">
       </el-table-column>
       <el-table-column
-        prop="telNum"
-        label="成员类型">
+        label="近一周联系次数"
+        prop="applyMoney">
       </el-table-column>
       <el-table-column
-        prop="telNum"
-        label="加入日期">
-      </el-table-column>
-      <el-table-column
-        prop="telNum"
-        label="失效日期">
+        label="近一月联系次数"
+        prop="applyMoney">
       </el-table-column>
     </el-table>
     <el-pagination
@@ -168,6 +258,22 @@ export default {
 @import '../../../../../assets/css/vars.scss';
 
 .v_operator__recentcontact_container {
+  .table_box {
+    width: 100%;
+    .form_list_box {
+      font-size: 0;
+      label {
+        font-size: $ent-font-size-x-small;
+        width: 190px;
+        color: #99a9bf;
+      }
+      .el-form-item {
+        margin-right: 0;
+        margin-bottom: 0;
+        width: 33.3%;
+      }
+    }
+  }
   .page_box {
     text-align: right;
     margin: $ent-gap-small;

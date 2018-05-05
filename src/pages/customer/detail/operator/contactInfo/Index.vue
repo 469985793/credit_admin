@@ -1,29 +1,35 @@
 <template>
   <div class="v_operator__index_container">
-    <el-tabs class="tab_box_luo" type="card" tab-position="top">
-      <el-tab-pane label="近三月联系人" name="1">联系人(3月)</el-tab-pane>
-      <el-tab-pane label="近六月月联系人" name="2">联系人(6月)</el-tab-pane>
-      <el-tab-pane label="近三月联系人号码归属地" name="3">号码归属地(3月)</el-tab-pane>
-      <el-tab-pane label="近六月联系人号码归属地" name="4">号码归属地(6月)</el-tab-pane>
-      <el-tab-pane label="通话统计" name="14">通话统计</el-tab-pane>
+    <el-tabs v-model="activeTab" class="tab_box_luo" type="card" tab-position="top">
+      <el-tab-pane label="近三月联系人" name="1">
+        <VRecentContact></VRecentContact>
+      </el-tab-pane>
+      <el-tab-pane label="近六月月联系人" name="2">
+        <VRecentContact></VRecentContact>
+      </el-tab-pane>
+      <el-tab-pane label="近三月联系人号码归属地" name="3">
+        <VRecentContact></VRecentContact>
+      </el-tab-pane>
+      <el-tab-pane label="近六月联系人号码归属地" name="4">
+        <VRecentContact></VRecentContact>
+      </el-tab-pane>
+      <el-tab-pane label="通话统计" name="5">
+        <VDialogCount></VDialogCount>
+      </el-tab-pane>
     </el-tabs>
   </div>
 </template>
 
 <script>
 // import { apiConfig } from '../../configs/api/apiConfig'
-import VBaseInfo from '../BaseInfo'
-import VBillRecord from '../BillRecord'
-import VFamily from '../Family'
-import VCallRecord from '../CallRecord'
-import VRechargeRecord from '../RechargeRecord'
-import VReportInfo from '../ReportInfo'
-import InfoCheck from '../InfoCheck'
+import VRecentContact from './RecentContact'
+import VDialogCount from './DialogCount'
 
 export default {
   name: 'VCustomerDetailApply',
   data() {
     return {
+      activeTab: '1',
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
@@ -31,7 +37,7 @@ export default {
     }
   },
   components: {
-    VBaseInfo, VBillRecord, VFamily, VCallRecord, VRechargeRecord, VReportInfo, InfoCheck
+    VRecentContact, VDialogCount
   },
   methods: {
     doSizeChange(pageSize) {
@@ -77,11 +83,14 @@ export default {
     height: 100%;
     .el-tabs__item {
       font-size: 12px;
+      line-height: 30px;
+      height: 30px;
       &:nth-child(6) {
         border: none;
       }
     }
   }
+
   .page_box {
     text-align: right;
     margin: $ent-gap-small;
@@ -89,10 +98,14 @@ export default {
     font-weight: lighter;
   }
 }
+.el-tabs__content {
+  height: 100%;
+  .el-tab-pane {
+    height: 100%;
+    // .el-tabs__content {
+    //   height: calc(100% - 65px);
+    //   overflow-y: scroll;
+    // }
+  }
+}
 </style>
-
-
-
-
-
-
