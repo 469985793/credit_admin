@@ -189,7 +189,7 @@ export default {
 
 .v_operator__callrecord_container {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   .table_box {
     width: 100%;
     .form_list_box {

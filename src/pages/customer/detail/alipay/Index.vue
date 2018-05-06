@@ -65,9 +65,12 @@ export default {
 
 .v_alipay_index {
   height: 100%;
-  .el-tabs__content {
+  .tab_box {
     height: 100%;
-    overflow-y: scroll;
+    .el-tabs__content {
+      height: 100%;
+      overflow-y: auto;
+    }
   }
   .highlight {
     color: $ent-color-danger;

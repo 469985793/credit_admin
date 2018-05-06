@@ -209,7 +209,7 @@ export default {
 @import '../../../../assets/css/vars.scss';
 .v_consumption_detail {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   .highlight {
     color: $ent-color-danger;
   }

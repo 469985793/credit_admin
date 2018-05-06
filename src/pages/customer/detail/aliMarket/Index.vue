@@ -1,5 +1,5 @@
 <template>
-  <div class="v_alipay_index">
+  <div class="v_alimarket_index">
     <el-tabs class="tab_box" tab-position="right">
       <el-tab-pane label="基本信息">
         <VBaseInfo></VBaseInfo>
@@ -25,7 +25,7 @@ import VDeliverAddr from './DeliverAddr'
 import VOrderInfo from './OrderInfo'
 
 export default {
-  name: 'VAlipay',
+  name: 'VAliMarket',
   data() {
     return {
       isLoading: false,
@@ -55,11 +55,14 @@ export default {
 <style lang="scss">
 @import '../../../../assets/css/vars.scss';
 
-.v_alipay_index {
+.v_alimarket_index {
   height: 100%;
-  .el-tabs__content {
+  .tab_box {
     height: 100%;
-    overflow-y: scroll;
+    .el-tabs__content {
+      height: 100%;
+      overflow-y: auto;
+    }
   }
   .highlight {
     color: $ent-color-danger;

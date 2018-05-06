@@ -1,5 +1,5 @@
 <template>
-  <div class="v_insurace_baseinfo">
+  <div class="v_alimarket_baseinfo">
     <el-tag class="title_box">基本信息</el-tag>
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="映射ID">
@@ -91,7 +91,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VInsuranceBaseInfo',
+  name: 'VAliMarketBaseInfo',
   data() {
     return {
       dataList: [
@@ -184,7 +184,7 @@ export default {
 
 <style lang="scss">
 @import '../../../../assets/css/vars.scss';
-.v_insurace_baseinfo {
+.v_alimarket_baseinfo {
   .highlight {
     color: $ent-color-danger;
   }

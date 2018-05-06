@@ -285,7 +285,7 @@ export default {
 
 .v_operator__thirdpart_container {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   .highlight {
     color: $ent-color-danger;
   }

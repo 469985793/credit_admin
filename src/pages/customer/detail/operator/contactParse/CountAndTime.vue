@@ -303,7 +303,7 @@ export default {
 
 .v_operator__countandtime_container {
   height: 100%;
-  overflow-y: scroll;
+  overflow-y: auto;
   .highlight {
     color: $ent-color-danger;
   }

@@ -1,76 +1,47 @@
 <template>
-  <div class="v_credit_discredit">
+  <div class="v_alimarket_orderinfo">
     <el-table
       class="table_box"
       stripe
       :data="dataList">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="映射ID">
-              <span>{{ props.row.telNum }}</span>
-            </el-form-item>
-            <el-form-item label="交易号">
-              <span>{{ props.row.applyTime }}</span>
-            </el-form-item>
-            <el-form-item label="交易时间">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="交易来源地">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="交易类型">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="交易对方">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="商品名称">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="交易金额">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="支出或收入">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="交易状态">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="服务费">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="成功退款金额">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="交易备注">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-            <el-form-item label="资金状态">
-              <span>{{ props.row.loadMoney }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
       <el-table-column
+        width="60"
         label="序号"
         prop="id">
       </el-table-column>
       <el-table-column
-        label="交易号"
+        label="交易状态"
         prop="name">
       </el-table-column>
       <el-table-column
-        label="交易来源地"
+        label="交易时间"
         prop="sex">
       </el-table-column>
       <el-table-column
-        label="交易类型"
+        label="订单金额"
         prop="applyMoney">
       </el-table-column>
       <el-table-column
-        label="交易金额"
+        label="卖家id"
         prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="卖家昵称"
+        prop="name">
+      </el-table-column>
+      <el-table-column
+        label="店铺名称"
+        prop="sex">
+      </el-table-column>
+      <el-table-column
+        label="交易状态中文"
+        prop="applyMoney">
+      </el-table-column>
+      <el-table-column
+        label="操作">
+        <template slot-scope="scope">
+          <el-button @click.stop="isShowDialog = true" type="primary" size="small">查看详情</el-button>
+        </template>
       </el-table-column>
     </el-table>
     <el-pagination
@@ -84,6 +55,78 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
+    <el-dialog title="订单详情" :visible.sync="isShowDialog">
+      <el-table
+        class="table_box"
+        stripe
+        :data="dataList">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form class="form_list_box" label-position="left" inline>
+              <el-form-item label="交易id">
+                <span>{{ props.row.telNum }}</span>
+              </el-form-item>
+              <el-form-item label="商品id">
+                <span>{{ props.row.applyTime }}</span>
+              </el-form-item>
+              <el-form-item label="商品链接">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+              <el-form-item label="商品图片">
+                <img />
+              </el-form-item>
+              <el-form-item label="商品名称">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+              <el-form-item label="商品数量">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+              <el-form-item label="商品原价">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+              <el-form-item label="商品真实交易价格">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+              <el-form-item label="一级目录的id">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+              <el-form-item label="二级目录的id">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+              <el-form-item label="一级目录的名称">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+              <el-form-item label="二级目录的名称">
+                <span>{{ props.row.loadMoney }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="序号"
+          prop="id">
+        </el-table-column>
+        <el-table-column
+          label="交易id"
+          prop="name">
+        </el-table-column>
+        <el-table-column
+          label="商品id"
+          prop="sex">
+        </el-table-column>
+        <el-table-column
+          label="商品名称"
+          prop="applyMoney">
+        </el-table-column>
+        <el-table-column
+          label="商品原价"
+          prop="applyMoney">
+        </el-table-column>
+      </el-table>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="isShowDialog = false">关闭</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -91,9 +134,10 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCreditDiscredit',
+  name: 'VAliMarketOrderInfo',
   data() {
     return {
+      isShowDialog: false,
       searchText: '',
       readStatus: '全部',
       order: 'ascend',
@@ -209,7 +253,7 @@ export default {
 <style lang="scss">
 @import '../../../../assets/css/vars.scss';
 
-.v_credit_discredit {
+.v_alimarket_orderinfo {
   .table_box {
     width: 100%;
     .form_list_box {

@@ -1,5 +1,5 @@
 <template>
-  <div class="v_credit_discredit">
+  <div class="v_recent_deliver_addr">
     <el-table
       class="table_box"
       stripe
@@ -85,7 +85,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCreditDiscredit',
+  name: 'VRecentDeliverAddr',
   data() {
     return {
       searchText: '',
@@ -203,7 +203,7 @@ export default {
 <style lang="scss">
 @import '../../../../assets/css/vars.scss';
 
-.v_credit_discredit {
+.v_recent_deliver_addr {
   .table_box {
     width: 100%;
     .form_list_box {

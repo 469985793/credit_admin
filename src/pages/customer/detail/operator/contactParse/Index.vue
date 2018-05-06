@@ -1,6 +1,6 @@
 <template>
   <div class="v_operator__index_container">
-    <el-tabs v-model="activeTab" class="tab_box_luo" type="card" tab-position="top">
+    <el-tabs v-model="activeTab" class="tab_box" type="card" tab-position="top">
       <el-tab-pane label="近三月联系人号码归属地通话详情分析" name="1">
         <VRecentLoaction></VRecentLoaction>
       </el-tab-pane>
@@ -81,14 +81,14 @@ export default {
   .el-form-item {
     margin-bottom: $ent-gap-x-small;
   } /* overwrite */
-  .tab_box_luo {
+  .tab_box {
     height: 100%;
     .el-tabs__item {
       font-size: 12px;
       line-height: 30px;
       height: 30px;
       &:nth-child(6) {
-        border: none;
+        border-bottom: none;
       }
     }
   }

@@ -77,6 +77,17 @@
         prop="loadMoney">
       </el-table-column>
     </el-table>
+    <el-pagination
+      class="page_box"
+      background
+      @size-change="doSizeChange"
+      @current-change="doCurrentChange"
+      :current-page="1"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalData">
+    </el-pagination>
   </div>
 </template>
 

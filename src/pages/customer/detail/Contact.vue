@@ -1,6 +1,33 @@
 <template>
-  <div class="v_customer_detail_apply_container">
-    通讯录
+  <div class="v_customer_detail_contact">
+    <el-table
+      class="table_box"
+      stripe
+      :data="dataList">
+      <el-table-column
+        label="序号"
+        prop="id">
+      </el-table-column>
+      <el-table-column
+        label="姓名"
+        prop="userName">
+      </el-table-column>
+      <el-table-column
+        label="手机号"
+        prop="telNum">
+      </el-table-column>
+    </el-table>
+    <el-pagination
+      class="page_box"
+      background
+      @size-change="doSizeChange"
+      @current-change="doCurrentChange"
+      :current-page="1"
+      :page-sizes="[10, 20, 50, 100]"
+      :page-size="100"
+      layout="total, sizes, prev, pager, next, jumper"
+      :total="totalData">
+    </el-pagination>
   </div>
 </template>
 
@@ -8,7 +35,7 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCustomerDetailApply',
+  name: 'VCustomerDetailContact',
   data() {
     return {
       searchText: '',
@@ -16,7 +43,7 @@ export default {
       order: 'ascend',
       dataList: [
         {
-          dkId: '1',
+          id: '1',
           userName: '张三',
           telNum: '1222929929',
           currentAddress: '上海市-普通新区-林展路411弄1501',
@@ -29,7 +56,7 @@ export default {
           modiJobno: '罗晓彬'
         },
         {
-          dkId: '2',
+          id: '2',
           userName: '张三2',
           telNum: '1222929929',
           currentAddress: '上海市',
@@ -42,7 +69,7 @@ export default {
           modiJobno: '罗晓彬'
         },
         {
-          dkId: '3',
+          id: '3',
           userName: '张三3',
           telNum: '1222929929',
           currentAddress: '上海市',
@@ -131,7 +158,7 @@ export default {
 <style lang="scss">
 @import '../../../assets/css/vars.scss';
 
-.v_customer_detail_apply_container {
+.v_customer_detail_contact {
   .highlight {
     color: $ent-color-danger;
   }

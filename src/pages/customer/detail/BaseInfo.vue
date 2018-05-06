@@ -1,6 +1,74 @@
 <template>
-  <div class="v_customer_detail_record_container">
-    基本信息
+  <div class="v_customer_detail_baseinfo">
+    <el-tag class="title_box">基本信息</el-tag>
+    <el-form class="form_list_box" label-position="left" inline>
+      <el-form-item label="姓名">
+        <span>张三</span>
+      </el-form-item>
+      <el-form-item label="手机号">
+        <span>133344232332</span>
+      </el-form-item>
+      <el-form-item label="身份证号">
+        <span>33</span>
+      </el-form-item>
+      <el-form-item label="性别">
+        <span>2019-3-5</span>
+      </el-form-item>
+      <el-form-item label="QQ">
+        <span>100</span>
+      </el-form-item>
+      <el-form-item label="芝麻分">
+        <span>100</span>
+      </el-form-item>
+      <el-form-item label="居住地">
+        <span>100</span>
+      </el-form-item>
+      <el-form-item label="详细地址">
+        <span>100</span>
+      </el-form-item>
+      <el-form-item label="正面">
+        <span>张三</span>
+      </el-form-item>
+      <el-form-item label="反面">
+        <span>133344232332</span>
+      </el-form-item>
+      <el-form-item label="手持照">
+        <span>33</span>
+      </el-form-item>
+    </el-form>
+    <el-tag class="title_box">补充信息</el-tag>
+    <el-form class="form_list_box" label-position="left" inline>
+      <el-form-item label="月收入">
+        <span>张三</span>
+      </el-form-item>
+      <el-form-item label="当前负债">
+        <span>133344232332</span>
+      </el-form-item>
+      <el-form-item label="公司名称">
+        <span>33</span>
+      </el-form-item>
+      <el-form-item label="公司电话">
+        <span>张三</span>
+      </el-form-item>
+      <el-form-item label="公司所在地">
+        <span>133344232332</span>
+      </el-form-item>
+      <el-form-item label="详细地址">
+        <span>33</span>
+      </el-form-item>
+      <el-form-item label="职位">
+        <span>张三</span>
+      </el-form-item>
+      <el-form-item label="紧急联系人">
+        <span>133344232332</span>
+      </el-form-item>
+      <el-form-item label="紧急联系人2">
+        <span>33</span>
+      </el-form-item>
+      <el-form-item label="备用手机">
+        <span>33</span>
+      </el-form-item>
+    </el-form>
   </div>
 </template>
 
@@ -8,12 +76,9 @@
 // import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
-  name: 'VCustomerDetailRecord',
+  name: 'VCustomerDetailBaseInfo',
   data() {
     return {
-      searchText: '',
-      readStatus: '全部',
-      order: 'ascend',
       dataList: [
         {
           dkId: '1',
@@ -53,6 +118,32 @@ export default {
           reserveOne: '0',
           remark: '这个是个穷小子',
           modiJobno: '罗晓彬'
+        },
+        {
+          dkId: '4',
+          userName: '张三3',
+          telNum: '1222929929',
+          currentAddress: '上海市',
+          monthIncome: '1000元',
+          contactQq: '1000元',
+          crtTime: '2016-06-6',
+          status: '11102',
+          reserveOne: '0',
+          remark: '这个是个穷小子',
+          modiJobno: '罗晓彬'
+        },
+        {
+          dkId: '5',
+          userName: '张三3',
+          telNum: '1222929929',
+          currentAddress: '上海市',
+          monthIncome: '1000元',
+          contactQq: '1000元',
+          crtTime: '2016-06-6',
+          status: '11102',
+          reserveOne: '0',
+          remark: '这个是个穷小子',
+          modiJobno: '罗晓彬'
         }
       ],
       isLoading: false,
@@ -61,59 +152,7 @@ export default {
       totalData: 100
     }
   },
-  created() {
-    this.fetchData();
-  },
-  watch: {
-    readStatus() {
-      this.doQuery();
-    },
-    order() {
-      this.doQuery();
-    }
-  },
   methods: {
-    fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
-      }
-    },
-    goPage(userId, page) {
-      this.$router.push({path: '/' + page + '/' + userId});
-    },
-    doQuery() {
-      this.isLoading = true;
-      this.fetchData(true);
-      console.log('submit!');
-    },
     doSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.fetchData();
@@ -130,29 +169,30 @@ export default {
 
 <style lang="scss">
 @import '../../../assets/css/vars.scss';
-
-.v_customer_detail_record_container {
+.v_customer_detail_baseinfo {
+  height: 100%;
+  overflow-y: auto;
   .highlight {
     color: $ent-color-danger;
   }
-
-  /* overwrite */
-  .el-table {
-    font-size: 13px;
-    .cell {
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
+  .form_list_box {
+    font-size: 0;
+    margin: 0 $ent-gap-base;
+    width: calc(100% - 24px);
+    label {
+      font-size: $ent-font-size-small;
+      width: 150px;
+      color: #99a9bf;
     }
-    .el-badge__content.is-fixed.is-dot {
-      left: -20px;
-      top: 2px;
+    .el-form-item {
+      margin-right: 0;
+      margin-bottom: 0;
+      width: 33.3%;
     }
   }
-  .el-form-item {
-    margin-bottom: $ent-gap-x-small;
-  } /* overwrite */
-
+  .title_box {
+    margin: $ent-gap-xx-small $ent-gap-small;
+  }
   .page_box {
     text-align: right;
     margin: $ent-gap-small;
@@ -181,9 +221,3 @@ export default {
   }
 }
 </style>
-
-
-
-
-
-
