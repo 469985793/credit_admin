@@ -100,6 +100,9 @@
         <el-form-item label="申请金额">
           <el-input v-model="dialogFormData.money" placeholder="申请金额" :disabled="true"></el-input>
         </el-form-item>
+        <el-form-item label="申请天数">
+          <el-input v-model="dialogFormData.money" placeholder="申请天数" :disabled="true"></el-input>
+        </el-form-item>
         <el-form-item label="审批金额">
           <el-input v-model="dialogFormData.name" placeholder="审批金额" :disabled="true"></el-input>
         </el-form-item>

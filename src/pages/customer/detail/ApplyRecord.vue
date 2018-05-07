@@ -22,6 +22,9 @@
             <el-form-item label="申请金额">
               <span>{{ props.row.applyMoney }}</span>
             </el-form-item>
+            <el-form-item label="申请天数">
+              <span>{{ props.row.applyMoney }}</span>
+            </el-form-item>
             <el-form-item label="申请时间">
               <span>{{ props.row.applyTime }}</span>
             </el-form-item>
@@ -214,6 +217,8 @@ export default {
 @import '../../../assets/css/vars.scss';
 
 .v_customer_detail_apply_record_container {
+  height: 100%;
+  overflow-y: auto;
   .table_box {
     width: 100%;
     .form_list_box {

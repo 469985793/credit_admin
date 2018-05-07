@@ -131,11 +131,14 @@
         <el-form-item label="性别">
           <el-input v-model="dialogFormData.money" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
+        <el-form-item label="月收入">
+          <el-input v-model="dialogFormData.money" placeholder="月收入"></el-input>
+        </el-form-item>
         <el-form-item label="申请金额">
           <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
         </el-form-item>
-        <el-form-item label="月收入">
-          <el-input v-model="dialogFormData.money" placeholder="月收入"></el-input>
+        <el-form-item label="申请天数">
+          <el-input v-model="dialogFormData.money" placeholder="申请天数"></el-input>
         </el-form-item>
         <el-form-item label="芝麻分">
           <el-input v-model="dialogFormData.name" placeholder="芝麻分" :disabled="true"></el-input>

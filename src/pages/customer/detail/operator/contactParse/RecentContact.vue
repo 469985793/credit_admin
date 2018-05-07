@@ -258,7 +258,10 @@ export default {
 @import '../../../../../assets/css/vars.scss';
 
 .v_operator__recentcontact_container {
+  height: 100%;
   .table_box {
+    height: 100%;
+    overflow-y: auto;
     width: 100%;
     .form_list_box {
       font-size: 0;

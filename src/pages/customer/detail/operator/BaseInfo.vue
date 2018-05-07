@@ -140,6 +140,8 @@ export default {
 @import '../../../../assets/css/vars.scss';
 
 .v_operator__baseinfo_container {
+  height: 100%;
+  overflow-y: auto;
   .highlight {
     color: $ent-color-danger;
   }

@@ -154,6 +154,8 @@ export default {
 @import '../../../../assets/css/vars.scss';
 
 .v_roam_detail_container {
+  height: 100%;
+  overflow-y: auto;
   .table_box {
     width: 100%;
     .form_list_box {

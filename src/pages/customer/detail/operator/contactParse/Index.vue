@@ -1,5 +1,5 @@
 <template>
-  <div class="v_operator__index_container">
+  <div class="v_contact_parse_container">
     <el-tabs v-model="activeTab" class="tab_box" type="card" tab-position="top">
       <el-tab-pane label="近三月联系人号码归属地通话详情分析" name="1">
         <VRecentLoaction></VRecentLoaction>
@@ -59,7 +59,7 @@ export default {
 <style lang="scss">
 @import '../../../../../assets/css/vars.scss';
 
-.v_operator__index_container {
+.v_contact_parse_container {
   height: 100%;
   .highlight {
     color: $ent-color-danger;

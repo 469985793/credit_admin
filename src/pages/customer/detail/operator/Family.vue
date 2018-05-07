@@ -1,6 +1,7 @@
 <template>
   <div class="v_operator__family_container">
     <el-table
+      class="table_box"
       :data="dataList"
       stripe
       style="width: 100%"
@@ -168,6 +169,11 @@ export default {
 @import '../../../../assets/css/vars.scss';
 
 .v_operator__family_container {
+  height: 100%;
+  overflow-y: auto;
+  .table_box {
+    height: calc(100% - 56px) !important;
+  }
   .page_box {
     text-align: right;
     margin: $ent-gap-small;
