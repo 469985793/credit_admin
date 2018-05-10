@@ -1,9 +1,19 @@
+/*****************************************************************
+ ** Copyright (C), 2018-2019, Luoxiaobin
+ ** File Name: httpService.js
+ ** Description: 用于http请求
+ ** Function List: get, post, delete, put
+ ** History:
+ **   1. Created by Luoxiaobin in 2017-11-2
+ *****************************************************************/
 import Vue from 'vue'
 import axios from 'axios'
 import {storage} from './storage'
+import { Message } from 'element-ui'
 
 axios.interceptors.request.use((config) => {
   let token = storage.cookie.get('token');
+
   if (token !== null) {
     config.headers.Authorization = token;
   }
@@ -13,6 +23,11 @@ axios.interceptors.request.use((config) => {
 });
 
 axios.interceptors.response.use((response) => {
+  if (response.status !== 200) {
+    Message.error({
+      message: '获取数据失败'
+    });
+  }
   return response;
 }, (error) => {
   return Promise.reject(error);
@@ -55,7 +70,7 @@ const _doRequest = (type, options, ...params) => {
       break;
     case 'get':
     case 'delete':
-      promise = axios[type](params[0] + options[0]);
+      promise = axios[type](params[0], options[0]);
       break;
     default: break;
   }
@@ -69,11 +84,43 @@ const _resolvePromise = function(promise, options) {
 
 let HttpService = function() {}
 HttpService.prototype = {
+  /*****************************************************************
+  ** Function Name: fetch
+  ** Description: http请求,完全按照axios文档的axios()方法传参数
+  ** Params:
+  **   @param obj {object}
+  **   @param cb {function}
+  ** Return:
+  **   @param response {any}
+  ** Usage:
+  **  let obj = {
+  **     url: xxx,
+  **     methods: xxx
+  **     ...
+  **  }
+  **  this.httpService.post(obj, (response) => {
+  **    // todo
+  **  });
+  *****************************************************************/
   fetch: (obj, cb) => {
     axios(obj)
     .then(res => _handComplete(res, cb))
     .catch(error => _handleError(error, cb));
   },
+  /*****************************************************************
+  ** Function Name: all
+  ** Description: http请求,完全按照axios文档的axios.all()传参数
+  ** Params:
+  **   @param httpArray {Array}
+  **   @param cb {function}
+  ** Return:
+  **   @param response {any}
+  ** Usage:
+  **  let httpArray = [axiosRequest_1, axiosRequest_2, ...]
+  **  this.httpService.all(httpArray, (response) => {
+  **    // todo
+  **  });
+  *****************************************************************/
   all: (httpArray, cb) => {
     let promiseArray = httpArray.map((obj) => {
       return axios(obj);
@@ -83,15 +130,72 @@ HttpService.prototype = {
     .then(res => _handComplete(res, cb))
     .catch(error => _handleError(error, cb));
   },
+  /*****************************************************************
+  ** Function Name: post
+  ** Description: http post请求
+  ** Params:
+  **   @param url {string}
+  **   @param data {object}
+  **   @param option {object}
+  **   @param cb {function}
+  ** Return:
+  **   @param response {any}
+  ** Usage:
+  **  this.httpService.post(url, data[, option], (response) => {
+  **    // todo
+  **  });
+  *****************************************************************/
   post: (url, obj, ...options) => {
     _doRequest('post', options, url, obj);
   },
+  /*****************************************************************
+  ** Function Name: get
+  ** Description: http get请求
+  ** Params:
+  **   @param url {string}
+  **   @param option {object}
+  **   @param cb {function}
+  ** Return:
+  **   @param response {any}
+  ** Usage:
+  **  this.httpService.get(url[, option], (response) => {
+  **    // todo
+  **  });
+  *****************************************************************/
   get: (url, ...options) => {
     _doRequest('get', options, url);
   },
+  /*****************************************************************
+  ** Function Name: delete
+  ** Description: http delete请求
+  ** Params:
+  **   @param url {string}
+  **   @param option {object}
+  **   @param cb {function}
+  ** Return:
+  **   @param response {any}
+  ** Usage:
+  **  this.httpService.delete(url[, option], (response) => {
+  **    // todo
+  **  });
+  *****************************************************************/
   delete: (url, ...options) => {
     _doRequest('delete', options, url);
   },
+  /*****************************************************************
+  ** Function Name: post
+  ** Description: http post请求
+  ** Params:
+  **   @param url {string}
+  **   @param option {object}
+  **   @param cb {function}
+  ** Return:
+  **   @param response {any}
+  ** Usage:
+  **  this.httpService.post(url[, option], (response) => {
+  **    // todo
+  **  });
+  *****************************************************************/
   put: (url, obj, ...options) => {
     _doRequest('put', options, url, obj);
   }

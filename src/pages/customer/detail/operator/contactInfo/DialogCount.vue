@@ -2,115 +2,124 @@
   <div class="v_operator__dialogcount_container">
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="近1个月通话次数">
-        <span>张三</span>
+        <span>{{data.total_num_1m}}</span>
       </el-form-item>
       <el-form-item label="近3个月通话次数">
-        <span>133344232332</span>
+        <span>{{data.total_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月通话次数">
-        <span>3509382899328283823</span>
+        <span>{{data.total_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近3个月均通话次数">
-        <span>2019-3-5</span>
+        <span>{{data.total_num_avg_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月均通话次数">
-        <span>100</span>
+        <span>{{data.total_num_avg_6m}}</span>
       </el-form-item>
       <el-form-item label="近1个月通话总时长">
-        <span>高端套餐</span>
+        <span>{{data.total_time_1m}}</span>
       </el-form-item>
       <el-form-item label="近3个月通话总时长">
-        <span>正常</span>
+        <span>{{data.total_time_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月通话总时长">
-        <span>五星</span>
+        <span>{{data.total_time_6m}}</span>
       </el-form-item>
       <el-form-item label="近3个月平均通话总时长">
-        <span>电信</span>
+        <span>{{data.total_time_avg_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月平均通话总时长">
-        <span>上海</span>
+        <span>{{data.total_time_avg_6m}}</span>
       </el-form-item>
       <el-form-item label="近1个月通话号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_peer_num_1m}}</span>
       </el-form-item>
       <el-form-item label="近3个月通话号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_peer_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月通话号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_peer_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近3个月均通话号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_peer_num_avg_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月均通话号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_peer_num_avg_6m}}</span>
       </el-form-item>
       <el-form-item label="近1个月通话号码归属地总数">
-        <span>2019-3-25</span>
+        <span>{{data.total_city_num_1m}}</span>
       </el-form-item>
       <el-form-item label="近3个月通话号码归属地总数">
-        <span>2019-3-25</span>
+        <span>{{data.total_city_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月通话号码归属地总数">
-        <span>2019-3-25</span>
+        <span>{{data.total_city_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近3个月均通话号码归属地总数">
-        <span>2019-3-25</span>
+        <span>{{data.total_city_num_avg_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月均通话号码归属地总数">
-        <span>2019-3-25</span>
+        <span>{{data.total_city_num_avg_6m}}</span>
+      </el-form-item>
+      <el-form-item label="近1个月主叫次数">
+        <span>{{data.total_dial_num_1m}}</span>
       </el-form-item>
       <el-form-item label="近3个月主叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dial_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月主叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dial_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近3个月均主叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dial_num_avg_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月均主叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dial_num_avg_6m}}</span>
       </el-form-item>
       <el-form-item label="近1个月被叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dialed_num_1m}}</span>
       </el-form-item>
       <el-form-item label="近3个月被叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dialed_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月被叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dialed_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近3个月均被叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dialed_num_avg_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月均被叫次数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dialed_num_avg_6m}}</span>
+      </el-form-item>
+      <el-form-item label="近1个月主叫号码数">
+        <span>{{data.total_dial_peer_num_1m}}</span>
       </el-form-item>
       <el-form-item label="近3个月主叫号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dial_peer_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月主叫号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dial_peer_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近3个月均主叫号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dial_peer_num_avg_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月均主叫号码数">
-        <span>888</span>
+        <span>{{data.total_dial_peer_num_avg_6m}}</span>
+      </el-form-item>
+      <el-form-item label="近1个月被叫号码数">
+        <span>{{data.total_dialed_peer_num_1m}}</span>
       </el-form-item>
       <el-form-item label="近3个月被叫号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dialed_peer_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月被叫号码数">
-        <span>2019-3-25</span>
+        <span>{{data.total_dialed_peer_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近3个月均被叫号码数">
-        <span>99</span>
+        <span>{{data.total_dialed_peer_num_avg_3m}}</span>
       </el-form-item>
       <el-form-item label="近6个月均被叫号码数">
-        <span>444</span>
+        <span>{{data.total_dialed_peer_num_avg_6m}}</span>
       </el-form-item>
     </el-form>
   </div>
@@ -121,91 +130,12 @@
 
 export default {
   name: 'VOperatorDialogCount',
-  data() {
-    return {
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '4',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '5',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
-    }
-  },
-  methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   }
 }
@@ -234,33 +164,6 @@ export default {
       margin-right: 0;
       margin-bottom: 0;
       width: 33.3%;
-    }
-  }
-
-  .page_box {
-    text-align: right;
-    margin: $ent-gap-small;
-    font-size: 13px;
-    font-weight: lighter;
-  }
-  @media screen and (max-width: 767px) {
-    .edit_btn {
-      margin: 2px 0;
-    }
-    .el-pagination {
-      text-align: center;
-    }
-    .el-pagination__jump,
-    .el-pagination__total {
-      display: none !important;
-    }
-    .el-pagination__sizes {
-      display: block !important;
-      margin-bottom: $ent-gap-x-small;
-    }
-    .el-pager {
-      max-width: calc(100% - 100px);
-      overflow: scroll;
     }
   }
 }

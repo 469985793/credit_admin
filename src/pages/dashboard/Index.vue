@@ -6,7 +6,11 @@
 
 <script>
 export default {
-  name: 'VDashbord'
+  name: 'VDashbord',
+  created() {
+    this.httpService.get('/api/userinfo', (res) => {
+    });
+  }
 }
 </script>
 

@@ -2,40 +2,40 @@
   <div class="v_operator__baseinfo_container">
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="姓名">
-        <span>张三</span>
+        <span>{{data.name}}</span>
       </el-form-item>
       <el-form-item label="手机号">
-        <span>133344232332</span>
+        <span>{{data.mobile}}</span>
       </el-form-item>
       <el-form-item label="证件号码">
-        <span>3509382899328283823</span>
+        <span>{{data.idcard}}</span>
       </el-form-item>
       <el-form-item label="入网时间">
-        <span>2019-3-5</span>
+        <span>{{data.name}}</span>
       </el-form-item>
       <el-form-item label="当前余额">
-        <span>100</span>
+        <span>{{data.name}}</span>
       </el-form-item>
       <el-form-item label="套餐类型">
-        <span>高端套餐</span>
+        <span>{{data.name}}</span>
       </el-form-item>
       <el-form-item label="状态">
-        <span>正常</span>
+        <span>{{data.name}}</span>
       </el-form-item>
       <el-form-item label="账号星级">
-        <span>五星</span>
+        <span>{{data.name}}</span>
       </el-form-item>
       <el-form-item label="所属运营商">
-        <span>电信</span>
+        <span>{{data.name}}</span>
       </el-form-item>
       <el-form-item label="号码归属省份">
-        <span>上海</span>
+        <span>{{data.name}}</span>
       </el-form-item>
       <el-form-item label="号码归属城市">
-        <span>上海</span>
+        <span>{{data.address}}</span>
       </el-form-item>
       <el-form-item label="最近一次更新时间">
-        <span>2019-3-25</span>
+        <span>{{data.name}}</span>
       </el-form-item>
     </el-form>
   </div>
@@ -46,91 +46,12 @@
 
 export default {
   name: 'VOperatorBaseInfo',
-  data() {
-    return {
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '4',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '5',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
-    }
-  },
-  methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   }
 }

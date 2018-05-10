@@ -2,7 +2,7 @@
   <div class="v_customer_detail_operator_container">
     <el-tabs class="tab_box" tab-position="right">
       <el-tab-pane label="个人信息">
-        <VBaseInfo></VBaseInfo>
+        <VBaseInfo :data="dataObj.user_basic_info"></VBaseInfo>
       </el-tab-pane>
       <el-tab-pane label="账单记录">
         <VBillRecord></VBillRecord>
@@ -17,13 +17,13 @@
         <VRechargeRecord></VRechargeRecord>
       </el-tab-pane>
       <el-tab-pane label="报告基本信息">
-        <VReportInfo></VReportInfo>
+        <VReportInfo :infoData="dataObj.user_basic_info" :srcData="dataObj.data_source"></VReportInfo>
       </el-tab-pane>
       <el-tab-pane label="信息校验">
-        <VInfoCheck></VInfoCheck>
+        <VInfoCheck :dataList="dataObj.basic_info_check_items"></VInfoCheck>
       </el-tab-pane>
       <el-tab-pane label="联系人信息">
-        <VContactInfo></VContactInfo>
+        <VContactInfo :data="dataObj.friend_circle"></VContactInfo>
       </el-tab-pane>
       <el-tab-pane label="联系人分析">
         <VContactParse></VContactParse>
@@ -71,7 +71,8 @@ export default {
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
-      totalData: 100
+      totalData: 100,
+      dataObj: {}
     }
   },
   components: {
@@ -90,16 +91,22 @@ export default {
     VContactParse,
     VUserParse
   },
+  created() {
+    this.fetchData();
+  },
   methods: {
+    fetchData() {
+      this.httpService.get('/api/operator', (res) => {
+        this.dataObj = res.data.data.data;
+      });
+    },
     doSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
     },
     doCurrentChange(pageNum) {
       this.pageNum = pageNum;
       this.fetchData();
-      console.log(`当前页: ${pageNum}`);
     }
   }
 }

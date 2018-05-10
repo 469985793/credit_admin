@@ -3,52 +3,52 @@
     <el-tag class="title_box">申请信息</el-tag>
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="姓名">
-        <span>张三</span>
+        <span>{{infoData.name}}</span>
       </el-form-item>
       <el-form-item label="手机号">
-        <span>133344232332</span>
+        <span>{{infoData.mobile}}</span>
       </el-form-item>
       <el-form-item label="证件号码">
-        <span>3509382899328283823</span>
+        <span>{{infoData.idcard}}</span>
       </el-form-item>
       <el-form-item label="客户提供姓名">
-        <span>2019-3-5</span>
+        <span>{{infoData.name_from_custom}}</span>
       </el-form-item>
       <el-form-item label="客户提供身份证号">
-        <span>100</span>
+        <span>{{infoData.idcard_from_custom}}</span>
       </el-form-item>
       <el-form-item label="性别">
-        <span>高端套餐</span>
+        <span>{{infoData.gender}}</span>
       </el-form-item>
       <el-form-item label="年龄">
-        <span>正常</span>
+        <span>{{infoData.age}}</span>
       </el-form-item>
       <el-form-item label="星座">
-        <span>五星</span>
+        <span>{{infoData.constellation}}</span>
       </el-form-item>
       <el-form-item label="邮箱">
-        <span>电信</span>
+        <span>{{infoData.email}}</span>
       </el-form-item>
       <el-form-item label="籍贯">
-        <span>上海</span>
+        <span>{{infoData.native_place}}</span>
       </el-form-item>
       <el-form-item label="手机号码归属地">
-        <span>上海</span>
+        <span>{{infoData.live_address}}</span>
       </el-form-item>
       <el-form-item label="居住或工作地址">
-        <span>2019-3-25</span>
+        <span>{{infoData.work_address}}</span>
       </el-form-item>
     </el-form>
     <el-tag class="title_box">数据来源</el-tag>
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="数据源名称">
-        <span>张三</span>
+        <span>{{srcData.source_name}}</span>
       </el-form-item>
       <el-form-item label="数据类别">
-        <span>133344232332</span>
+        <span>{{srcData.data_type}}</span>
       </el-form-item>
       <el-form-item label="获取时间">
-        <span>2019-3-25</span>
+        <span>{{srcData.data_gain_time}}</span>
       </el-form-item>
     </el-form>
   </div>
@@ -59,91 +59,18 @@
 
 export default {
   name: 'VOperatorReportInfo',
-  data() {
-    return {
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '4',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '5',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
-    }
-  },
-  methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
+  props: {
+    infoData: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
+    srcData: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   }
 }

@@ -2,19 +2,19 @@
   <div class="v_contact_info_container">
     <el-tabs v-model="activeTab" class="tab_box" type="card" tab-position="top">
       <el-tab-pane label="近三月联系人" name="1">
-        <VRecentContact></VRecentContact>
+        <VRecentContact :dataList="data.call_num_top3_3m"></VRecentContact>
       </el-tab-pane>
       <el-tab-pane label="近六月月联系人" name="2">
-        <VRecentContact></VRecentContact>
+        <VRecentContact :dataList="data.call_num_top3_6m"></VRecentContact>
       </el-tab-pane>
       <el-tab-pane label="近三月联系人号码归属地" name="3">
-        <VRecentContact></VRecentContact>
+        <VRecentContact :dataList="data.call_location_top3_3m"></VRecentContact>
       </el-tab-pane>
       <el-tab-pane label="近六月联系人号码归属地" name="4">
-        <VRecentContact></VRecentContact>
+        <VRecentContact :dataList="data.call_location_top3_6m"></VRecentContact>
       </el-tab-pane>
       <el-tab-pane label="通话统计" name="5">
-        <VDialogCount></VDialogCount>
+        <VDialogCount :data="data.call_analysis"></VDialogCount>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -34,6 +34,14 @@ export default {
       pageNum: 1,
       pageSize: 10,
       totalData: 100
+    }
+  },
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
   components: {
