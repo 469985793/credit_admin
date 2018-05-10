@@ -2,22 +2,22 @@
   <div class="v_user_parse_container">
     <el-tabs v-model="activeTab" class="tab_box" type="card" tab-position="top">
       <el-tab-pane label="风险分析" name="1">
-        <VRisk></VRisk>
+        <VRisk :data="data.risk_analysis"></VRisk>
       </el-tab-pane>
       <el-tab-pane label="活跃度分析" name="2">
-        <VActiveDegree></VActiveDegree>
+        <VActiveDegree :data="data.active_degree"></VActiveDegree>
       </el-tab-pane>
       <el-tab-pane label="消费分析" name="3">
-        <VConsumption></VConsumption>
+        <VConsumption :data="data.consumption_analysis"></VConsumption>
       </el-tab-pane>
       <el-tab-pane label="漫游分析" name="4">
-        <VRoam></VRoam>
+        <VRoam :dataList="data.roam_analysis"></VRoam>
       </el-tab-pane>
       <el-tab-pane label="第三方通话分析" name="5">
-        <VThirdPart></VThirdPart>
+        <VThirdPart :data="data.call_third_part_detail"></VThirdPart>
       </el-tab-pane>
       <el-tab-pane label="稳定性分析" name="6">
-        <VStability></VStability>
+        <VStability :data="data.call_family_detail"></VStability>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -36,27 +36,19 @@ export default {
   name: 'VCustomerDetailApply',
   data() {
     return {
-      activeTab: '1',
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
+      activeTab: '1'
+    }
+  },
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
   components: {
     VActiveDegree, VConsumption, VThirdPart, VStability, VRoam, VRisk
-  },
-  methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
-    }
   }
 }
 </script>
@@ -96,12 +88,6 @@ export default {
         border-bottom: none;
       }
     }
-  }
-  .page_box {
-    text-align: right;
-    margin: $ent-gap-small;
-    font-size: 13px;
-    font-weight: lighter;
   }
 }
 </style>

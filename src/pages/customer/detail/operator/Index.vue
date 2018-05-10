@@ -26,10 +26,10 @@
         <VContactInfo :data="dataObj.friend_circle"></VContactInfo>
       </el-tab-pane>
       <el-tab-pane label="联系人分析">
-        <VContactParse></VContactParse>
+        <VContactParse :data="dataObj.friend_circle"></VContactParse>
       </el-tab-pane>
       <el-tab-pane label="用户分析">
-        <VUserParse></VUserParse>
+        <VUserParse :data="dataObj.friend_circle"></VUserParse>
       </el-tab-pane>
       <el-tab-pane label="服务号通话详情">
         <VServiceDetail></VServiceDetail>

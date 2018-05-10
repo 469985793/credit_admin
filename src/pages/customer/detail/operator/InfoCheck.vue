@@ -6,11 +6,11 @@
       stripe
       style="width: 100%"
       height="100%">
-    <el-table-column
-      label="序号"
-      width="60"
-      type="index">
-    </el-table-column>
+      <el-table-column
+        label="序号"
+        width="60"
+        type="index">
+      </el-table-column>
       <el-table-column
         prop="check_item"
         label="校验项">

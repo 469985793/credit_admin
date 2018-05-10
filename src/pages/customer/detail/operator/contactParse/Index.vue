@@ -2,19 +2,19 @@
   <div class="v_contact_parse_container">
     <el-tabs v-model="activeTab" class="tab_box" type="card" tab-position="top">
       <el-tab-pane label="近三月联系人号码归属地通话详情分析" name="1">
-        <VRecentLoaction></VRecentLoaction>
+        <VRecentLoaction :dataList="data.call_location_detail_3m"></VRecentLoaction>
       </el-tab-pane>
       <el-tab-pane label="近三月通话时间段详情分析" name="2">
-        <VDialogTime></VDialogTime>
+        <VDialogTime :dataList="data.call_duration_detail_3m"></VDialogTime>
       </el-tab-pane>
       <el-tab-pane label="近六个月联系人通话分析" name="3">
-        <VRecentContact></VRecentContact>
+        <VRecentContact :dataList="data.call_contact_detail"></VRecentContact>
       </el-tab-pane>
       <el-tab-pane label="近六月通话时间段详情分析" name="4">
-        <VDialogTime></VDialogTime>
+        <VDialogTime :dataList="data.call_duration_detail_6m"></VDialogTime>
       </el-tab-pane>
       <el-tab-pane label="通话次数及时长分析" name="5">
-        <VCountAndTime></VCountAndTime>
+        <VCountAndTime :data="data.call_time_detail"></VCountAndTime>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -31,27 +31,19 @@ export default {
   name: 'VContactParse',
   data() {
     return {
-      activeTab: '1',
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
+      activeTab: '1'
+    }
+  },
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
   components: {
     VDialogTime, VRecentLoaction, VRecentContact, VCountAndTime
-  },
-  methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
-    }
   }
 }
 </script>
@@ -91,12 +83,6 @@ export default {
         border-bottom: none;
       }
     }
-  }
-  .page_box {
-    text-align: right;
-    margin: $ent-gap-small;
-    font-size: 13px;
-    font-weight: lighter;
   }
 }
 </style>
