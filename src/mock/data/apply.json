@@ -1,0 +1,24 @@
+{
+    "apply": {
+        "code": "0",
+        "desc": "查询成功",
+        "trans_id": "14910304379231213",
+        "trade_no": "201704011507240100057329",
+        "fee": "Y",
+        "id_no": "123101190201032034",
+        "id_name": "张三",
+        "versions": "1.0.0",
+        "result_detail": {
+            "apply_score": "189",
+            "apply_credibility": "84",
+            "query_org_count": "7",
+            "query_finance_count": "2",
+            "query_cash_count": "2",
+            "query_sum_count": "13",
+            "latest_query_time": "2017-09-03",
+            "latest_one_month": "1",
+            "latest_three_month": "5",
+            "latest_six_month": "12"
+        }
+    }
+}

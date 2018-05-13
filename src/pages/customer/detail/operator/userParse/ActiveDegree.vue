@@ -2,34 +2,34 @@
   <div class="v_operator__activedegree_container">
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="近三个月通话活跃天数">
-        <span>张三</span>
+        <span>{{data.call_day_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月通话活跃天数">
-        <span>133344232332</span>
+        <span>{{data.dial_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近三个月主叫次数">
-        <span>3509383823</span>
+        <span>{{data.dialed_num_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月主叫次数">
-        <span>2019-3-5</span>
+        <span>{{data.dial_duration_3m}}</span>
       </el-form-item>
       <el-form-item label="近三个月被叫次数">
-        <span>100</span>
+        <span>{{data.dialed_duration_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月被叫次数">
-        <span>高端套餐</span>
+        <span>{{data.call_day_6m}}</span>
       </el-form-item>
       <el-form-item label="近三个月主叫时长">
-        <span>正常</span>
+        <span>{{data.dial_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近六个月主叫时长">
-        <span>五星</span>
+        <span>{{data.dialed_num_6m}}</span>
       </el-form-item>
       <el-form-item label="近三个月被叫时长">
-        <span>电信</span>
+        <span>{{data.dial_duration_6m}}</span>
       </el-form-item>
       <el-form-item label="近六个月被叫时长">
-        <span>上海</span>
+        <span>{{data.dialed_duration_6m}}</span>
       </el-form-item>
     </el-form>
   </div>

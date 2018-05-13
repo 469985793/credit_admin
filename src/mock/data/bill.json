@@ -1,0 +1,208 @@
+{
+    "bill": {
+        "success": true,
+        "data": {
+            "mobile": "1351913****",
+            "name": "何*",
+            "idcard": "610126************",
+            "carrier": "CHINA_MOBILE",
+            "province": "陕西",
+            "city": "西安",
+            "open_time": "2004-05-21",
+            "level": "三星",
+            "package_name": "4G飞享88元套餐(新版)",
+            "state": 0,
+            "available_balance": 0,
+            "last_modify_time": "2017-09-06 09:51:04",
+            "packages": [{
+                    "bill_start_date": "2017-05-01",
+                    "bill_end_date": "2017-05-31",
+                    "code": null,
+                    "message": null,
+                    "items": [{
+                            "item": "我的语音包",
+                            "total": "220",
+                            "used": "220",
+                            "unit": "分"
+                        },
+                        {
+                            "item": "我的流量包",
+                            "total": "716800",
+                            "used": "0",
+                            "unit": "KB"
+                        },
+                        {
+                            "item": "我的流量包",
+                            "total": "1740636",
+                            "used": "755132006",
+                            "unit": "KB"
+                        }
+                    ]
+                },
+                {
+                    "bill_start_date": "2017-06-01",
+                    "bill_end_date": "2017-06-01",
+                    "code": null,
+                    "message": null,
+                    "items": [{
+                            "item": "我的语音包",
+                            "total": "220",
+                            "used": "5",
+                            "unit": "分"
+                        },
+                        {
+                            "item": "我的流量包",
+                            "total": "716800",
+                            "used": "0",
+                            "unit": "KB"
+                        },
+                        {
+                            "item": "我的流量包",
+                            "total": "1740636",
+                            "used": "41943",
+                            "unit": "KB"
+                        }
+                    ]
+                }
+            ],
+            "families": [{
+                "family_num": "",
+                "code": null,
+                "message": null,
+                "items": []
+            }],
+            "recharges": [{
+                    "details_id": "46dd28b2da636e19287796ffe7a27f5a0",
+                    "recharge_time": "2017-09-01 08:02:05",
+                    "amount": 20,
+                    "type": "全网手机支付"
+                },
+                {
+                    "details_id": "683d041afe0df9d676994057e0cc53540",
+                    "recharge_time": "2017-09-01 08:02:05",
+                    "amount": 9980,
+                    "type": "全网手机支付"
+                }
+            ],
+            "code": 0,
+            "message": "正常",
+            "bills": [{
+                    "code": null,
+                    "message": null,
+                    "bill_month": "2017-06",
+                    "bill_start_date": "2017-06-01",
+                    "bill_end_date": "2017-06-30",
+                    "base_fee": 13600,
+                    "extra_service_fee": 100,
+                    "voice_fee": 24554,
+                    "sms_fee": 3990,
+                    "web_fee": 0,
+                    "extra_fee": 1000,
+                    "total_fee": 43244,
+                    "discount": 0,
+                    "extra_discount": 0,
+                    "actual_fee": 0,
+                    "paid_fee": 0,
+                    "unpaid_fee": 0,
+                    "point": 0,
+                    "last_point": 0,
+                    "related_mobiles": "",
+                    "notes": null
+                },
+                {
+                    "code": null,
+                    "message": null,
+                    "bill_month": "2017-04",
+                    "bill_start_date": "2017-04-01",
+                    "bill_end_date": "2017-04-30",
+                    "base_fee": 13600,
+                    "extra_service_fee": 100,
+                    "voice_fee": 16245,
+                    "sms_fee": 2200,
+                    "web_fee": 0,
+                    "extra_fee": 1000,
+                    "total_fee": 33145,
+                    "discount": 0,
+                    "extra_discount": 0,
+                    "actual_fee": 0,
+                    "paid_fee": 0,
+                    "unpaid_fee": 0,
+                    "point": 0,
+                    "last_point": 0,
+                    "related_mobiles": "",
+                    "notes": null
+                }
+            ],
+            "calls": [{
+                "bill_month": "2017-09",
+                "code": null,
+                "message": null,
+                "total_size": 245,
+                "items": [{
+                        "details_id": "f13405ebb78f0748f7888876ed1648550",
+                        "time": "2017-09-06 09:35:12",
+                        "peer_number": "18133913399",
+                        "location": "西安市",
+                        "location_type": "国内被叫",
+                        "duration": "14",
+                        "dial_type": "DIALED",
+                        "fee": 0
+                    },
+                    {
+                        "details_id": "797e6bd4ce659d1cb8dcd80f8810030a0",
+                        "time": "2017-09-06 09:25:26",
+                        "peer_number": "69667",
+                        "location": "西安市",
+                        "location_type": "本地主叫本地",
+                        "duration": "27",
+                        "dial_type": "DIAL",
+                        "fee": 0
+                    }
+                ]
+            }],
+            "smses": [{
+                "bill_month": "2017-09",
+                "code": null,
+                "message": null,
+                "total_size": "206",
+                "items": [{
+                    "details_id": "e28b0008fb94f0edd5a844939fd1731a0",
+                    "time": "2017-09-06 09:27:11",
+                    "peer_number": "10661700",
+                    "location": "",
+                    "send_type": "RECEIVE",
+                    "msg_type": "SMS",
+                    "service_name": "短信",
+                    "fee": 0
+                }]
+            }],
+            "nets": [{
+                "bill_month": "2017-09",
+                "total_size": 41,
+                "items": [{
+                        "details_id": "059afaf4c2ab84caa3bb51e7d26a67970",
+                        "time": "2017-09-06 08:22:59",
+                        "duration": 289,
+                        "subflow": 46,
+                        "location": "陕西",
+                        "net_type": "4G",
+                        "service_name": "产品必选优惠-送移动数据流量700M",
+                        "fee": 0
+                    },
+                    {
+                        "details_id": "22849ab8e4d3950db8fd533c8880fef40",
+                        "time": "2017-09-06 08:22:40",
+                        "duration": 2,
+                        "subflow": 2,
+                        "location": "陕西",
+                        "net_type": "2G",
+                        "service_name": "产品必选优惠-送移动数据流量700M",
+                        "fee": 0
+                    }
+                ]
+            }]
+        },
+        "errorCode": null,
+        "errorMsg": null
+    }
+}

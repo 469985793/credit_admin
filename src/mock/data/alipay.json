@@ -1,0 +1,95 @@
+{
+    "alipay": {
+        "success": true,
+        "data": {
+            "userinfo": {
+                "mapping_id": "string",
+                "alipay_userid": "string",
+                "gender": "string",
+                "certified": "boolean",
+                "user_name": "string",
+                "idcard_number": "string",
+                "email": "string",
+                "phone_number": "string",
+                "taobao_id": "string",
+                "register_time": "string"
+            },
+            "wealth": {
+                "mapping_id": "string",
+                "yue": "long",
+                "yeb": "long",
+                "zcb": "long",
+                "fund": "long",
+                "cjb": "long",
+                "taolicai": "long",
+                "huabai_limit": "long"
+            },
+            "tradeinfo": [{
+                "mapping_id": "string",
+                "trade_number": "string",
+                "trade_time": "string",
+                "trade_location": "string",
+                "trade_type": "string",
+                "counterparty": "string",
+                "product_name": "string",
+                "trade_amount": "decimal",
+                "incomeorexpense": "string",
+                "trade_status": "string",
+                "service_charge": "decimal",
+                "refund": "decimal",
+                "comments": "string",
+                "capital_status": "string"
+            }],
+            "bankinfo": [{
+                "mapping_id": "string",
+                "active_date": "string",
+                "mobile": "string",
+                "card_number": "string",
+                "level": "string",
+                "user_name": "string",
+                "bank_name": "string",
+                "card_type": "string",
+                "sign_id": "string",
+                "open_fpcard": "string",
+                "provider_userid": "string"
+            }],
+            "recenttraders": [{
+                "account": "string",
+                "mapping_id": "string",
+                "alipay_userid": "string",
+                "real_name": "string",
+                "nick_name": "string"
+            }],
+            "alipaycontacts": [{
+                "account": "string",
+                "mapping_id": "string",
+                "alipay_userid": "string",
+                "real_name": "string"
+            }],
+            "alipayjiebei": {
+                "mapping_id": "string",
+                "credit_amt": "string",
+                "loanable_amt": "string",
+                "risk_int_by_thousand": "string",
+                "ovd_able": "string",
+                "new_able": "string",
+                "binded_mobile": "string",
+                "refuse_reason": "string"
+            },
+            "alipaydeliveraddresses": [{
+                "name": "string",
+                "province": "string",
+                "city": "string",
+                "area": "string",
+                "address": "string",
+                "mapping_id": "string",
+                "phone_number": "string",
+                "full_address": "string",
+                "post_code": "string",
+                "area_code": "string"
+            }]
+        },
+        "errorCode": "string",
+        "errorMsg": "string"
+    }
+}

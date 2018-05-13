@@ -1,0 +1,92 @@
+{
+    "alimarket": {
+        "success": true,
+        "errorCode": "string",
+        "errorMsg": "string",
+        "data": {
+            "userinfo": {
+                "mapping_id": "string",
+                "nick": "string",
+                "real_name": "string",
+                "phone_number": "string",
+                "email": "string",
+                "vip_level": "string",
+                "vip_count": "string",
+                "weibo_account": "string",
+                "weibo_nick": "string",
+                "pic": "string",
+                "alipay_account": "string",
+                "tmall_level": "string",
+                "tmall_vipcount": "string",
+                "tmall_apass": "string",
+                "first_ordertime": "string",
+                "taobao_userid": "string",
+                "tao_score": "string",
+                "register_time": "string",
+                "account_auth": "string"
+            },
+            "alipaywealth": {
+                "mapping_id": "string",
+                "balance": "string",
+                "total_profit": "string",
+                "total_quotient": "string",
+                "huabei_creditamount": "string",
+                "huabei_totalcreditamount": "string"
+            },
+            "deliveraddress": [{
+                "mapping_id": "string",
+                "default": "string",
+                "name": "string",
+                "province": "string",
+                "city": "string",
+                "address": "string",
+                "full_address": "string",
+                "zip_code": "string",
+                "phone_no": "string"
+            }],
+            "recentdeliveraddress": [{
+                "trade_id": "string",
+                "trade_createtime": "string",
+                "actual_fee": "string",
+                "deliver_name": "string",
+                "deliver_mobilephone": "string",
+                "deliver_fixedphone": "string",
+                "province": "string",
+                "city": "string",
+                "deliver_address": "string",
+                "deliver_postcode": "string",
+                "invoice_name": "string"
+            }],
+            "tradedetails": {
+                "total_size": "string",
+                "size": "string",
+                "tradedetails": [{
+                    "mapping_id": "string",
+                    "trade_id": "string",
+                    "trade_status": "string",
+                    "trade_createtime": "string",
+                    "actual_fee": "string",
+                    "seller_id": "string",
+                    "seller_nick": "string",
+                    "seller_shopname": "string",
+                    "trade_text": "string",
+                    "sub_orders": [{
+                        "mapping_id": "string",
+                        "trade_id": "string",
+                        "item_id": "string",
+                        "item_url": "string",
+                        "item_pic": "string",
+                        "item_name": "string",
+                        "quantity": "string",
+                        "original": "string",
+                        "real_total": "string",
+                        "cid_level1": "string",
+                        "cid_level2": "string",
+                        "cname_level1": "string",
+                        "cname_level2": "string"
+                    }]
+                }]
+            }
+        }
+    }
+}

@@ -89,7 +89,7 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../assets/css/vars.scss';
+@import '../../assets/css/vars.scss';
 
 .v_credit_behavior {
   .highlight {

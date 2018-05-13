@@ -1,0 +1,18 @@
+{
+    "excuted": {
+        "success": true,
+        "data": [{
+            "mapping_id": "string",
+            "idCard": "string",
+            "user_name": "string",
+            "case_id": "string",
+            "case_code": "string",
+            "exec_court_name": "string",
+            "exec_money": "decimal",
+            "case_state": "string",
+            "party_card_num": "string",
+            "qurey_name": "string",
+            "case_create_time": "string"
+        }]
+    }
+}

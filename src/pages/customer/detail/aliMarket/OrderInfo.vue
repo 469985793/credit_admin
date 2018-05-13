@@ -1,126 +1,123 @@
 <template>
   <div class="v_alimarket_orderinfo">
+    <el-tag class="title_box">总记录数: {{data.total_size}}</el-tag>
     <el-table
       class="table_box"
       stripe
-      :data="dataList">
+      :highlight-current-row="true"
+      :data="data.tradedetails">
       <el-table-column
         width="60"
         label="序号"
-        prop="id">
+        type="index">
+      </el-table-column>
+      <el-table-column
+        label="交易id"
+        prop="trade_id">
       </el-table-column>
       <el-table-column
         label="交易状态"
-        prop="name">
+        prop="trade_status">
       </el-table-column>
       <el-table-column
         label="交易时间"
-        prop="sex">
+        prop="trade_createtime">
       </el-table-column>
       <el-table-column
         label="订单金额"
-        prop="applyMoney">
+        prop="actual_fee">
       </el-table-column>
       <el-table-column
         label="卖家id"
-        prop="applyMoney">
+        prop="seller_id">
       </el-table-column>
       <el-table-column
         label="卖家昵称"
-        prop="name">
+        prop="seller_nick">
       </el-table-column>
       <el-table-column
         label="店铺名称"
-        prop="sex">
+        prop="seller_shopname">
       </el-table-column>
       <el-table-column
         label="交易状态中文"
-        prop="applyMoney">
+        prop="trade_text">
       </el-table-column>
       <el-table-column
         label="操作">
         <template slot-scope="scope">
-          <el-button @click.stop="isShowDialog = true" type="primary" size="small">查看详情</el-button>
+          <el-button @click.stop="doShowOrderModal(scope.$index)" type="primary" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <el-pagination
-      class="page_box"
-      background
-      @size-change="doSizeChange"
-      @current-change="doCurrentChange"
-      :current-page="1"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
-      layout="total, sizes, prev, pager, next, jumper"
-      :total="totalData">
-    </el-pagination>
-    <el-dialog title="订单详情" :visible.sync="isShowDialog">
+    <el-dialog title="商品详情" :visible.sync="isShowDialog">
       <el-table
         class="table_box"
         stripe
-        :data="dataList">
+        :highlight-current-row="true"
+        :data="orderInfoList">
         <el-table-column type="expand">
           <template slot-scope="props">
             <el-form class="form_list_box" label-position="left" inline>
               <el-form-item label="交易id">
-                <span>{{ props.row.telNum }}</span>
+                <span>{{ props.row.trade_id }}</span>
               </el-form-item>
               <el-form-item label="商品id">
-                <span>{{ props.row.applyTime }}</span>
+                <span>{{ props.row.item_id }}</span>
               </el-form-item>
               <el-form-item label="商品链接">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.item_url }}</span>
               </el-form-item>
               <el-form-item label="商品图片">
-                <img />
+                <img :src="props.row.item_pic"/>
               </el-form-item>
               <el-form-item label="商品名称">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.item_name }}</span>
               </el-form-item>
               <el-form-item label="商品数量">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.quantity }}</span>
               </el-form-item>
               <el-form-item label="商品原价">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.original }}</span>
               </el-form-item>
               <el-form-item label="商品真实交易价格">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.real_total }}</span>
               </el-form-item>
               <el-form-item label="一级目录的id">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.cid_level1 }}</span>
               </el-form-item>
               <el-form-item label="二级目录的id">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.cid_level2 }}</span>
               </el-form-item>
               <el-form-item label="一级目录的名称">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.cname_level1 }}</span>
               </el-form-item>
               <el-form-item label="二级目录的名称">
-                <span>{{ props.row.loadMoney }}</span>
+                <span>{{ props.row.cname_level2 }}</span>
               </el-form-item>
             </el-form>
           </template>
         </el-table-column>
         <el-table-column
+          type="index"
           label="序号"
-          prop="id">
+          width="60">
         </el-table-column>
         <el-table-column
           label="交易id"
-          prop="name">
+          prop="trade_id">
         </el-table-column>
         <el-table-column
           label="商品id"
-          prop="sex">
+          prop="item_id">
         </el-table-column>
         <el-table-column
           label="商品名称"
-          prop="applyMoney">
+          prop="item_name">
         </el-table-column>
         <el-table-column
           label="商品原价"
-          prop="applyMoney">
+          prop="original">
         </el-table-column>
       </el-table>
       <div slot="footer" class="dialog-footer">
@@ -137,114 +134,22 @@ export default {
   name: 'VAliMarketOrderInfo',
   data() {
     return {
-      isShowDialog: false,
-      searchText: '',
-      readStatus: '全部',
-      order: 'ascend',
-      dataList: [
-        {
-          id: '1',
-          name: '小丽',
-          telNum: 13303939393,
-          idCardNum: 350838383898288222,
-          sex: '女',
-          applyMoney: 1000,
-          applyTime: '2018-3-4',
-          loadMoney: 1000,
-          loadTime: '2018-5-4',
-          shouldRepayMoney: 1000,
-          shouldRepayTime: '2018-3-4',
-          amerceMoney: 200,
-          repayMoney: 1000,
-          repayTime: '2018-3-4',
-          isOverdue: '否'
-        },
-        {
-          id: '2',
-          name: '张三',
-          telNum: 13303939393,
-          idCardNum: 350838383898288222,
-          sex: '男',
-          applyMoney: 1000,
-          applyTime: '2018-3-4',
-          loadMoney: 1000,
-          loadTime: '2018-5-4',
-          shouldRepayMoney: 1000,
-          shouldRepayTime: '2018-3-4',
-          amerceMoney: 200,
-          repayMoney: 1000,
-          repayTime: '2018-3-4',
-          isOverdue: '否'
-        }
-      ],
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
+      orderInfoList: [],
+      isShowDialog: false
     }
   },
-  created() {
-    this.fetchData();
-  },
-  watch: {
-    readStatus() {
-      this.doQuery();
-    },
-    order() {
-      this.doQuery();
+  props: {
+    data: {
+      type: Object,
+      default: () => {
+        return {}
+      }
     }
   },
   methods: {
-    fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
-      }
-    },
-    goPage(userId, page) {
-      this.$router.push({path: '/' + page + '/' + userId});
-    },
-    doQuery() {
-      this.isLoading = true;
-      this.fetchData(true);
-      console.log('submit!');
-    },
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
+    doShowOrderModal(index) {
+      this.orderInfoList = this.data.tradedetails[index].sub_orders;
+      this.isShowDialog = true;
     }
   }
 }
@@ -268,12 +173,6 @@ export default {
         width: 33.3%;
       }
     }
-  }
-  .page_box {
-    text-align: right;
-    margin: $ent-gap-small;
-    font-size: 13px;
-    font-weight: lighter;
   }
 }
 </style>

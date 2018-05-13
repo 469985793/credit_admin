@@ -8,7 +8,7 @@
       height="100%">
       <el-table-column
         label="序号"
-        width="60"
+        width="auto"
         type="index">
       </el-table-column>
       <el-table-column

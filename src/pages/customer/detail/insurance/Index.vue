@@ -2,16 +2,16 @@
   <div class="v_insurance_index">
     <el-tabs class="tab_box" tab-position="right">
       <el-tab-pane label="基本信息">
-        <VBaseInfo></VBaseInfo>
+        <VBaseInfo :data="dataObj"></VBaseInfo>
       </el-tab-pane>
       <el-tab-pane label="保险种类信息">
-        <VClassifyInfo></VClassifyInfo>
+        <VClassifyInfo :dataList="dataObj.insurances"></VClassifyInfo>
       </el-tab-pane>
       <el-tab-pane label="保险缴存记录">
-        <VRecord></VRecord>
+        <VRecord :dataList="dataObj.insurance_record"></VRecord>
       </el-tab-pane>
       <el-tab-pane label="医保消费信息">
-        <VMedicalRecord></VMedicalRecord>
+        <VMedicalRecord :dataList="dataObj.medical_insurance_record"></VMedicalRecord>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -28,25 +28,20 @@ export default {
   name: 'VInsurance',
   data() {
     return {
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
+      dataObj: {}
     }
   },
   components: {
     VBaseInfo, VClassifyInfo, VRecord, VMedicalRecord
   },
+  created() {
+    this.fetchData();
+  },
   methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
+    fetchData() {
+      this.httpService.get('/api/insurance', (res) => {
+        this.dataObj = res.data.data.data;
+      });
     }
   }
 }

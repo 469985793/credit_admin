@@ -2,46 +2,46 @@
   <div class="v_customer_detail_operator_container">
     <el-tabs class="tab_box" tab-position="right">
       <el-tab-pane label="个人信息">
-        <VBaseInfo :data="dataObj.user_basic_info"></VBaseInfo>
+        <VBaseInfo :data="orderObj"></VBaseInfo>
       </el-tab-pane>
       <el-tab-pane label="账单记录">
-        <VBillRecord></VBillRecord>
+        <VBillRecord :dataList="orderObj.bills"></VBillRecord>
       </el-tab-pane>
       <el-tab-pane label="亲情网">
-        <VFamily></VFamily>
+        <VFamily :dataList="orderObj.families"></VFamily>
       </el-tab-pane>
       <el-tab-pane label="通话记录">
-        <VCallRecord></VCallRecord>
+        <VCallRecord :dataList="orderObj.calls"></VCallRecord>
       </el-tab-pane>
       <el-tab-pane label="充值记录">
-        <VRechargeRecord></VRechargeRecord>
+        <VRechargeRecord :dataList="orderObj.recharges"></VRechargeRecord>
       </el-tab-pane>
       <el-tab-pane label="报告基本信息">
-        <VReportInfo :infoData="dataObj.user_basic_info" :srcData="dataObj.data_source"></VReportInfo>
+        <VReportInfo :infoData="operatorObj.user_basic_info" :srcData="operatorObj.data_source"></VReportInfo>
       </el-tab-pane>
       <el-tab-pane label="信息校验">
-        <VInfoCheck :dataList="dataObj.basic_info_check_items"></VInfoCheck>
+        <VInfoCheck :dataList="operatorObj.basic_info_check_items"></VInfoCheck>
       </el-tab-pane>
       <el-tab-pane label="联系人信息">
-        <VContactInfo :data="dataObj.friend_circle"></VContactInfo>
+        <VContactInfo :data="operatorObj.friend_circle"></VContactInfo>
       </el-tab-pane>
       <el-tab-pane label="联系人分析">
-        <VContactParse :data="dataObj.friend_circle"></VContactParse>
+        <VContactParse :data="operatorObj.friend_circle"></VContactParse>
       </el-tab-pane>
       <el-tab-pane label="用户分析">
-        <VUserParse :data="dataObj.friend_circle"></VUserParse>
+        <VUserParse :data="operatorObj.friend_circle"></VUserParse>
       </el-tab-pane>
       <el-tab-pane label="服务号通话详情">
-        <VServiceDetail></VServiceDetail>
+        <VServiceDetail :dataList="operatorObj.call_service_detail"></VServiceDetail>
       </el-tab-pane>
       <el-tab-pane label="消费详情">
-        <VConsumptionDetail></VConsumptionDetail>
+        <VConsumptionDetail :data="operatorObj.consumption_detail"></VConsumptionDetail>
       </el-tab-pane>
       <el-tab-pane label="漫游详情">
-        <VRoamDetail></VRoamDetail>
+        <VRoamDetail :dataList="operatorObj.roam_detail"></VRoamDetail>
       </el-tab-pane>
       <el-tab-pane label="手机活跃度详情">
-        <VActiveDegreeDetail></VActiveDegreeDetail>
+        <VActiveDegreeDetail :data="operatorObj.active_degree_detail"></VActiveDegreeDetail>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -72,7 +72,8 @@ export default {
       pageNum: 1,
       pageSize: 10,
       totalData: 100,
-      dataObj: {}
+      operatorObj: {},
+      orderObj: {}
     }
   },
   components: {
@@ -97,7 +98,10 @@ export default {
   methods: {
     fetchData() {
       this.httpService.get('/api/operator', (res) => {
-        this.dataObj = res.data.data.data;
+        this.operatorObj = res.data.data.data;
+      });
+      this.httpService.get('/api/bill', (res) => {
+        this.orderObj = res.data.data.data;
       });
     },
     doSizeChange(pageSize) {

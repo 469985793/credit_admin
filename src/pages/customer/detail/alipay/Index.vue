@@ -2,22 +2,22 @@
   <div class="v_alipay_index">
     <el-tabs class="tab_box" tab-position="right">
       <el-tab-pane label="基本信息">
-        <VBaseInfo></VBaseInfo>
+        <VBaseInfo :data="dataObj"></VBaseInfo>
       </el-tab-pane>
       <el-tab-pane label="交易记录信息">
-        <VTradeInfo></VTradeInfo>
+        <VTradeInfo :dataList="dataObj.tradeinfo"></VTradeInfo>
       </el-tab-pane>
       <el-tab-pane label="绑定银行卡信息">
-        <VBankInfo></VBankInfo>
+        <VBankInfo :dataList="dataObj.bankinfo"></VBankInfo>
       </el-tab-pane>
       <el-tab-pane label="最近交易人信息">
-        <VRecentTrader></VRecentTrader>
+        <VRecentTrader :dataList="dataObj.recenttraders"></VRecentTrader>
       </el-tab-pane>
       <el-tab-pane label="我的联系人信息">
-        <VContactInfo></VContactInfo>
+        <VContactInfo :dataList="dataObj.alipaycontacts"></VContactInfo>
       </el-tab-pane>
       <el-tab-pane label="收货地址信息">
-        <VDeliverAddr></VDeliverAddr>
+        <VDeliverAddr :dataList="dataObj.alipaydeliveraddresses"></VDeliverAddr>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -36,25 +36,20 @@ export default {
   name: 'VAlipay',
   data() {
     return {
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
+      dataObj: {}
     }
   },
   components: {
     VBaseInfo, VTradeInfo, VRecentTrader, VDeliverAddr, VContactInfo, VBankInfo
   },
+  created() {
+    this.fetchData();
+  },
   methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
+    fetchData() {
+      this.httpService.get('/api/alipay', (res) => {
+        this.dataObj = res.data.data.data;
+      });
     }
   }
 }
@@ -91,12 +86,6 @@ export default {
   }
   .el-form-item {
     margin-bottom: $ent-gap-x-small;
-  } /* overwrite */
-  .page_box {
-    text-align: right;
-    margin: $ent-gap-small;
-    font-size: 13px;
-    font-weight: lighter;
   }
 }
 </style>

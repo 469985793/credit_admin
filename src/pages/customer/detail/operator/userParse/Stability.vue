@@ -2,76 +2,76 @@
   <div class="v_operator__stability_container">
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="近一个月是否亲情网用户">
-        <span>张三</span>
+        <span>{{data.is_family_net_member_1m}}</span>
       </el-form-item>
       <el-form-item label="近三个月是否亲情网用户">
-        <span>133344232332</span>
+        <span>{{data.is_family_net_member_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月是否亲情网用户">
-        <span>3509383823</span>
+        <span>{{data.is_family_net_member_6m}}</span>
       </el-form-item>
       <el-form-item label="近一个月是否亲情网用户户主">
-        <span>2019-3-5</span>
+        <span>{{data.is_family_net_master_1m}}</span>
       </el-form-item>
       <el-form-item label="近三个月是否亲情网用户户主">
-        <span>100</span>
+        <span>{{data.is_family_net_master_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月是否亲情网用户户主">
-        <span>高端套餐</span>
+        <span>{{data.is_family_net_master_6m}}</span>
       </el-form-item>
       <el-form-item label="近一个月连续充值月数">
-        <span>正常</span>
+        <span>{{data.recharge_month_1m}}</span>
       </el-form-item>
       <el-form-item label="近三个月连续充值月数">
-        <span>五星</span>
+        <span>{{data.recharge_month_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月连续充值月数">
-        <span>电信</span>
+        <span>{{data.recharge_month_6m}}</span>
       </el-form-item>
       <el-form-item label="近一个月常联系地址是否为手机号码归属地">
-        <span>上海</span>
+        <span>{{data.is_address_match_phone_1m}}</span>
       </el-form-item>
       <el-form-item label="近三个月常联系地址是否为手机号码归属地">
-        <span>上海</span>
+        <span>{{data.is_address_match_phone_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月常联系地址是否为手机号码归属地">
-        <span>上海</span>
+        <span>{{data.is_address_match_phone_6m}}</span>
       </el-form-item>
       <el-form-item label="近一个月通话次数小于使用月数*1次">
-        <span>上海</span>
+        <span>{{data.num_of_call_less_1m}}</span>
       </el-form-item>
       <el-form-item label="近三个月通话次数小于使用月数*1次">
-        <span>上海</span>
+        <span>{{data.num_of_call_less_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月通话次数小于使用月数*1次">
-        <span>上海</span>
+        <span>{{data.num_of_call_less_6m}}</span>
       </el-form-item>
       <el-form-item label="近一个月通话次数大于使用月数*300次">
-        <span>上海</span>
+        <span>{{data.num_of_call_more_1m}}</span>
       </el-form-item>
       <el-form-item label="近三个月通话次数大于使用月数*300次">
-        <span>上海</span>
+        <span>{{data.num_of_call_more_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月通话次数大于使用月数*300次">
-        <span>上海</span>
+        <span>{{data.num_of_call_more_6m}}</span>
       </el-form-item>
       <el-form-item label="近一个月连续欠费月数">
-        <span>上海</span>
+        <span>{{data.unpaid_month_1m}}</span>
       </el-form-item>
       <el-form-item label="近三个月连续欠费月数">
-        <span>上海</span>
+        <span>{{data.unpaid_month_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月连续欠费月数">
-        <span>上海</span>
+        <span>{{data.unpaid_month_6m}}</span>
       </el-form-item>
       <el-form-item label="近一个月在本地是否超过使用月数*1次">
-        <span>上海</span>
+        <span>{{data.live_month_1m}}</span>
       </el-form-item>
       <el-form-item label="近三个月在本地是否超过使用月数*1次">
-        <span>上海</span>
+        <span>{{data.live_month_3m}}</span>
       </el-form-item>
       <el-form-item label="近六个月在本地是否超过使用月数*1次">
-        <span>上海</span>
+        <span>{{data.live_month_6m}}</span>
       </el-form-item>
     </el-form>
   </div>

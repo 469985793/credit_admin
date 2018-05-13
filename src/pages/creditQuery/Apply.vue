@@ -65,7 +65,8 @@ export default {
 </script>
 
 <style lang="scss">
-@import '../../../../assets/css/vars.scss';
+@import '../../assets/css/vars.scss';
+
 .v_credit_apply {
   .highlight {
     color: $ent-color-danger;

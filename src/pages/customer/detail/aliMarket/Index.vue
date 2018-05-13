@@ -2,16 +2,16 @@
   <div class="v_alimarket_index">
     <el-tabs class="tab_box" tab-position="right">
       <el-tab-pane label="基本信息">
-        <VBaseInfo></VBaseInfo>
+        <VBaseInfo :data="dataObj"></VBaseInfo>
       </el-tab-pane>
       <el-tab-pane label="淘宝订单信息">
-        <VOrderInfo></VOrderInfo>
+        <VOrderInfo :data="dataObj.tradedetails"></VOrderInfo>
       </el-tab-pane>
       <el-tab-pane label="最近几笔订单收货地址">
-        <VRecentDeliverAddr></VRecentDeliverAddr>
+        <VRecentDeliverAddr :dataList="dataObj.recentdeliveraddress"></VRecentDeliverAddr>
       </el-tab-pane>
       <el-tab-pane label="淘宝收货地址">
-        <VDeliverAddr></VDeliverAddr>
+        <VDeliverAddr :dataList="dataObj.deliveraddress"></VDeliverAddr>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -28,25 +28,20 @@ export default {
   name: 'VAliMarket',
   data() {
     return {
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
+      dataObj: {}
     }
   },
   components: {
     VBaseInfo, VRecentDeliverAddr, VDeliverAddr, VOrderInfo
   },
+  created() {
+    this.fetchData();
+  },
   methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
+    fetchData() {
+      this.httpService.get('/api/alimarket', (res) => {
+        this.dataObj = res.data.data.data;
+      });
     }
   }
 }
@@ -84,11 +79,5 @@ export default {
   .el-form-item {
     margin-bottom: $ent-gap-x-small;
   } /* overwrite */
-  .page_box {
-    text-align: right;
-    margin: $ent-gap-small;
-    font-size: 13px;
-    font-weight: lighter;
-  }
 }
 </style>

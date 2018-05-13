@@ -22,6 +22,7 @@
     <el-table
       :data="dataList"
       stripe
+      :highlight-current-row="true"
       style="width: 100%"
       height="100%">
       <el-table-column

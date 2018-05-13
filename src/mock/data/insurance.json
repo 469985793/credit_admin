@@ -1,0 +1,78 @@
+{
+    "insurance": {
+        "success": true,
+        "data": {
+            "task_id": "string",
+            "area_code": "string",
+            "city": "string",
+            "base_info": {
+                "real_name": "string",
+                "user_info_id": "string",
+                "social_security_no": "string",
+                "personal_no": "string",
+                "nation": "string",
+                "id_type": "string",
+                "id_card": "string",
+                "address": "string",
+                "base_number": "string",
+                "begin_date": "string",
+                "birth_day": "string",
+                "first_insured_date": "string",
+                "household_registration": "string",
+                "insured_unit": "string",
+                "insured_unit_code": "string",
+                "last_pay_date": "string",
+                "pay_status": "string",
+                "personnel_status": "string",
+                "phone": "string",
+                "sex": "string",
+                "unit_type": "string",
+                "work_time": "string",
+                "industrial_insurance": "string",
+                "unemployment_insurance": "string",
+                "medical_insurance": "string",
+                "medical_insurance_balance": "int",
+                "endowment_insurance": "string",
+                "maternity_insurance": "string",
+                "fetch_time": "string"
+            },
+            "insurances": [{
+                "base_number": "int",
+                "corporation_name": "string",
+                "corporation_scale": "string",
+                "customer_scale": "string",
+                "description": "string",
+                "first_insured_date": "string",
+                "insurance_code": "string",
+                "insurance_status": "string",
+                "insurance_id": "string",
+                "insurance_type": "string",
+                "monthly_corporation_income": "int",
+                "monthly_customer_income": "int",
+                "total_months": "int"
+            }],
+            "insurance_record": [{
+                "amount": "string",
+                "base_number": "int",
+                "corporation_name": "string",
+                "corporation_payment": "int",
+                "corporation_scale": "string",
+                "personal_payment": "int",
+                "customer_scale": "string",
+                "deal_time": "string",
+                "description": "string",
+                "insurance_type": "string",
+                "insurance_code": "string",
+                "month": "string",
+                "month_end": "string",
+                "status": "string"
+            }],
+            "medical_insurance_record": [{
+                "organization_name": "string",
+                "type": "string",
+                "settlemen_time": "sting",
+                "money": "string"
+            }]
+        }
+    }
+}

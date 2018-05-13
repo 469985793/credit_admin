@@ -8,44 +8,45 @@
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
             <el-form-item label="漫游地">
-              <span>{{ props.row.telNum }}</span>
+              <span>{{ props.row.roam_location }}</span>
             </el-form-item>
             <el-form-item label="近三个月漫游地漫游天数">
-              <span>{{ props.row.idCardNum }}</span>
+              <span>{{ props.row.roam_day_num_3m }}</span>
             </el-form-item>
             <el-form-item label="近六个月漫游地漫游天数">
-              <span>{{ props.row.sex }}</span>
+              <span>{{ props.row.roam_day_num_6m }}</span>
             </el-form-item>
             <el-form-item label="近三个月漫游地连续漫游一天以上次数">
-              <span>{{ props.row.applyMoney }}</span>
+              <span>{{ props.row.continue_roam_num_3m }}</span>
             </el-form-item>
             <el-form-item label="近六个月漫游地连续漫游一天以上次数">
-              <span>{{ props.row.applyTime }}</span>
+              <span>{{ props.row.continue_roam_num_6m }}</span>
             </el-form-item>
             <el-form-item label="近三个月漫游地连续漫游最大天数">
-              <span>{{ props.row.loadMoney }}</span>
+              <span>{{ props.row.max_roam_day_num_3m }}</span>
             </el-form-item>
             <el-form-item label="近六个月漫游地连续漫游最大天数">
-              <span>{{ props.row.loadMoney }}</span>
+              <span>{{ props.row.max_roam_day_num_6m }}</span>
             </el-form-item>
           </el-form>
         </template>
       </el-table-column>
       <el-table-column
+        type="index"
         label="序号"
-        prop="id">
+        width="60">
       </el-table-column>
       <el-table-column
         label="漫游地"
-        prop="name">
+        prop="roam_location">
       </el-table-column>
       <el-table-column
         label="近三个月漫游地漫游天数"
-        prop="telNum">
+        prop="roam_day_num_3m">
       </el-table-column>
       <el-table-column
         label="近六个月漫游地漫游天数"
-        prop="sex">
+        prop="roam_day_num_6m">
       </el-table-column>
     </el-table>
   </div>

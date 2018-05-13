@@ -21,6 +21,7 @@
     </el-form>
     <el-table
       :data="dataList"
+      :highlight-current-row="true"
       style="width: 100%"
       height="100%">
       <el-table-column

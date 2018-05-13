@@ -1,0 +1,31 @@
+{
+    "behavior": {
+        "code": "0",
+        "desc": "查询成功",
+        "trans_id": "14910304379231213",
+        "trade_no": "201704011507240100057329",
+        "fee": "Y",
+        "id_no": "123101190201032034",
+        "id_name": "张三",
+        "versions": "1.0.0",
+        "result_detail": {
+            "loans_score": "199",
+            "loans_credibility": "90",
+            "loans_count": "300",
+            "loans_settle_count": "280",
+            "loans_overdue_count": "20",
+            "loans_org_count": "5",
+            "consfin_org_count": "3",
+            "loans_cash_count": "2",
+            "latest_one_month": "3",
+            "latest_three_month": "20",
+            "latest_six_month": "23",
+            "history_suc_fee": "30",
+            "history_fail_fee": "20",
+            "latest_one_month_suc": "5",
+            "latest_one_month_fail": "25",
+            "loans_long_time": "130",
+            "loans_latest_time": "2017-09-16"
+        }
+    }
+}

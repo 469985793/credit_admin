@@ -26,28 +26,8 @@ import VBehavior from './Behavior'
 
 export default {
   name: 'VCustomerDetailCredit',
-  data() {
-    return {
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 100
-    }
-  },
   components: {
     VApply, VExcuted, VDiscredit, VBehavior
-  },
-  methods: {
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
-    }
   }
 }
 </script>
@@ -89,12 +69,6 @@ export default {
         border-bottom: 1px double $ent-color-primary;
       }
     }
-  }
-  .page_box {
-    text-align: right;
-    margin: $ent-gap-small;
-    font-size: 13px;
-    font-weight: lighter;
   }
 }
 </style>
