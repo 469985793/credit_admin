@@ -71,6 +71,7 @@ export default {
               type: 'success'
             });
           }, 500);
+          this.storage.cookie.set('token', 'tokenstr');
           this.$router.push({path: '/'});
         } else {
           this.$message({

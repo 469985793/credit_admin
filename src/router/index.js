@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import {storage} from '../assets/js/utils/storage'
+import {storage} from '../assets/js/utils/storage'
 import routeConfig from './route.config.json';
 var registerRoute = (routeConfig) => {
   let route = [];
@@ -27,14 +27,14 @@ const routeInstance = new Router({
 })
 
 routeInstance.beforeEach((to, from, next) => {
-  // if (to.name !== 'login') {
-  //   let token = storage.cookie.get('token');
-  //   if (token !== null) {
-  //     next()
-  //   } else {
-  //     routeInstance.replace({name: 'login'})
-  //   }
-  // }
+  if (to.name !== 'login') {
+    let token = storage.cookie.get('token');
+    if (token !== null) {
+      next()
+    } else {
+      routeInstance.replace({name: 'login'})
+    }
+  }
   next()
 })
 

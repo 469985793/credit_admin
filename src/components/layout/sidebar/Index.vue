@@ -1,5 +1,5 @@
 <template>
-  <VScrollBar>
+  <VScrollBar class="side_bar_box">
     <el-menu
       :default-active="activeMenu"
       :unique-opened="true"
@@ -9,24 +9,24 @@
       active-text-color="#409EFF"
       :collapse="isCollapse">
       <el-menu-item index="/dashboard" @click="goPage('/dashboard')">
-        <i class="el-icon-menu"></i>
+        <i class="iconfont icon-dashboard"></i>
         <span slot="title">控制面板</span>
       </el-menu-item>
       <el-menu-item index="/authority" @click="goPage('/authority')">
-        <i class="el-icon-menu"></i>
+        <i class="iconfont icon-authority"></i>
         <span slot="title">权限管理</span>
       </el-menu-item>
       <el-menu-item index="/creditQuery" @click="goPage('/creditQuery')">
-        <i class="el-icon-menu"></i>
+        <i class="iconfont icon-credit-quary"></i>
         <span slot="title">信用查询</span>
       </el-menu-item>
       <el-menu-item index="/customer/list" @click="goPage('/customer/list')">
-        <i class="el-icon-menu"></i>
+        <i class="iconfont icon-customer"></i>
         <span slot="title">客户中心</span>
       </el-menu-item>
       <el-submenu index="/process">
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <i class="iconfont icon-process"></i>
           <span slot="title">进度管理</span>
         </template>
         <el-menu-item-group>
@@ -39,7 +39,7 @@
       </el-submenu>
       <el-submenu index="/postLoan">
         <template slot="title">
-          <i class="el-icon-location"></i>
+          <i class="iconfont icon-postloan"></i>
           <span slot="title">贷后管理</span>
         </template>
         <el-menu-item-group>
@@ -77,3 +77,10 @@ export default {
   }
 }
 </script>
+<style lang="scss">
+.side_bar_box {
+  & .iconfont {
+    margin-right: 5px !important;
+  }
+}
+</style>
