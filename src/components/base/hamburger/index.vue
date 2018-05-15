@@ -1,6 +1,6 @@
 <template>
   <div>
-    <span class="el-icon-tickets hamburger" :class="{'is_active':isActive}"></span>
+    <span class="iconfont icon-toggle hamburger" :class="{'is_active':isActive}"></span>
   </div>
 </template>
 
@@ -20,8 +20,9 @@ export default {
 .hamburger {
     display: inline-block;
     cursor: pointer;
-    width: 20px;
-    height: 20px;
+    width: 25px;
+    height: 25px;
+    font-size: 25px;
     transform: rotate(0deg);
     transition: all 0.8s ease-in-out;
     transform-origin: 50% 50%;

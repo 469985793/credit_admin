@@ -13,7 +13,7 @@
               <i class="el-icon-caret-bottom"></i>
             </div>
             <el-dropdown-menu class="user-dropdown" slot="dropdown">
-              <el-dropdown-item to="/login">
+              <el-dropdown-item @click.native="doLogout">
                 <span>退出</span>
               </el-dropdown-item>
             </el-dropdown-menu>
@@ -48,25 +48,13 @@ export default {
   components: {
     VHamburger, VBreadcrumb, VSideBar, VTagView
   },
-  created() {
-    this.getUnreadCount();
-  },
   methods: {
     toggleSideBar() {
       this.isShowSideBar = !this.isShowSideBar;
     },
-    getUnreadCount() {
-      // this.httpService.get('apiConfig.server.unread', (res) => {
-      //   if (res.data.code === 0) {
-      //     this.unreadCount = res.data.count.toString();
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
+    doLogout() {
+      this.storage.cookie.delete('token');
+      this.$router.push({path: '/login'});
     }
   }
 }
@@ -142,11 +130,11 @@ export default {
     &.hide_side_bar {
       width: 36px;
       .el-tooltip {
-        padding: 0 5px !important;
+        padding: 0 8px !important;
       }
       .el-submenu {
         &>.el-submenu__title {
-          padding-left: 5px !important;
+          padding-left: 8px !important;
         }
       }
     }
