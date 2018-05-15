@@ -32,22 +32,22 @@ export default {
       },
       cardList: [
         {
-          icon: 'el-icon-message',
+          icon: 'iconfont icon-loan',
           title: '放款金额',
           value: '111'
         },
         {
-          icon: 'el-icon-date',
+          icon: 'iconfont icon-acquitt',
           title: '结清金额',
           value: '111'
         },
         {
-          icon: 'el-icon-printer',
+          icon: 'el-icon-sold-out',
           title: '逾期金额',
           value: '111'
         },
         {
-          icon: 'el-icon-sold-out',
+          icon: 'iconfont icon-overdue-ratio',
           title: '逾期率',
           value: '111'
         }
@@ -96,6 +96,9 @@ export default {
         transition: all 0.5s ease-out;
         border-radius: 6px;
         font-size: 40px;
+        & .iconfont {
+          font-size: 40px;
+        }
       }
 
       .text_box {
