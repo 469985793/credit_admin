@@ -10,6 +10,7 @@ export let apiConfig = {
   server: {
     login: `${server}/sun/api/comlogin`,
     customerList: `${server}/sun/api/cususer/get`,
-    waitVerifyList: `${server}/sun/api/order/get/approveFirst`
+    waitVerifyList: `${server}/sun/api/order/get/approveFirst`,
+    passFirstVerify: `${server}/sun/api/order/approveFirst`
   }
 }

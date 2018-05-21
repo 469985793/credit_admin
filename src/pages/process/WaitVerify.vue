@@ -227,20 +227,12 @@ export default {
           mobileNum: this.searchData.telNum
         }
       }
-      this.httpService.post(apiConfig.server.formList, obj, (res) => {
-        if (res.data.code === 0) {
-          if (isSearch) {
-            this.isLoading = false;
-          }
-          this.totalData = res.data.total;
-          this.dataList = res.data.data.list;
-        } else {
-          this.$message({
-            message: res.data.msg,
-            duration: 1000,
-            type: 'error'
-          });
+      this.httpService.post(apiConfig.server.waitVerifyList, obj, (res) => {
+        if (isSearch) {
+          this.isLoading = false;
         }
+        this.totalData = res.data.requestPage.totalCount;
+        this.dataList = res.data.data;
       });
     },
     goPage(page) {
@@ -249,17 +241,14 @@ export default {
     doQuery() {
       this.isLoading = true;
       this.fetchData(true);
-      console.log('submit!');
     },
     doSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
     },
     doCurrentChange(pageNum) {
       this.pageNum = pageNum;
       this.fetchData();
-      console.log(`当前页: ${pageNum}`);
     }
   }
 }
