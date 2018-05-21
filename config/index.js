@@ -23,36 +23,17 @@ module.exports = {
   },
   dev: {
     env: require('./dev.env'),
-    port: 8088,
+    port: 8082,
     autoOpenBrowser: true,
     assetsSubDirectory: 'static',
     assetsPublicPath: '/',
-    // proxyTable: {},
     proxyTable: {
-      // '*': {
-      //   target: "http://120.25.106.62",
-      //   secure: false,
-      //   changeOrigin: true
-      // }
-      '/cm/*/*': {
-        target: "http://120.25.106.62",
-        secure: false,
-        changeOrigin: true
-      },
       '/api': {
         changeOrigin: true,
         secure: false,
-        target: 'http://localhost:9091',
+        target: 'http://120.78.167.19:8080',
         pathRewrite: {
           '^/api': ''
-        }
-      },
-      '/luo': {
-        changeOrigin: true,
-        secure: false,
-        target: 'http://mobile-outer-web-enncloud-qa.ipaas.enncloud.cn',
-        pathRewrite: {
-          '^/luo': ''
         }
       }
     }, //modify by luoxiaobin for axios

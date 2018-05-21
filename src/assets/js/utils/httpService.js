@@ -12,10 +12,10 @@ import {storage} from './storage'
 import { Message } from 'element-ui'
 
 axios.interceptors.request.use((config) => {
-  let token = storage.cookie.get('token');
+  let token = storage.localStorage.get('token');
 
   if (token !== null) {
-    config.headers.Authorization = token;
+    config.headers.token = token;
   }
   return config;
 }, (error) => {

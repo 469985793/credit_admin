@@ -24,6 +24,7 @@
 </template>
 
 <script>
+import { apiConfig } from '../../configs/api/apiConfig'
 export default {
   name: 'VLogin',
   data() {
@@ -35,7 +36,7 @@ export default {
       }
     }
     const checkPassword = (rule, value, callback) => {
-      if (value.length < 5) {
+      if (value.length < 4) {
         callback(new Error('密码不能小于5位'));
       } else {
         callback();
@@ -44,8 +45,8 @@ export default {
     return {
       formData: {
         info: {
-          userName: 'admin',
-          password: 'admin'
+          userName: '',
+          password: ''
         },
         rule: {
           userName: [{ required: true, trigger: 'blur', validator: checkUserName }],
@@ -64,18 +65,26 @@ export default {
       this.$refs.formElement.validate((valid) => {
         if (valid) {
           this.isLoading = true;
-          setTimeout(() => {
+          let obj = {
+            name: this.formData.info.userName,
+            password: this.formData.info.password
+          }
+          this.httpService.post(apiConfig.server.login, obj, (res) => {
             this.isLoading = false;
-            this.$message({
-              message: '登录成功',
-              type: 'success'
-            });
-          }, 500);
-          this.storage.cookie.set('token', 'tokenstr');
-          this.$router.push({path: '/'});
+            if (res.data.data.success === true) {
+              this.storage.localStorage.set('token', res.data.data.token);
+              this.$router.push({path: '/'});
+            } else {
+              this.$message({
+                message: res.data.data.message,
+                type: 'warning'
+              });
+              return false
+            }
+          });
         } else {
           this.$message({
-            message: '登录失败',
+            message: '账号或密码有误哦',
             type: 'warning'
           });
           return false

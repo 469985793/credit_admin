@@ -1,4 +1,6 @@
-let server = '//localhost:8080';
+// let server = '//localhost:8080';
+let server = '/api';
+
 export let apiConfig = {
   img: {
     login: {
@@ -6,10 +8,8 @@ export let apiConfig = {
     }
   },
   server: {
-    formEdit: `${server}/baseinfo/addorupdate`,
-    formList: `${server}/baseinfo/list`,
-    formDetail: `${server}/baseinfo/info`,
-    unread: `${server}/baseinfo/unread`,
-    downloadImg: `${server}/baseinfo/downLoad`
+    login: `${server}/sun/api/comlogin`,
+    customerList: `${server}/sun/api/cususer/get`,
+    waitVerifyList: `${server}/sun/api/order/get/approveFirst`
   }
 }

@@ -124,7 +124,7 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
   name: 'VWaitVerify',
@@ -140,8 +140,6 @@ export default {
         name: '',
         date: ''
       },
-      readStatus: '全部',
-      order: 'ascend',
       dataList: [
         {
           dkId: '1',
@@ -218,47 +216,32 @@ export default {
   created() {
     this.fetchData();
   },
-  watch: {
-    readStatus() {
-      this.doQuery();
-    },
-    order() {
-      this.doQuery();
-    }
-  },
   methods: {
     fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
+      let obj = {
+        currentPage: this.pageNum,
+        rowCount: this.pageSize,
+        requestMap: {
+          name: this.searchData.name,
+          applyDate: this.searchData.date,
+          mobileNum: this.searchData.telNum
+        }
       }
+      this.httpService.post(apiConfig.server.formList, obj, (res) => {
+        if (res.data.code === 0) {
+          if (isSearch) {
+            this.isLoading = false;
+          }
+          this.totalData = res.data.total;
+          this.dataList = res.data.data.list;
+        } else {
+          this.$message({
+            message: res.data.msg,
+            duration: 1000,
+            type: 'error'
+          });
+        }
+      });
     },
     goPage(page) {
       this.$router.push({path: page});

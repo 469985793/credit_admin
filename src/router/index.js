@@ -28,7 +28,7 @@ const routeInstance = new Router({
 
 routeInstance.beforeEach((to, from, next) => {
   if (to.name !== 'login') {
-    let token = storage.cookie.get('token');
+    let token = storage.localStorage.get('token');
     if (token !== null) {
       next()
     } else {
