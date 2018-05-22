@@ -27,7 +27,7 @@
       height="100%">
       <el-table-column
         fixed
-        prop="dkId"
+        type="index"
         label="序号"
         width="60">
       </el-table-column>
@@ -35,41 +35,41 @@
         fixed      
         label="姓名">
         <template slot-scope="scope">
-          <span>{{scope.row.userName}}</span>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
       <el-table-column
         fixed
-        prop="telNum"
+        prop="mobileNum"
         label="手机号">
       </el-table-column>
       <el-table-column
         fixed
-        prop="telNum"
+        prop="identityCard"
         label="身份证号">
       </el-table-column>
       <el-table-column
         fixed
-        prop="telNum"
+        prop="gender"
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="applyMoney"
         label="申请金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="approveMoney"
         label="审批金额">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        prop="finalDate"
         label="审批通过时间">
       </el-table-column>
       <el-table-column
         fixed="right"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click.stop="isShowDialog = true" type="primary" size="small">同意放款</el-button>
+          <el-button @click.stop="doShowDialog(scope.$index)" type="primary" size="small">同意放款</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -90,134 +90,66 @@
           <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.mobileNum" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.identityCard" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.gender" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.applyMoney" placeholder="申请金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请天数">
-          <el-input v-model="dialogFormData.money" placeholder="申请天数" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.dateCount" placeholder="申请天数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="审批金额">
-          <el-input v-model="dialogFormData.name" placeholder="审批金额" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.approveMoney" placeholder="审批金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="放款金额">
-          <el-input v-model="dialogFormData.name" placeholder="放款金额" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.grantMoney" placeholder="放款金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="放/还款时间">
           <el-date-picker
-            v-model="dialogFormData.money"
+            v-model="timeData"
             type="daterange"
             align="right"
             unlink-panels
+            value-format="yyyy-MM-dd"
             range-separator="至"
             start-placeholder="放款时间"
             end-placeholder="应还款时间">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="添加备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="添加备注"></el-input>
+          <el-input autosize type="textarea" v-model="dialogFormData.comment" placeholder="添加备注"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="primary" @click="isShowDialog = false">放款</el-button>
+        <el-button type="primary" @click="doSubmit">放款</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
   name: 'VWaitLoan',
   data() {
     return {
       isShowDialog: false,
-      dialogFormData: {
-        name: '',
-        money: ''
-      },
+      dialogFormData: {},
       searchData: {
         telNum: '',
         name: '',
         date: ''
       },
-      readStatus: '全部',
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '4',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '5',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
+      timeData: '',
+      dataList: [],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
@@ -227,59 +159,54 @@ export default {
   created() {
     this.fetchData();
   },
-  watch: {
-    readStatus() {
-      this.doQuery();
-    }
-  },
   methods: {
     fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
+      let obj = {
+        currentPage: this.pageNum,
+        rowCount: this.pageSize,
+        requestMap: {
+          name: this.searchData.name,
+          applyDate: this.searchData.date,
+          mobileNum: this.searchData.telNum
+        }
       }
+      this.httpService.post(apiConfig.server.waitLoanList, obj, (res) => {
+        if (isSearch) {
+          this.isLoading = false;
+        }
+        this.totalData = res.data.requestPage.totalCount;
+        this.dataList = res.data.data;
+      });
+    },
+    doShowDialog(index) {
+      this.isShowDialog = true;
+      this.dialogFormData = this.dataList[index];
+    },
+    doSubmit(type) {
+      let obj = {
+        grantMoney: this.dialogFormData.grantMoney,
+        grantDate: this.timeData.split(',')[0],
+        returnDate: this.timeData.split(',')[1],
+        comment: this.dialogFormData.comment
+      }
+      this.httpService.post(apiConfig.server.passLoan, obj, (res) => {
+        this.isShowDialog = false;
+      });
+    },
+    goPage(page) {
+      this.$router.push({path: page});
     },
     doQuery() {
       this.isLoading = true;
       this.fetchData(true);
-      console.log('submit!');
     },
     doSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
     },
     doCurrentChange(pageNum) {
       this.pageNum = pageNum;
       this.fetchData();
-      console.log(`当前页: ${pageNum}`);
     }
   }
 }

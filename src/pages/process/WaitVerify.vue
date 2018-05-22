@@ -27,7 +27,7 @@
       height="100%">
       <el-table-column
         fixed="left"
-        prop="dkId"
+        type="index"
         label="序号"
         width="60">
       </el-table-column>
@@ -35,41 +35,41 @@
         fixed="left"
         label="姓名">
         <template slot-scope="scope">
-          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.id + '/baseInfo')">{{ scope.row.userName }}</el-tag>
+          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.cusId + '/baseInfo')">{{ scope.row.name }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="mobileNum"
         label="手机号">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="identityCard"
         label="身份证号">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="gender"
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="salary"
         label="月收入">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="applyMoney"
         label="申请金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="payCount"
         label="结清次数">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        prop="applyDate"
         label="申请时间">
       </el-table-column>
       <el-table-column
         label="操作">
         <template slot-scope="scope">
-          <el-button @click.stop="isShowDialog = true" type="primary" size="small">初审审核</el-button>
+          <el-button @click.stop="doShowDialog(scope.$index)" type="primary" size="small">初审审核</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -90,34 +90,34 @@
           <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.mobileNum" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.identityCard" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.gender" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="月收入">
-          <el-input v-model="dialogFormData.name" placeholder="月收入"></el-input>
+          <el-input v-model="dialogFormData.salary" placeholder="月收入"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额"></el-input>
+          <el-input v-model="dialogFormData.applyMoney" placeholder="申请金额"></el-input>
         </el-form-item>
         <el-form-item label="申请天数">
-          <el-input v-model="dialogFormData.money" placeholder="申请天数"></el-input>
+          <el-input v-model="dialogFormData.dateCount" placeholder="申请天数"></el-input>
         </el-form-item>
         <el-form-item label="结清次数">
-          <el-input v-model="dialogFormData.money" placeholder="结清次数" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.payCount" placeholder="结清次数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="添加备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="添加备注"></el-input>
+          <el-input autosize type="textarea" v-model="dialogFormData.firstComment" placeholder="添加备注"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="danger" @click="isShowDialog = false">拒绝审核</el-button>
-        <el-button type="primary" @click="isShowDialog = false">通过初审</el-button>
+        <el-button type="danger" @click="doSubmit(0)">拒绝审核</el-button>
+        <el-button type="primary" @click="doSubmit(1)">通过初审</el-button>
       </div>
     </el-dialog>
   </div>
@@ -131,82 +131,13 @@ export default {
   data() {
     return {
       isShowDialog: false,
-      dialogFormData: {
-        name: '',
-        money: ''
-      },
+      dialogFormData: {},
       searchData: {
         telNum: '',
         name: '',
         date: ''
       },
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '4',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '5',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
+      dataList: [],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
@@ -233,6 +164,22 @@ export default {
         }
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
+      });
+    },
+    doShowDialog(index) {
+      this.isShowDialog = true;
+      this.dialogFormData = this.dataList[index];
+    },
+    doSubmit(type) {
+      let obj = {
+        salary: this.dialogFormData.salary,
+        applyMoney: this.dialogFormData.applyMoney,
+        dateCount: this.dialogFormData.dateCount,
+        firstFlag: type === 1 ? 'Y' : 'N',
+        firstComment: this.dialogFormData.firstComment
+      }
+      this.httpService.post(apiConfig.server.passFirstVerify, obj, (res) => {
+        this.isShowDialog = false;
       });
     },
     goPage(page) {

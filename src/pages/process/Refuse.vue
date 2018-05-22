@@ -26,44 +26,44 @@
       style="width: 100%"
       height="100%">
       <el-table-column
-        prop="dkId"
-        label="id"
+        type="index"
+        label="序号"
         width="60">
       </el-table-column>
       <el-table-column
         label="姓名">
         <template slot-scope="scope">
-          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.id + '/baseInfo')">{{ scope.row.userName }}</el-tag>
+          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.cusId + '/baseInfo')">{{ scope.row.name }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="mobileNum"
         label="手机号">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="identityCard"
         label="身份证号">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="gender"
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="applyMoney"
         label="申请金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="payCount"
         label="结清次数">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        prop="applyDate"
         label="申请时间">
-      </el-table-column>
+      </el-table-column>n
       <el-table-column
         label="操作">
         <template slot-scope="scope">
-          <el-button @click.stop="isShowDialog = true" type="primary" size="small">查看详情</el-button>
+          <el-button @click.stop="doShowDialog(scope.$index)" type="primary" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -84,25 +84,25 @@
           <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.mobileNum" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.money" placeholder="身份证号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.identityCard" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.money" placeholder="性别" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.gender" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.applyMoney" placeholder="申请金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请天数">
-          <el-input v-model="dialogFormData.money" placeholder="申请天数" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.dateCount" placeholder="申请天数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="结清次数">
-          <el-input v-model="dialogFormData.money" placeholder="结清次数" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.payCount" placeholder="结清次数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请时间">
-          <el-input v-model="dialogFormData.money" placeholder="申请时间" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.applyDate" placeholder="申请时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="审核阶段">
           <el-input v-model="dialogFormData.money" placeholder="审核阶段" :disabled="true"></el-input>
@@ -117,7 +117,7 @@
           <el-input v-model="dialogFormData.money" placeholder="审核时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="拒绝理由">
-          <el-input v-model="dialogFormData.money" placeholder="拒绝理由" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.comment" placeholder="拒绝理由" :disabled="true"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -128,91 +128,20 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
   name: 'VRefuse',
   data() {
     return {
       isShowDialog: false,
-      dialogFormData: {
-        name: '',
-        money: ''
-      },
+      dialogFormData: {},
       searchData: {
         telNum: '',
         name: '',
         date: ''
       },
-      readStatus: '全部',
-      order: 'ascend',
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '4',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '5',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
+      dataList: [],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
@@ -222,47 +151,28 @@ export default {
   created() {
     this.fetchData();
   },
-  watch: {
-    readStatus() {
-      this.doQuery();
-    },
-    order() {
-      this.doQuery();
-    }
-  },
   methods: {
     fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
+      let obj = {
+        currentPage: this.pageNum,
+        rowCount: this.pageSize,
+        requestMap: {
+          name: this.searchData.name,
+          applyDate: this.searchData.date,
+          mobileNum: this.searchData.telNum
+        }
       }
+      this.httpService.post(apiConfig.server.refuseList, obj, (res) => {
+        if (isSearch) {
+          this.isLoading = false;
+        }
+        this.totalData = res.data.requestPage.totalCount;
+        this.dataList = res.data.data;
+      });
+    },
+    doShowDialog(index) {
+      this.isShowDialog = true;
+      this.dialogFormData = this.dataList[index];
     },
     goPage(page) {
       this.$router.push({path: page});
@@ -270,17 +180,14 @@ export default {
     doQuery() {
       this.isLoading = true;
       this.fetchData(true);
-      console.log('submit!');
     },
     doSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
     },
     doCurrentChange(pageNum) {
       this.pageNum = pageNum;
       this.fetchData();
-      console.log(`当前页: ${pageNum}`);
     }
   }
 }

@@ -26,32 +26,32 @@
       style="width: 100%"
       height="100%">
       <el-table-column
-        prop="dkId"
+        type="index"
         label="序号"
         width="60">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="name"
         label="姓名">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="mobileNumber"
         label="手机号">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="identityCard"
         label="身份证号">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="gender"
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="modiJobno"
+        prop="comUserVo.name"
         label="客户经理">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        prop="createDate"
         label="注册时间">
       </el-table-column>
       <el-table-column
@@ -59,7 +59,7 @@
         width="160"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="goPage(scope.row.dkId, 'detail')" type="primary" size="small">查看详情</el-button>
+          <el-button @click="goPage(scope.row.cusId, 'detail')" type="primary" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -78,64 +78,18 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
   name: 'VCustomer',
   data() {
     return {
-      isShowDialog: false,
-      dialogFormData: {
-        name: '',
-        money: ''
-      },
       searchData: {
         telNum: '',
         name: '',
         date: ''
       },
-      readStatus: '全部',
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
+      dataList: [],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
@@ -145,65 +99,39 @@ export default {
   created() {
     this.fetchData();
   },
-  watch: {
-    readStatus() {
-      this.doQuery();
-    },
-    order() {
-      this.doQuery();
-    }
-  },
   methods: {
     fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
+      let obj = {
+        currentPage: this.pageNum,
+        rowCount: this.pageSize,
+        requestMap: {
+          name: this.searchData.name,
+          applyDate: this.searchData.date,
+          mobileNum: this.searchData.telNum
+        }
       }
+      this.httpService.post(apiConfig.server.waitLoanList, obj, (res) => {
+        if (isSearch) {
+          this.isLoading = false;
+        }
+        this.totalData = res.data.requestPage.totalCount;
+        this.dataList = res.data.data;
+      });
     },
-    goPage(customerId, page) {
-      this.$router.push({path: '/customer/' + page + '/' + customerId + '/baseInfo'});
+    goPage(page) {
+      this.$router.push({path: page});
     },
     doQuery() {
       this.isLoading = true;
       this.fetchData(true);
-      console.log('submit!');
     },
     doSizeChange(pageSize) {
       this.pageSize = pageSize;
       this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
     },
     doCurrentChange(pageNum) {
       this.pageNum = pageNum;
       this.fetchData();
-      console.log(`当前页: ${pageNum}`);
     }
   }
 }

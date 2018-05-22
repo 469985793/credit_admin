@@ -141,12 +141,6 @@
         ]
       },
       {
-        "path": "/process/:applyId/detail",
-        "name": "processDetail",
-        "component": "/process/Detail",
-        "meta": { "title": "申请列表", "icon": "example" }
-      },
-      {
         "path": "/postLoan",
         "name": "postLoan",
         "component": "/postLoan/Index",
