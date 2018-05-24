@@ -1,5 +1,4 @@
-// let server = '//localhost:8080';
-let server = '/api';
+// let server = '/api';
 
 export let apiConfig = {
   img: {

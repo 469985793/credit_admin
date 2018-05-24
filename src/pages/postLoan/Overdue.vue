@@ -20,36 +20,53 @@
       </el-form-item>
     </el-form>
     <el-table
+      class="table_box"
       :data="dataList"
       stripe
       :highlight-current-row="true"
       style="width: 100%"
       height="100%">
+      <el-table-column type="expand">
+        <template>
+          <el-table
+            stripe
+            :data="itemList">
+            <el-table-column
+              type="index"
+              label="序号"
+              width="100">
+            </el-table-column>
+            <el-table-column
+              label="还款金额"
+              prop="item">
+            </el-table-column>
+            <el-table-column
+              label="还款时间"
+              prop="total">
+            </el-table-column>
+          </el-table>
+        </template>
+      </el-table-column>
       <el-table-column
-        fixed
         prop="dkId"
         label="序号"
         width="60">
       </el-table-column>
       <el-table-column
-        fixed
         label="姓名">
         <template slot-scope="scope">
           <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.id + '/baseInfo')">{{ scope.row.userName }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
-        fixed
         prop="telNum"
         label="手机号">
       </el-table-column>
       <el-table-column
-        fixed
         prop="telNum"
         label="身份证号">
       </el-table-column>
       <el-table-column
-        fixed
         prop="telNum"
         label="性别">
       </el-table-column>
@@ -79,8 +96,8 @@
         fixed="right"
         label="状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.status === '11101'" type="danger">未催收</el-tag>
-          <el-tag v-else type="primary">催收中</el-tag>
+          <el-tag v-if="scope.row.status === '11101'" type="danger">待催收</el-tag>
+          <el-tag v-else type="primary">已催收</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -129,7 +146,7 @@
           <el-input v-model="dialogFormData.name" placeholder="逾期天数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="罚款金额">
-          <el-input v-model="dialogFormData.name" placeholder="罚款金额" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.name" placeholder="罚款金额"></el-input>
         </el-form-item>
         <el-form-item label="剩余金额">
           <el-input v-model="dialogFormData.name" placeholder="剩余金额" :disabled="true"></el-input>
@@ -319,6 +336,8 @@ export default {
 @import '../../assets/css/vars.scss';
 
 .v_overdue_container {
+  height: calc(100% - 50px);
+  overflow-y: auto;
   .highlight {
     color: $ent-color-danger;
   }
@@ -330,7 +349,9 @@ export default {
       margin-bottom: 2px;
     }
   }
-
+  .table_box {
+    height: calc(100vh - 250px) !important;
+  }
   /* overwrite */
   .el-table {
     font-size: 13px;

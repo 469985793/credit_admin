@@ -75,7 +75,7 @@
       </el-table-column>
       <el-table-column
         prop="monthIncome"
-        label="结清次数">
+        label="还款次数">
       </el-table-column>
       <el-table-column
         prop="crtTime"
@@ -98,6 +98,13 @@
         prop="crtTime"
         label="申请时间">
       </el-table-column>
+      <el-table-column
+        fixed="right"
+        label="操作">
+        <template slot-scope="scope">
+          <el-button @click.stop="doShowDialog(scope.$index)" type="primary" size="small">查看明细</el-button>
+        </template>
+      </el-table-column>
     </el-table>
     <el-pagination
       class="page_box"
@@ -110,6 +117,29 @@
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
+    <el-dialog title="结清明细" :visible.sync="isShowDialog">
+      <el-table
+        class="table_box"
+        stripe
+        :data="itemList">
+        <el-table-column
+          type="index"
+          label="序号"
+          width="100">
+        </el-table-column>
+        <el-table-column
+          label="还款金额"
+          prop="item">
+        </el-table-column>
+        <el-table-column
+          label="还款时间"
+          prop="total">
+        </el-table-column>
+      </el-table>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="isShowDialog = false">关闭</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
@@ -240,6 +270,10 @@ export default {
       //     });
       //   }
       // });
+    },
+    doShowDialog(index) {
+      this.isShowDialog = true;
+      this.dialogFormData = this.dataList[index];
     },
     revertStatus(str) {
       if (str === '全部') {
