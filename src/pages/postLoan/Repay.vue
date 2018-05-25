@@ -5,12 +5,13 @@
         <el-input size="small" v-model="searchData.name" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input size="small" v-model="searchData.telNum" placeholder="手机号"></el-input>
+        <el-input size="small" v-model="searchData.telNum" placeholder="手机号" :maxlength="11"></el-input>
       </el-form-item>
       <el-form-item>
         <el-date-picker
           size="small"
           v-model="searchData.date"
+          value-format="yyyy-MM-dd"
           type="date"
           placeholder="选择日期">
         </el-date-picker>
@@ -85,7 +86,7 @@
         fixed="right"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click.stop="isShowDialog = true" type="primary" size="small">还款确认</el-button>
+          <el-button @click.stop="doShowDialog(scope.$index)" type="primary" size="small">还款确认</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -162,14 +163,14 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">关闭</el-button>
-        <el-button @click.stop="isShowDialog = false" type="primary">确认还款</el-button>
+        <el-button @click.stop="doSubmit" type="primary">确认还款</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
   name: 'VLoan',
@@ -288,37 +289,39 @@ export default {
   },
   methods: {
     fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
+      let obj = {
+        currentPage: this.pageNum,
+        rowCount: this.pageSize,
+        requestMap: {
+          name: this.searchData.name,
+          applyDate: this.searchData.date,
+          mobileNum: this.searchData.telNum
+        }
       }
+      this.httpService.post(apiConfig.server.repayList, obj, (res) => {
+        if (isSearch) {
+          this.isLoading = false;
+        }
+        this.totalData = res.data.requestPage.totalCount;
+        this.dataList = res.data.data;
+      });
+    },
+    doShowDialog(index) {
+      this.isShowDialog = true;
+      this.dialogFormData = this.dataList[index];
+    },
+    doSubmit() {
+      let obj = {
+        salary: this.dialogFormData.salary,
+        applyMoney: this.dialogFormData.applyMoney,
+        dateCount: this.dialogFormData.dateCount,
+        approveMoney: this.dialogFormData.approveMoney,
+        finalFlag: 'Y',
+        finalCommment: this.dialogFormData.firstComment
+      }
+      this.httpService.post(apiConfig.server.passVerify, obj, (res) => {
+        this.isShowDialog = false;
+      });
     },
     doQuery() {
       this.isLoading = true;

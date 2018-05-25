@@ -1,4 +1,4 @@
-// let server = '/api';
+let server = '/api';
 
 export let apiConfig = {
   img: {

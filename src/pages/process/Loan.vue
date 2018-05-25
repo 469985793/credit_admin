@@ -5,12 +5,13 @@
         <el-input size="small" v-model="searchData.name" placeholder="姓名"></el-input>
       </el-form-item>
       <el-form-item>
-        <el-input size="small" v-model="searchData.telNum" placeholder="手机号"></el-input>
+        <el-input size="small" v-model="searchData.telNum" placeholder="手机号" :maxlength="11"></el-input>
       </el-form-item>
       <el-form-item>
         <el-date-picker
           size="small"
           v-model="searchData.date"
+          value-format="yyyy-MM-dd"
           type="date"
           placeholder="选择日期">
         </el-date-picker>

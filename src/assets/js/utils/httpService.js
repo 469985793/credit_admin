@@ -30,6 +30,9 @@ axios.interceptors.response.use((response) => {
   }
   return response;
 }, (error) => {
+  Message.error({
+    message: '出了点小差错,好忧伤~'
+  });
   return Promise.reject(error);
 });
 
