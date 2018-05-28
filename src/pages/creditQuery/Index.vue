@@ -18,7 +18,7 @@
         </el-select>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-tabs class="tab_box" tab-position="right">

@@ -17,18 +17,23 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table
+      class="table_box"
       :data="dataList"
       stripe
+      v-loading="isLoadingTable"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       :highlight-current-row="true"
       style="width: 100%"
       height="100%">
       <el-table-column
         fixed="left"
-        prop="dkId"
+        type="index"
         label="序号"
         width="60">
       </el-table-column>
@@ -36,50 +41,50 @@
         fixed="left"
         label="姓名">
         <template slot-scope="scope">
-          <span>{{scope.row.userName}}</span>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
       <el-table-column
         fixed="left"
-        prop="telNum"
+        prop="mobileNum"
         label="手机号">
       </el-table-column>
       <el-table-column
         fixed="left"
-        prop="telNum"
+        prop="identityCard"
         label="身份证号">
       </el-table-column>
       <el-table-column
         fixed
-        prop="telNum"
+        prop="gender"
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="applyMoney"
         label="申请金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="approveMoney"
         label="审批金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="grantMoney"
         label="放款金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="grantDate"
         label="放款时间">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="returnDate"
         label="应还款时间">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        prop="applyMoney"
         label="申请时间">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="payCount"
         label="结清次数">
       </el-table-column>
       <el-table-column
@@ -97,7 +102,7 @@
       @current-change="doCurrentChange"
       :current-page="1"
       :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
@@ -107,42 +112,66 @@
           <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.mobileNum" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.identityCard" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.gender" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请金额">
-          <el-input v-model="dialogFormData.money" placeholder="申请金额" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.applyMoney" placeholder="申请金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="申请时间">
-          <el-input v-model="dialogFormData.name" placeholder="申请时间" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.applyDate" placeholder="申请时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="结清次数">
-          <el-input v-model="dialogFormData.name" placeholder="结清次数" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.payCount" placeholder="结清次数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="审核" class="verify_modal_box">
           <el-tabs tab-position="right">
             <el-tab-pane label="初审">
-              <el-input v-model="dialogFormData.name" placeholder="初审人" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="初审时间" :disabled="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注" :disabled="true"></el-input>
+              <el-form-item label="初审人">
+                <el-input v-if="dialogFormData.firstComUser" v-model="dialogFormData.firstComUser.name" placeholder="初审人" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="初审时间">
+                <el-input v-model="dialogFormData.firstDate" placeholder="初审时间" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="初审备注">
+                <el-input autosize type="textarea" v-model="dialogFormData.finalCommment" placeholder="初审备注" :disabled="true"></el-input>
+              </el-form-item>
             </el-tab-pane>
             <el-tab-pane label="终审">
-              <el-input v-model="dialogFormData.name" placeholder="终审人" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="审批金额" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="终审时间" :disabled="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="终审备注" :disabled="true"></el-input>
+              <el-form-item label="终审人">
+                <el-input v-if="dialogFormData.finalComUser" v-model="dialogFormData.finalComUser.name" placeholder="终审人" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="审批金额">
+                <el-input v-model="dialogFormData.grantMoney" placeholder="审批金额" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="终审时间">
+                <el-input v-model="dialogFormData.grantDate" placeholder="终审时间" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="终审备注">
+                <el-input autosize type="textarea" v-model="dialogFormData.finalCommment" placeholder="终审备注" :disabled="true"></el-input>
+              </el-form-item>
             </el-tab-pane>
             <el-tab-pane label="放款">
-              <el-input v-model="dialogFormData.name" placeholder="放款人" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.loadMoney" placeholder="放款金额" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="放款时间" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.name" placeholder="应还款时间" :disabled="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="放款备注" :disabled="true"></el-input>
+              <el-form-item label="放款人">
+                <el-input v-if="dialogFormData.actionComUser" v-model="dialogFormData.actionComUser.name" placeholder="放款人" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="放款金额">
+                <el-input v-model="dialogFormData.grantMoney" placeholder="放款金额" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="放款时间">
+                <el-input v-model="dialogFormData.grantDate" placeholder="放款时间" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="应还款时间">
+                <el-input v-model="dialogFormData.payDate" placeholder="应还款时间" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="放款备注">
+                <el-input autosize type="textarea" v-model="dialogFormData.comment" placeholder="放款备注" :disabled="true"></el-input>
+              </el-form-item>
             </el-tab-pane>
           </el-tabs>
         </el-form-item>
@@ -152,18 +181,20 @@
         <el-form-item class="residue_box" label="剩余金额" v-show="isShowAcquittItem" >
           <el-input v-model="residueMoney" placeholder="剩余金额" :readonly="true"></el-input>
           <el-date-picker
-            v-model="searchData.date"
+            v-model="dialogFormData.returnDate"
+            value-format="yyyy-MM-dd"
             type="date"
             placeholder="剩余还款日期">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="添加备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="添加备注"></el-input>
+          <el-input autosize type="textarea" v-model="dialogFormData.repayComment" placeholder="添加备注"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">关闭</el-button>
-        <el-button @click.stop="doSubmit" type="primary">确认还款</el-button>
+        <el-button v-if="dialogFormData.repayMoney && !isDisabledBtn" @click.stop="doSubmit" type="primary">确认还款</el-button>
+        <el-button v-else disabled type="primary">确认还款</el-button>
       </div>
     </el-dialog>
   </div>
@@ -176,106 +207,30 @@ export default {
   name: 'VLoan',
   data() {
     return {
+      isLoadingTable: true,
+      isDisabledBtn: false,
       isShowDialog: false,
-      dialogFormData: {
-        name: '',
-        money: '',
-        loadMoney: 100,
-        repayMoney: ''
-      },
+      dialogFormData: {},
+      selectIndex: 0,
       searchData: {
         telNum: '',
         name: '',
         date: ''
       },
       isShowAcquittItem: false,
-      readStatus: '全部',
-      order: 'ascend',
-      dataList: [
-        {
-          dkId: '1',
-          userName: '张三',
-          telNum: '1222929929',
-          currentAddress: '上海市-普通新区-林展路411弄1501',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '2',
-          userName: '张三2',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11101',
-          reserveOne: '1',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '3',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '4',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        },
-        {
-          dkId: '5',
-          userName: '张三3',
-          telNum: '1222929929',
-          currentAddress: '上海市',
-          monthIncome: '1000元',
-          contactQq: '1000元',
-          crtTime: '2016-06-6',
-          status: '11102',
-          reserveOne: '0',
-          remark: '这个是个穷小子',
-          modiJobno: '罗晓彬'
-        }
-      ],
+      dataList: [],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
-      totalData: 100
+      totalData: 0
     }
   },
   created() {
     this.fetchData();
   },
   watch: {
-    readStatus() {
-      this.doQuery();
-    },
-    order() {
-      this.doQuery();
-    },
     'dialogFormData.repayMoney'(repayValue) {
-      if (repayValue < this.dialogFormData.loadMoney) {
+      if (repayValue < this.dialogFormData.grantMoney) {
         this.isShowAcquittItem = true;
       } else {
         this.isShowAcquittItem = false;
@@ -284,7 +239,7 @@ export default {
   },
   computed: {
     residueMoney() {
-      return this.dialogFormData.loadMoney - this.dialogFormData.repayMoney;
+      return this.dialogFormData.grantMoney - this.dialogFormData.repayMoney;
     }
   },
   methods: {
@@ -302,6 +257,7 @@ export default {
         if (isSearch) {
           this.isLoading = false;
         }
+        this.isLoadingTable = false;
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
       });
@@ -309,18 +265,23 @@ export default {
     doShowDialog(index) {
       this.isShowDialog = true;
       this.dialogFormData = this.dataList[index];
+      this.selectIndex = index;
     },
     doSubmit() {
+      this.isDisabledBtn = true;
       let obj = {
-        salary: this.dialogFormData.salary,
-        applyMoney: this.dialogFormData.applyMoney,
-        dateCount: this.dialogFormData.dateCount,
-        approveMoney: this.dialogFormData.approveMoney,
-        finalFlag: 'Y',
-        finalCommment: this.dialogFormData.firstComment
+        orderVo: {
+          orderId: this.dialogFormData.orderId
+        },
+        payMoney: parseInt(this.dialogFormData.repayMoney),
+        payDate: this.format.getCurrentDate(),
+        returnDate: this.dialogFormData.returnDate,
+        repayComment: this.dialogFormData.approveMoney
       }
-      this.httpService.post(apiConfig.server.passVerify, obj, (res) => {
+      this.httpService.post(apiConfig.server.doRepay, obj, (res) => {
+        this.isDisabledBtn = false;
         this.isShowDialog = false;
+        this.dataList.splice(this.selectIndex, 1);
       });
     },
     doQuery() {
@@ -373,6 +334,9 @@ export default {
       }
     }
   }
+  .table_box {
+    height: calc(100vh - 250px) !important;
+  }
   /* overwrite */
   .el-table {
     font-size: 13px;
@@ -389,7 +353,6 @@ export default {
   .el-form-item {
     margin-bottom: $ent-gap-x-small;
   } /* overwrite */
-
   .page_box {
     text-align: right;
     margin: $ent-gap-small;

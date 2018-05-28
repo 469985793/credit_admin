@@ -17,11 +17,16 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table
+      class="table_box"
       :data="dataList"
+      v-loading="isLoadingTable"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       stripe
       :highlight-current-row="true"
       style="width: 100%"
@@ -46,6 +51,7 @@
       </el-table-column>
       <el-table-column
         fixed
+        :show-overflow-tooltip="true"
         prop="identityCard"
         label="身份证号">
       </el-table-column>
@@ -81,7 +87,7 @@
       @current-change="doCurrentChange"
       :current-page="1"
       :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
@@ -109,7 +115,7 @@
           <el-input v-model="dialogFormData.approveMoney" placeholder="审批金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="放款金额">
-          <el-input v-model="dialogFormData.grantMoney" placeholder="放款金额" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.approveMoney" placeholder="放款金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="放/还款时间">
           <el-date-picker
@@ -129,7 +135,8 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="primary" @click="doSubmit">放款</el-button>
+        <el-button type="primary" v-if="timeData" @click="doSubmit">放款</el-button>
+        <el-button type="primary" v-else disabled>放款</el-button>
       </div>
     </el-dialog>
   </div>
@@ -142,6 +149,8 @@ export default {
   name: 'VWaitLoan',
   data() {
     return {
+      isLoadingTable: true,
+      isDisabledBtn: false,
       isShowDialog: false,
       dialogFormData: {},
       searchData: {
@@ -149,12 +158,13 @@ export default {
         name: '',
         date: ''
       },
+      selectIndex: 0,
       timeData: '',
       dataList: [],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
-      totalData: 100
+      totalData: 0
     }
   },
   created() {
@@ -175,6 +185,7 @@ export default {
         if (isSearch) {
           this.isLoading = false;
         }
+        this.isLoadingTable = false;
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
       });
@@ -182,16 +193,21 @@ export default {
     doShowDialog(index) {
       this.isShowDialog = true;
       this.dialogFormData = this.dataList[index];
+      this.selectIndex = index;
     },
     doSubmit(type) {
+      this.isDisabledBtn = true;
       let obj = {
-        grantMoney: this.dialogFormData.grantMoney,
-        grantDate: this.timeData.split(',')[0],
-        returnDate: this.timeData.split(',')[1],
+        orderId: this.dialogFormData.orderId,
+        grantMoney: this.dialogFormData.approveMoney,
+        grantDate: this.timeData[0],
+        returnDate: this.timeData[1],
         comment: this.dialogFormData.comment
       }
       this.httpService.post(apiConfig.server.passLoan, obj, (res) => {
+        this.isDisabledBtn = false;
         this.isShowDialog = false;
+        this.dataList.splice(this.selectIndex, 1);
       });
     },
     goPage(page) {
@@ -228,7 +244,9 @@ export default {
       margin-bottom: 2px;
     }
   }
-
+  .table_box {
+    height: calc(100vh - 260px) !important;
+  }
   /* overwrite */
   .el-table {
     font-size: 13px;

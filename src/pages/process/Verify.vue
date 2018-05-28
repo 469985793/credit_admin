@@ -17,12 +17,17 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table
+      class="table_box"
       :data="dataList"
       stripe
+      v-loading="isLoadingTable"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       :highlight-current-row="true"
       style="width: 100%"
       height="100%">
@@ -37,7 +42,7 @@
         prop="name"
         label="姓名">
         <template slot-scope="scope">
-          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.id + '/baseInfo')">{{ scope.row.userName }}</el-tag>
+          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.cusId)">{{ scope.row.name }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -46,6 +51,7 @@
         label="手机号">
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
         fixed="left"
         prop="identityCard"
         label="身份证号">
@@ -85,6 +91,7 @@
         label="结清次数">
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
         prop="firstComment"
         label="初审备注">
       </el-table-column>
@@ -116,7 +123,7 @@
       @current-change="doCurrentChange"
       :current-page="1"
       :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
@@ -167,8 +174,10 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="danger" @click="doSubmit(0)">拒绝审核</el-button>
-        <el-button type="primary" @click="doSubmit(1)">通过终审</el-button>
+        <el-button v-if="dialogFormData.finalCommment && !isDisabledBtn" @click="doSubmit(0)" type="danger">拒绝审核</el-button>
+        <el-button v-else type="danger" disabled>拒绝审核</el-button>
+        <el-button v-if="dialogFormData.approveMoney && !isDisabledBtn" @click="doSubmit(1)" type="primary">通过终审</el-button>
+        <el-button v-else type="primary" disabled>通过终审</el-button>
       </div>
     </el-dialog>
   </div>
@@ -181,6 +190,8 @@ export default {
   name: 'VVerify',
   data() {
     return {
+      isLoadingTable: true,
+      isDisabledBtn: false,
       isShowDialog: false,
       dialogFormData: {},
       searchData: {
@@ -188,11 +199,12 @@ export default {
         name: '',
         date: ''
       },
+      selectIndex: 0,
       dataList: [],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
-      totalData: 100
+      totalData: 0
     }
   },
   created() {
@@ -213,6 +225,7 @@ export default {
         if (isSearch) {
           this.isLoading = false;
         }
+        this.isLoadingTable = false;
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
       });
@@ -220,9 +233,12 @@ export default {
     doShowDialog(index) {
       this.isShowDialog = true;
       this.dialogFormData = this.dataList[index];
+      this.selectIndex = index;
     },
     doSubmit(type) {
+      this.isDisabledBtn = true;
       let obj = {
+        orderId: this.dialogFormData.orderId,
         salary: this.dialogFormData.salary,
         applyMoney: this.dialogFormData.applyMoney,
         dateCount: this.dialogFormData.dateCount,
@@ -231,7 +247,9 @@ export default {
         finalCommment: this.dialogFormData.firstComment
       }
       this.httpService.post(apiConfig.server.passVerify, obj, (res) => {
+        this.isDisabledBtn = false;
         this.isShowDialog = false;
+        this.dataList.splice(this.selectIndex, 1);
       });
     },
     goPage(page) {
@@ -268,7 +286,9 @@ export default {
       margin-bottom: 2px;
     }
   }
-
+  .table_box {
+    height: calc(100vh - 260px) !important;
+  }
   /* overwrite */
   .el-table {
     font-size: 13px;

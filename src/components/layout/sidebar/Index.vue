@@ -24,6 +24,10 @@
         <i class="iconfont icon-customer"></i>
         <span slot="title">客户中心</span>
       </el-menu-item>
+      <el-menu-item index="/account" @click="goPage('/account')">
+        <i class="iconfont icon-authority"></i>
+        <span slot="title">账号管理</span>
+      </el-menu-item>
       <el-submenu index="/process">
         <template slot="title">
           <i class="iconfont icon-process"></i>

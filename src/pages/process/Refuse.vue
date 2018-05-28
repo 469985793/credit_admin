@@ -17,12 +17,17 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table
+      class="table_box"
       :data="dataList"
       stripe
+      v-loading="isLoadingTable"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       :highlight-current-row="true"
       style="width: 100%"
       height="100%">
@@ -34,7 +39,7 @@
       <el-table-column
         label="姓名">
         <template slot-scope="scope">
-          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.cusId + '/baseInfo')">{{ scope.row.name }}</el-tag>
+          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.cusId)">{{ scope.row.name }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
@@ -42,6 +47,7 @@
         label="手机号">
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
         prop="identityCard"
         label="身份证号">
       </el-table-column>
@@ -75,7 +81,7 @@
       @current-change="doCurrentChange"
       :current-page="1"
       :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
@@ -105,21 +111,34 @@
         <el-form-item label="申请时间">
           <el-input v-model="dialogFormData.applyDate" placeholder="申请时间" :disabled="true"></el-input>
         </el-form-item>
-        <el-form-item label="审核阶段">
-          <el-input v-model="dialogFormData.money" placeholder="审核阶段" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="审核结果">
-          <el-input v-model="dialogFormData.name" placeholder="审核结果" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="审核人">
-          <el-input v-model="dialogFormData.money" placeholder="审核人" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="审核时间">
-          <el-input v-model="dialogFormData.money" placeholder="审核时间" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="拒绝理由">
-          <el-input v-model="dialogFormData.comment" placeholder="拒绝理由" :disabled="true"></el-input>
-        </el-form-item>
+        <template v-if="dialogFormData.firstFlag === 'N'">
+          <el-form-item label="拒绝阶段">
+            <el-input placeholder="初审" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="拒绝人">
+            <el-input v-if="dialogFormData.firstComUser" v-model="dialogFormData.firstComUser.name" placeholder="拒绝人" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="拒绝时间">
+            <el-input v-model="dialogFormData.firstDate" placeholder="拒绝时间" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="拒绝理由">
+            <el-input v-model="dialogFormData.firstComment" placeholder="拒绝理由" :disabled="true"></el-input>
+          </el-form-item>
+        </template>
+        <template v-else>
+          <el-form-item label="拒绝阶段">
+            <el-input placeholder="终审" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="拒绝人">
+            <el-input v-if="dialogFormData.finalComUser" v-model="dialogFormData.finalComUser.name" placeholder="拒绝人" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="拒绝时间">
+            <el-input v-model="dialogFormData.finalDate" placeholder="拒绝时间" :disabled="true"></el-input>
+          </el-form-item>
+          <el-form-item label="拒绝理由">
+            <el-input v-model="dialogFormData.finalCommment" placeholder="拒绝理由" :disabled="true"></el-input>
+          </el-form-item>
+        </template>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">关闭</el-button>
@@ -135,6 +154,7 @@ export default {
   name: 'VRefuse',
   data() {
     return {
+      isLoadingTable: true,
       isShowDialog: false,
       dialogFormData: {},
       searchData: {
@@ -146,7 +166,7 @@ export default {
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
-      totalData: 100
+      totalData: 0
     }
   },
   created() {
@@ -167,6 +187,7 @@ export default {
         if (isSearch) {
           this.isLoading = false;
         }
+        this.isLoadingTable = false;
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
       });
@@ -209,7 +230,9 @@ export default {
       margin-bottom: 2px;
     }
   }
-
+  .table_box {
+    height: calc(100vh - 260px) !important;
+  }
   /* overwrite */
   .el-table {
     font-size: 13px;

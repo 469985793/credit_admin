@@ -25,6 +25,12 @@
         "meta": { "title": "信用查询", "icon": "example" }
       },
       {
+        "path": "/account",
+        "name": "account",
+        "component": "/account/Index",
+        "meta": { "title": "账号管理", "icon": "example" }
+      },
+      {
         "path": "customer",
         "name": "customer",
         "component": "/customer/Index",
@@ -42,6 +48,7 @@
             "name": "customerDetail",
             "component": "/customer/detail/Index",
             "meta": { "title": "客户详情", "icon": "example" },
+            "redirect": "/customer/detail/:customerId/baseInfo",
             "children": [
               {
                 "path": "baseInfo",

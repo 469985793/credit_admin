@@ -17,12 +17,17 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table
+      class="table_box"
       :data="dataList"
       stripe
+      v-loading="isLoadingTable"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       :highlight-current-row="true"
       style="width: 100%"
       height="100%">
@@ -97,7 +102,7 @@
       @current-change="doCurrentChange"
       :current-page="1"
       :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
@@ -127,22 +132,46 @@
         <el-form-item label="审核" class="verify_modal_box">
           <el-tabs tab-position="right">
             <el-tab-pane label="初审">
-              <el-input v-model="dialogFormData.firstComUser.name" placeholder="初审人" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.firstDate" placeholder="初审时间" :disabled="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="初审备注" :disabled="true"></el-input>
+              <el-form-item label="初审人">
+                <el-input v-if="dialogFormData.firstComUser" v-model="dialogFormData.firstComUser.name" placeholder="初审人" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="初审时间">
+                <el-input v-model="dialogFormData.firstDate" placeholder="初审时间" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="初审备注">
+                <el-input autosize type="textarea" v-model="dialogFormData.finalCommment" placeholder="初审备注" :disabled="true"></el-input>
+              </el-form-item>
             </el-tab-pane>
             <el-tab-pane label="终审">
-              <el-input v-model="dialogFormData.finalComUser.anme" placeholder="终审人" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.grantMoney" placeholder="审批金额" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.finalDate" placeholder="终审时间" :disabled="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.finalCommment" placeholder="终审备注" :disabled="true"></el-input>
+              <el-form-item label="终审人">
+                <el-input v-if="dialogFormData.finalComUser" v-model="dialogFormData.finalComUser.name" placeholder="终审人" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="审批金额">
+                <el-input v-model="dialogFormData.grantMoney" placeholder="审批金额" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="终审时间">
+                <el-input v-model="dialogFormData.grantDate" placeholder="终审时间" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="终审备注">
+                <el-input autosize type="textarea" v-model="dialogFormData.finalCommment" placeholder="终审备注" :disabled="true"></el-input>
+              </el-form-item>
             </el-tab-pane>
             <el-tab-pane label="放款">
-              <el-input v-model="dialogFormData.actionComUser.name" placeholder="放款人" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.payMoney" placeholder="放款金额" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.grantDate" placeholder="放款时间" :disabled="true"></el-input>
-              <el-input v-model="dialogFormData.returnDate" placeholder="应还款时间" :disabled="true"></el-input>
-              <el-input autosize type="textarea" v-model="dialogFormData.comment" placeholder="放款备注" :disabled="true"></el-input>
+              <el-form-item label="放款人">
+                <el-input v-if="dialogFormData.actionComUser" v-model="dialogFormData.actionComUser.name" placeholder="放款人" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="放款金额">
+                <el-input v-model="dialogFormData.grantMoney" placeholder="放款金额" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="放款时间">
+                <el-input v-model="dialogFormData.grantDate" placeholder="放款时间" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="应还款时间">
+                <el-input v-model="dialogFormData.payDate" placeholder="应还款时间" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="放款备注">
+                <el-input autosize type="textarea" v-model="dialogFormData.comment" placeholder="放款备注" :disabled="true"></el-input>
+              </el-form-item>
             </el-tab-pane>
           </el-tabs>
         </el-form-item>
@@ -161,6 +190,7 @@ export default {
   name: 'VLoan',
   data() {
     return {
+      isLoadingTable: true,
       isShowDialog: false,
       dialogFormData: {},
       searchData: {
@@ -173,7 +203,7 @@ export default {
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
-      totalData: 100
+      totalData: 0
     }
   },
   created() {
@@ -194,6 +224,7 @@ export default {
         if (isSearch) {
           this.isLoading = false;
         }
+        this.isLoadingTable = false;
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
       });
@@ -240,6 +271,9 @@ export default {
     & .el-input {
       margin: $ent-gap-x-small 0;
     }
+  }
+  .table_box {
+    height: calc(100vh - 250px) !important;
   }
   /* overwrite */
   .el-table {

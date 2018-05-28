@@ -17,12 +17,17 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table
+      class="table_box"
       :data="dataList"
       stripe
+      v-loading="isLoadingTable"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       :highlight-current-row="true"
       style="width: 100%"
       height="100%">
@@ -114,7 +119,7 @@
       @current-change="doCurrentChange"
       :current-page="1"
       :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
@@ -151,6 +156,7 @@ export default {
   name: 'VOverdue',
   data() {
     return {
+      isLoadingTable: true,
       isShowDialog: false,
       itemList: [],
       searchData: {
@@ -162,7 +168,7 @@ export default {
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
-      totalData: 100
+      totalData: 0
     }
   },
   created() {
@@ -183,6 +189,7 @@ export default {
         if (isSearch) {
           this.isLoading = false;
         }
+        this.isLoadingTable = false;
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
       });
@@ -222,7 +229,9 @@ export default {
       margin-bottom: 2px;
     }
   }
-
+  .table_box {
+    height: calc(100vh - 250px) !important;
+  }
   /* overwrite */
   .el-table {
     font-size: 13px;

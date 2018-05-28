@@ -17,13 +17,17 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table
       class="table_box"
       :data="dataList"
       stripe
+      v-loading="isLoadingTable"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       :highlight-current-row="true"
       style="width: 100%"
       height="100%">
@@ -56,36 +60,36 @@
       <el-table-column
         label="姓名">
         <template slot-scope="scope">
-          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.id + '/baseInfo')">{{ scope.row.userName }}</el-tag>
+          <el-tag size="medium" @click.native="goPage('/customer/detail/' + scope.row.cusId)">{{ scope.row.name }}</el-tag>
         </template>
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="mobileNum"
         label="手机号">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="identityCard"
         label="身份证号">
       </el-table-column>
       <el-table-column
-        prop="telNum"
+        prop="gender"
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="grantMoney"
         label="放款金额">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        prop="grantDate"
         label="放款时间">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        prop="returnDate"
         label="应还款时间">
       </el-table-column>
       <el-table-column
         fixed="right"
-        prop="monthIncome"
+        prop="remainReturnDate"
         label="再款时间">
       </el-table-column>
       <el-table-column
@@ -116,7 +120,7 @@
       @current-change="doCurrentChange"
       :current-page="1"
       :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
@@ -126,38 +130,38 @@
           <el-input v-model="dialogFormData.name" placeholder="姓名" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="手机号">
-          <el-input v-model="dialogFormData.name" placeholder="手机号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.mobileNum" placeholder="手机号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="身份证号">
-          <el-input v-model="dialogFormData.name" placeholder="身份证号" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.identityCard" placeholder="身份证号" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="性别">
-          <el-input v-model="dialogFormData.name" placeholder="性别" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.gender" placeholder="性别" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="放款金额">
-          <el-input v-model="dialogFormData.name" placeholder="放款金额" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.grantMoney" placeholder="放款金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="放款时间">
-          <el-input v-model="dialogFormData.name" placeholder="放款时间" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.grantDate" placeholder="放款时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="应还款时间">
-          <el-input v-model="dialogFormData.name" placeholder="应还款时间" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.returnDate" placeholder="应还款时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="逾期天数">
           <el-input v-model="dialogFormData.name" placeholder="逾期天数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="罚款金额">
-          <el-input v-model="dialogFormData.name" placeholder="罚款金额"></el-input>
+          <el-input v-model="dialogFormData.punishMoney" placeholder="罚款金额"></el-input>
         </el-form-item>
         <el-form-item label="剩余金额">
           <el-input v-model="dialogFormData.name" placeholder="剩余金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="本次还款金额">
-          <el-input v-model="dialogFormData.name" placeholder="本次还款金额"></el-input>
+          <el-input v-model="dialogFormData.payMoney" placeholder="本次还款金额"></el-input>
         </el-form-item>
         <el-form-item label="再还款时间">
           <el-date-picker
-            v-model="searchData.date"
+            v-model="dialogFormData.remainReturnDate"
             type="date"
             placeholder="再还款时间">
             </el-date-picker>
@@ -168,7 +172,7 @@
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">取消</el-button>
-        <el-button type="primary" @click="isShowDialog = false">催收</el-button>
+        <el-button type="primary" @click="doSubmit">催收</el-button>
       </div>
     </el-dialog>
   </div>
@@ -181,23 +185,21 @@ export default {
   name: 'VOverdue',
   data() {
     return {
+      isLoadingTable: true,
+      isDisabledBtn: false,
       isShowDialog: false,
-      dialogFormData: {
-        name: '',
-        money: ''
-      },
+      dialogFormData: {},
+      selectIndex: 0,
       searchData: {
         telNum: '',
         name: '',
         date: ''
       },
-      readStatus: '全部',
-      order: 'ascend',
       dataList: [],
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
-      totalData: 100
+      totalData: 0
     }
   },
   created() {
@@ -218,13 +220,32 @@ export default {
         if (isSearch) {
           this.isLoading = false;
         }
+        this.isLoadingTable = false;
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
       });
     },
     doShowDialog(index) {
       this.isShowDialog = true;
-      this.itemList = this.dataList[index];
+      this.dialogFormData = this.dataList[index];
+      this.selectIndex = index;
+    },
+    doSubmit() {
+      this.isDisabledBtn = true;
+      let obj = {
+        orderVo: {
+          orderId: this.dialogFormData.orderId
+        },
+        payMoney: this.dialogFormData.repayMoney,
+        payDate: this.dialogFormData.applyMoney,
+        returnDate: this.dialogFormData.dateCount,
+        comment: this.dialogFormData.approveMoney
+      }
+      this.httpService.post(apiConfig.server.doRepay, obj, (res) => {
+        this.isDisabledBtn = false;
+        this.isShowDialog = false;
+        this.dataList.splice(this.selectIndex, 1);
+      });
     },
     goPage(page) {
       this.$router.push({path: page});

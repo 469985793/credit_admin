@@ -27,13 +27,19 @@
         <span>{{baseInfoObj.address}}</span>
       </el-form-item>
       <el-form-item label="正面">
-        <span>{{baseInfoObj.photoRight}}</span>
+        <span class="ent-square">
+          <img :src="baseInfoObj.photoRight" />
+        </span>
       </el-form-item>
       <el-form-item label="反面">
-        <span>{{baseInfoObj.photoLeft}}</span>
+        <span class="ent-square">
+          <img :src="baseInfoObj.photoLeft" />
+        </span>
       </el-form-item>
       <el-form-item label="手持照">
-        <span>{{baseInfoObj.photo}}</span>
+        <span class="ent-square">
+          <img :src="baseInfoObj.photo" />
+        </span>
       </el-form-item>
     </el-form>
     <el-tag class="title_box">补充信息</el-tag>
@@ -90,12 +96,12 @@ export default {
   },
   methods: {
     fectchBaseInfo() {
-      this.httpService.get(apiConfig.server.baseInfo + this.customerId, (res) => {
+      this.httpService.get(apiConfig.server.baseInfo + '/' + this.customerId, (res) => {
         this.baseInfoObj = res.data.data;
       });
     },
     fectchOtherInfo() {
-      this.httpService.get(apiConfig.server.otherInfo + this.customerId, (res) => {
+      this.httpService.get(apiConfig.server.otherInfo + '/' + this.customerId, (res) => {
         this.otherInfoObj = res.data.data;
       });
     }

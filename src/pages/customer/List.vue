@@ -17,12 +17,17 @@
         </el-date-picker>
       </el-form-item>
       <el-form-item>
-        <el-button type="primary" size="small" @click="doQuery" :loading="isLoading">查询</el-button>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
       </el-form-item>
     </el-form>
     <el-table
+      class="table_box"
       :data="dataList"
       stripe
+      v-loading="isLoadingTable"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)"
       :highlight-current-row="true"
       style="width: 100%"
       height="100%">
@@ -60,7 +65,7 @@
         width="160"
         label="操作">
         <template slot-scope="scope">
-          <el-button @click="goPage(scope.row.cusId, 'detail')" type="primary" size="small">查看详情</el-button>
+          <el-button @click="goDetailPage(scope.$index)" type="primary" size="small">查看详情</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -70,8 +75,8 @@
       @size-change="doSizeChange"
       @current-change="doCurrentChange"
       :current-page="1"
-      :page-sizes="[10, 20, 50, 100]"
-      :page-size="100"
+      :page-sizes="[3, 5, 10, 20, 50, 100]"
+      :page-size="pageSize"
       layout="total, sizes, prev, pager, next, jumper"
       :total="totalData">
     </el-pagination>
@@ -85,6 +90,7 @@ export default {
   name: 'VCustomer',
   data() {
     return {
+      isLoadingTable: true,
       searchData: {
         telNum: '',
         name: '',
@@ -93,8 +99,8 @@ export default {
       dataList: [],
       isLoading: false,
       pageNum: 1,
-      pageSize: 10,
-      totalData: 100
+      pageSize: 3,
+      totalData: 0
     }
   },
   created() {
@@ -115,12 +121,13 @@ export default {
         if (isSearch) {
           this.isLoading = false;
         }
+        this.isLoadingTable = false;
         this.totalData = res.data.requestPage.totalCount;
         this.dataList = res.data.data;
       });
     },
-    goPage(page) {
-      this.$router.push({path: page});
+    goDetailPage(index) {
+      this.$router.push({path: '/customer/detail/' + this.dataList[index].cusId});
     },
     doQuery() {
       this.isLoading = true;
@@ -145,7 +152,9 @@ export default {
   .highlight {
     color: $ent-color-danger;
   }
-
+  .table_box {
+    height: calc(100vh - 285px) !important;
+  }
   /* overwrite */
   .el-table {
     font-size: 13px;

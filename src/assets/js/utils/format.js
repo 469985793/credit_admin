@@ -30,6 +30,23 @@ Format.prototype = {
     } else {
       return '请输入' + msg;
     }
+  },
+  getCurrentDate() {
+    let date, yearStr, monthStr, dateStr;
+
+    date = new Date();
+    yearStr = date.getFullYear();
+    monthStr = date.getMonth() + 1;
+    dateStr = date.getDate();
+
+    if (monthStr >= 1 && monthStr <= 9) {
+      monthStr = '0' + monthStr;
+    }
+    if (dateStr >= 0 && dateStr <= 9) {
+      dateStr = '0' + dateStr;
+    }
+
+    return yearStr + '-' + monthStr + '-' + dateStr;
   }
 }
 Vue.prototype.format = new Format();
