@@ -72,6 +72,7 @@
           width="100">
         </el-table-column>
         <el-table-column
+          :show-overflow-tooltip="true"
           label="套餐名称"
           prop="item">
         </el-table-column>
@@ -132,7 +133,9 @@ export default {
   .highlight {
     color: $ent-color-danger;
   }
-
+  .el-dialog {
+    width: 75%;
+  }
   .form_list_box {
     font-size: 0;
     margin: 0 $ent-gap-base;

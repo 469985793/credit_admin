@@ -47,6 +47,9 @@ Format.prototype = {
     }
 
     return yearStr + '-' + monthStr + '-' + dateStr;
+  },
+  toTimeStamp(str) {
+    return Date.parse(new Date(str));
   }
 }
 Vue.prototype.format = new Format();

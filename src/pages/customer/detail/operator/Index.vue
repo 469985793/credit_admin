@@ -48,7 +48,7 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../../../configs/api/apiConfig'
 import VBaseInfo from './BaseInfo'
 import VBillRecord from './BillRecord'
 import VFamily from './Family'
@@ -93,24 +93,31 @@ export default {
     VUserParse
   },
   created() {
-    this.fetchData();
+    this.fetchBillData();
+    this.fetchReportData();
   },
   methods: {
-    fetchData() {
-      this.httpService.get('/api/operator', (res) => {
-        this.operatorObj = res.data.data.data;
-      });
-      this.httpService.get('/api/bill', (res) => {
-        this.orderObj = res.data.data.data;
+    fetchBillData() {
+      let obj = {
+        orderNo: '201806030922570142000241',
+        mobile: '18610744321'
+      }
+      this.httpService.post(apiConfig.server.operatorBill, obj, (res) => {
+        this.orderObj = JSON.parse(res.data.data);
       });
     },
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
+    fetchReportData() {
+      let obj = {
+        orderNo: '201806030922570142000241',
+        mobile: '18610744321',
+        name: '孙长青',
+        idcard: '622301199104199175'
+      }
+
+      this.httpService.post(apiConfig.server.opratorReport, obj, (res) => {
+        this.operatorObj = JSON.parse(res.data.data);
+        console.log(this.operatorObj);
+      });
     }
   }
 }
@@ -149,12 +156,6 @@ export default {
         border-bottom: 1px double $ent-color-primary;
       }
     }
-  }
-  .page_box {
-    text-align: right;
-    margin: $ent-gap-small;
-    font-size: 13px;
-    font-weight: lighter;
   }
 }
 </style>

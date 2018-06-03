@@ -12,6 +12,7 @@
         width="60">
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
         prop="time_step"
         label="通话时间段">
       </el-table-column>
@@ -36,10 +37,12 @@
         label="被叫号码数">
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"
         prop="latest_call_time"
         label="第一次通话时间">
       </el-table-column>
       <el-table-column
+        :show-overflow-tooltip="true"      
         prop="farthest_call_time"
         label="最后一次通话时间">
       </el-table-column>

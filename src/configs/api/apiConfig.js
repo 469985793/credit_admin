@@ -1,5 +1,4 @@
 let server = '/api';
-
 export let apiConfig = {
   img: {
     login: {
@@ -28,6 +27,8 @@ export let apiConfig = {
     acquittList: `${server}/sun/api/order/get/overFlag`,
     overdueList: `${server}/sun/api/order/get/notOverFlag`,
     doChase: `${server}/sun/api/pay/urgePay`,
-    payDetail: `${server}/sun/api/pay/getByOrder`
+    payDetail: `${server}/sun/api/pay/getByOrder`,
+    opratorReport: `${server}/sun/api/xinyan/CarrierData/carrierReportUrl`,
+    operatorBill: `${server}/sun/api/xinyan/CarrierData/mobileMonthUrl`
   }
 }
