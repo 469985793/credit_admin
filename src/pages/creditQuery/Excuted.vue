@@ -1,5 +1,20 @@
 <template>
   <div class="v_credit_excuted">
+    <el-form :inline="true">
+      <el-form-item>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="isShowDialog = true">查询被执行报告</el-button>
+      </el-form-item>
+    </el-form>
+    <el-dialog
+      title="被执行雷达查询"
+      :visible.sync="isShowDialog"
+      width="30%">
+      <span>每次查询都是要花钱的哦~</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isShowDialog = false">取 消</el-button>
+        <el-button type="primary" @click="doQuery">确 定</el-button>
+      </span>
+    </el-dialog>
     <el-table
       class="table_box"
       stripe
@@ -66,22 +81,61 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../configs/api/apiConfig'
 
 export default {
   name: 'VCreditExcuted',
   data() {
     return {
+      isShowDialog: false,
+      loading: {},
       dataList: []
     }
   },
-  created() {
-    this.fetchData();
+  props: {
+    searchData: {
+      type: Object,
+      default: () => {}
+    }
   },
   methods: {
-    fetchData() {
-      this.httpService.get('/api/excuted', (res) => {
-        this.dataList = res.data.data.data;
+    doQuery() {
+      let obj = {
+        user_name: this.searchData.name,
+        id_card: this.searchData.idcardNum,
+        industry_type: this.searchData.tradeType
+      }
+
+      this.isShowDialog = false;
+      this.loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
+      this.httpService.post(apiConfig.server.creditQuery.excute.order, obj, (res) => {
+        this.pollingOrderStatus(res.data.data.tradeNo);
+      });
+    },
+    pollingOrderStatus(tradeNo) {
+      let obj = {
+        tradeNo: tradeNo
+      }
+      this.httpService.post(apiConfig.server.creditQuery.excute.orderStatus, obj, (res) => {
+        if (res.data.data.finished) {
+          this.$message(res.data.data.description);
+          this.getData(obj);
+        } else {
+          setTimeout(() => {
+            this.pollingOrderStatus(tradeNo);
+          }, 2000);
+        }
+      });
+    },
+    getData(obj) {
+      this.httpService.post(apiConfig.server.creditQuery.excute.info, obj, (res) => {
+        this.loading.close();
+        this.dataList = res.data.data;
       });
     }
   }

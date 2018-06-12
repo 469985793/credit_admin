@@ -12,9 +12,9 @@
         <i class="iconfont icon-dashboard"></i>
         <span slot="title">控制面板</span>
       </el-menu-item>
-      <el-menu-item index="/authority" @click="goPage('/authority')">
+      <el-menu-item index="/account" @click="goPage('/account')">
         <i class="iconfont icon-authority"></i>
-        <span slot="title">权限管理</span>
+        <span slot="title">账号管理</span>
       </el-menu-item>
       <el-menu-item index="/creditQuery" @click="goPage('/creditQuery')">
         <i class="iconfont icon-credit-quary"></i>
@@ -23,10 +23,6 @@
       <el-menu-item index="/customer/list" @click="goPage('/customer/list')">
         <i class="iconfont icon-customer"></i>
         <span slot="title">客户中心</span>
-      </el-menu-item>
-      <el-menu-item index="/account" @click="goPage('/account')">
-        <i class="iconfont icon-authority"></i>
-        <span slot="title">账号管理</span>
       </el-menu-item>
       <el-submenu index="/process">
         <template slot="title">

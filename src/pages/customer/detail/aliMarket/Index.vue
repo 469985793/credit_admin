@@ -18,7 +18,7 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../../../configs/api/apiConfig'
 import VBaseInfo from './BaseInfo'
 import VRecentDeliverAddr from './RecentDeliverAddr'
 import VDeliverAddr from './DeliverAddr'
@@ -28,6 +28,7 @@ export default {
   name: 'VAliMarket',
   data() {
     return {
+      customerId: this.$route.params.customerId,
       dataObj: {}
     }
   },
@@ -39,7 +40,7 @@ export default {
   },
   methods: {
     fetchData() {
-      this.httpService.get('/api/alimarket', (res) => {
+      this.httpService.get(apiConfig.server.aliMarket + '/' + this.customerId, (res) => {
         this.dataObj = res.data.data.data;
       });
     }

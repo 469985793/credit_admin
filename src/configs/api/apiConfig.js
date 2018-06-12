@@ -1,4 +1,4 @@
-let server = '/api';
+// let server = '/api';
 export let apiConfig = {
   img: {
     login: {
@@ -28,7 +28,28 @@ export let apiConfig = {
     overdueList: `${server}/sun/api/order/get/notOverFlag`,
     doChase: `${server}/sun/api/pay/urgePay`,
     payDetail: `${server}/sun/api/pay/getByOrder`,
-    opratorReport: `${server}/sun/api/xinyan/CarrierData/carrierReportUrl`,
-    operatorBill: `${server}/sun/api/xinyan/CarrierData/mobileMonthUrl`
+    operatorReport: `${server}/sun/api/xinyan/CarrierData/carrierReportUrl`,
+    operatorBill: `${server}/sun/api/xinyan/CarrierData/mobileMonthUrl`,
+    alipay: `${server}/sun/api/xinyan/alipay/data`,
+    aliMarket: `${server}/sun/api/xinyan/taobao/userData`,
+    addressList: `${server}/sun/api/addressBook/getBookList`,
+    excuteList: `${server}/sun/api/xinyan/ZhiXingData/zhixinginfoUrl`,
+    applyList: `${server}/sun/api/xinyan/CreditRadar/applyRadar`,
+    behaviorList: `${server}/sun/api/xinyan/CreditRadar/applyRadar`,
+    discreditList: `${server}/sun/api/xinyan/CreditRadar/applyRadar`,
+    resetPwd: `${server}/sun/api/comuser/updatePassword`,
+    checkStaff: `${server}/sun/api/comuser/empIdCount`,
+    creditQuery: {
+      apply: `${server}/sun/api/xinyan/CreditRadar/applyRadar/user`,
+      behavior: `${server}/sun/api/xinyan/CreditRadar/behaviorRadar/user`,
+      excute: {
+        order: `${server}/sun/api/xinyan/ZhiXing/taskCreateUrl/user`,
+        orderStatus: `${server}/sun/api/xinyan/ZhiXing/taskStatusUrl`,
+        info: `${server}/sun/api/xinyan/ZhiXingData/zhixinginfoUrl/user`
+      },
+      discredit: `${server}/sun/api/xinyan/CourtDishonestyExecuted/courtDishonestyExecuted/user`
+    },
+    dashboardList: `${server}/sun/api/dbView`,
+    applyRecordList: `${server}/sun/api/order/selectByCusId`
   }
 }

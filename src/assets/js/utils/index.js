@@ -3,5 +3,6 @@ import * as storage from './storage'
 import * as format from './format'
 import * as httpService from './httpService'
 import * as indexDB from './indexDB'
+import * as common from './common'
 
-export { dom, storage, httpService, format, indexDB }
+export { dom, storage, httpService, format, indexDB, common }

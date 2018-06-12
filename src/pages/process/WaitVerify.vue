@@ -46,10 +46,12 @@
       </el-table-column>
       <el-table-column
         prop="mobileNum"
+        width="110px"
         label="手机号">
       </el-table-column>
       <el-table-column
         :show-overflow-tooltip="true"
+        width="160px"
         prop="identityCard"
         label="身份证号">
       </el-table-column>

@@ -31,7 +31,6 @@ module.exports = {
       '/api': {
         changeOrigin: true,
         secure: false,
-        target: 'http://:8080',
         pathRewrite: {
           '^/api': ''
         }

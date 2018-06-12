@@ -97,120 +97,121 @@
 <script>
 // import { apiConfig } from '../../configs/api/apiConfig'
 
-export default {
-  name: 'VCustomerDetailApplyRecord',
-  data() {
-    return {
-      searchText: '',
-      readStatus: '全部',
-      order: 'ascend',
-      dataList: [
-        {
-          id: '1',
-          name: '小丽',
-          telNum: 13303939393,
-          idCardNum: 350838383898288222,
-          sex: '女',
-          applyMoney: 1000,
-          applyTime: '2018-3-4',
-          loadMoney: 1000,
-          loadTime: '2018-5-4',
-          shouldRepayMoney: 1000,
-          shouldRepayTime: '2018-3-4',
-          amerceMoney: 200,
-          repayMoney: 1000,
-          repayTime: '2018-3-4',
-          isOverdue: '否'
-        },
-        {
-          id: '2',
-          name: '张三',
-          telNum: 13303939393,
-          idCardNum: 350838383898288222,
-          sex: '男',
-          applyMoney: 1000,
-          applyTime: '2018-3-4',
-          loadMoney: 1000,
-          loadTime: '2018-5-4',
-          shouldRepayMoney: 1000,
-          shouldRepayTime: '2018-3-4',
-          amerceMoney: 200,
-          repayMoney: 1000,
-          repayTime: '2018-3-4',
-          isOverdue: '否'
-        }
-      ],
-      isLoading: false,
-      pageNum: 1,
-      pageSize: 10,
-      totalData: 0
-    }
-  },
-  created() {
-    this.fetchData();
-  },
-  watch: {
-    readStatus() {
-      this.doQuery();
-    },
-    order() {
-      this.doQuery();
-    }
-  },
-  methods: {
-    fetchData(isSearch = false) {
-      // let obj = {
-      //   'pageNum': this.pageNum,
-      //   'pageSize': this.pageSize,
-      //   'order': this.order,
-      //   'searchText': this.searchText,
-      //   'status': this.revertStatus(this.readStatus)
-      // }
-      // this.httpService.post(apiConfig.server.formList, obj, (res) => {
-      //   if (res.data.code === 0) {
-            // if (isSearch) {
-            //   this.isLoading = false;
-            // }
-            // this.totalData = res.data.total;
-      //     this.dataList = res.data.data.list;
-      //   } else {
-      //     this.$message({
-      //       message: res.data.msg,
-      //       duration: 1000,
-      //       type: 'error'
-      //     });
-      //   }
-      // });
-    },
-    revertStatus(str) {
-      if (str === '全部') {
-        return ''
-      } else if (str === '未读') {
-        return '11101'
-      } else {
-        return '11102'
-      }
-    },
-    goPage(userId, page) {
-      this.$router.push({path: '/' + page + '/' + userId});
-    },
-    doQuery() {
-      this.isLoading = true;
-      this.fetchData(true);
-      console.log('submit!');
-    },
-    doSizeChange(pageSize) {
-      this.pageSize = pageSize;
-      this.fetchData();
-      console.log(`每页 ${pageSize} 条`);
-    },
-    doCurrentChange(pageNum) {
-      this.pageNum = pageNum;
-      this.fetchData();
-      console.log(`当前页: ${pageNum}`);
-    }
-  }
-}
+// export default {
+//   name: 'VCustomerDetailApplyRecord',
+//   data() {
+//     return {
+//       customerId: this.$route.customerId,
+//       searchText: '',
+//       readStatus: '全部',
+//       order: 'ascend',
+//       dataList: [
+//         {
+//           id: '1',
+//           name: '小丽',
+//           telNum: 13303939393,
+//           idCardNum: 350838383898288222,
+//           sex: '女',
+//           applyMoney: 1000,
+//           applyTime: '2018-3-4',
+//           loadMoney: 1000,
+//           loadTime: '2018-5-4',
+//           shouldRepayMoney: 1000,
+//           shouldRepayTime: '2018-3-4',
+//           amerceMoney: 200,
+//           repayMoney: 1000,
+//           repayTime: '2018-3-4',
+//           isOverdue: '否'
+//         },
+//         {
+//           id: '2',
+//           name: '张三',
+//           telNum: 13303939393,
+//           idCardNum: 350838383898288222,
+//           sex: '男',
+//           applyMoney: 1000,
+//           applyTime: '2018-3-4',
+//           loadMoney: 1000,
+//           loadTime: '2018-5-4',
+//           shouldRepayMoney: 1000,
+//           shouldRepayTime: '2018-3-4',
+//           amerceMoney: 200,
+//           repayMoney: 1000,
+//           repayTime: '2018-3-4',
+//           isOverdue: '否'
+//         }
+//       ],
+//       isLoading: false,
+//       pageNum: 1,
+//       pageSize: 10,
+//       totalData: 0
+//     }
+//   },
+//   created() {
+//     this.fetchData();
+//   },
+//   watch: {
+//     readStatus() {
+//       this.doQuery();
+//     },
+//     order() {
+//       this.doQuery();
+//     }
+//   },
+//   methods: {
+//     fetchData(isSearch = false) {
+//       let obj = {
+//         currentPage: this.pageNum,
+//         rowCount: this.pageSize,
+//         requestMap: {
+//           cusId: this.customerId
+//         }
+//       }
+//       this.httpService.post(apiConfig.server.applyRecordList, obj, (res) => {
+//         if (res.data.code === 0) {
+//             if (isSearch) {
+//               this.isLoading = false;
+//             }
+//             this.totalData = res.data.total;
+//           this.dataList = res.data.data.list;
+//         } else {
+//           this.$message({
+//             message: res.data.msg,
+//             duration: 1000,
+//             type: 'error'
+//           });
+//         }
+//       });
+//     },
+//     revertStatus(str) {
+//       if (str === '全部') {
+//         return ''
+//       } else if (str === '未读') {
+//         return '11101'
+//       } else {
+//         return '11102'
+//       }
+//     },
+//     goPage(userId, page) {
+//       this.$router.push({path: '/' + page + '/' + userId});
+//     },
+//     doQuery() {
+//       this.isLoading = true;
+//       this.fetchData(true);
+//       console.log('submit!');
+//     },
+//     doSizeChange(pageSize) {
+//       this.pageSize = pageSize;
+//       this.fetchData();
+//       console.log(`每页 ${pageSize} 条`);
+//     },
+//     doCurrentChange(pageNum) {
+//       this.pageNum = pageNum;
+//       this.fetchData();
+//       console.log(`当前页: ${pageNum}`);
+//     }
+//   }
+// }
 </script>
 
 <style lang="scss">

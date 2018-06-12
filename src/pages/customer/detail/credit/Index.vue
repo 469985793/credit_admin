@@ -1,6 +1,9 @@
 <template>
   <div class="v_customer_detail_credit">
     <el-tabs class="tab_box" tab-position="right">
+      <el-tab-pane label="被执行">
+        <VExcuted></VExcuted>
+      </el-tab-pane>
       <el-tab-pane label="申请雷达">
         <VApply></VApply>
       </el-tab-pane>
@@ -9,9 +12,6 @@
       </el-tab-pane>
       <el-tab-pane label="失信">
         <VDiscredit></VDiscredit>
-      </el-tab-pane>
-      <el-tab-pane label="被执行">
-        <VExcuted></VExcuted>
       </el-tab-pane>
     </el-tabs>
   </div>

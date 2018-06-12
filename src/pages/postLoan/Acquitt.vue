@@ -41,76 +41,81 @@
         fixed
         label="姓名">
         <template slot-scope="scope">
-          <span>{{scope.row.userName}}</span>
+          <span>{{scope.row.name}}</span>
         </template>
       </el-table-column>
       <el-table-column
-        fixed
-        prop="telNum"
+        :show-overflow-tooltip="true"
+        prop="mobileNum"
+        width="110px"
         label="手机号">
       </el-table-column>
       <el-table-column
-        fixed
-        prop="telNum"
+        :show-overflow-tooltip="true"
+        prop="identityCard"
+        width="160px"
         label="身份证号">
       </el-table-column>
       <el-table-column
-        fixed
-        prop="telNum"
+        prop="gender"
         label="性别">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="applyMoney"
         label="申请金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="approveMoney"
         label="审批金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="grantMoney"
         label="放款金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="punishMoney"
         label="罚款金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="payMoney"
         label="结清金额">
       </el-table-column>
       <el-table-column
-        prop="monthIncome"
+        prop="payCount"
         label="还款次数">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        prop="actionComUser.name"
         label="结清操作人">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        :show-overflow-tooltip="true"
+        prop="grantDate"
         label="放款时间">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        :show-overflow-tooltip="true"
+        prop="returnDate"
         label="应还款时间"
         width="90">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        :show-overflow-tooltip="true"
+        prop="actionDate"
         label="结清时间">
       </el-table-column>
       <el-table-column
-        prop="crtTime"
+        :show-overflow-tooltip="true"
+        prop="applyDate"
         label="申请时间">
       </el-table-column>
-      <el-table-column
+      <!-- <el-table-column
         fixed="right"
         label="操作">
         <template slot-scope="scope">
           <el-button @click.stop="doShowDialog(scope.$index)" type="primary" size="small">查看明细</el-button>
         </template>
-      </el-table-column>
+      </el-table-column> -->
     </el-table>
     <el-pagination
       class="page_box"

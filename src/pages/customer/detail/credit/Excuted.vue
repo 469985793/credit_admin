@@ -66,12 +66,13 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../../../configs/api/apiConfig'
 
 export default {
   name: 'VCreditExcuted',
   data() {
     return {
+      customerId: this.$route.params.customerId,
       dataList: []
     }
   },
@@ -80,8 +81,9 @@ export default {
   },
   methods: {
     fetchData() {
-      this.httpService.get('/api/excuted', (res) => {
-        this.dataList = res.data.data.data;
+      this.httpService.get(apiConfig.server.excuteList + '/' + this.customerId, (res) => {
+        this.dataList = res.data.data;
+        console.log(this.dataList);
       });
     }
   }

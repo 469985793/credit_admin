@@ -7,32 +7,29 @@
       <el-form-item>
         <el-input size="small" v-model="searchData.idcardNum" placeholder="身份证号"></el-input>
       </el-form-item>
-      <el-form-item>
-        <el-select v-model="searchData.tradeType" size="small" clearable placeholder="请选择行业">
-          <el-option
-            v-for="item in tradeList"
-            :key="item"
-            :label="item"
-            :value="item">
-          </el-option>
-        </el-select>
-      </el-form-item>
-      <el-form-item>
-        <el-button type="primary" size="small" icon="el-icon-search" @click="doQuery" :loading="isLoading">查询</el-button>
-      </el-form-item>
+      <!-- <el-form-item>
+        <el-cascader
+          expand-trigger="hover"
+          @change="doChangeTrade"
+          size="small"
+          placeholder="搜索行业"
+          :options="tradeList"
+          filterable
+        ></el-cascader>
+      </el-form-item> -->
     </el-form>
     <el-tabs class="tab_box" tab-position="right">
       <el-tab-pane label="申请雷达">
-        <VApply></VApply>
+        <VApply :searchData="searchData"></VApply>
       </el-tab-pane>
       <el-tab-pane label="行为雷达">
-        <VBehavior></VBehavior>
+        <VBehavior :searchData="searchData"></VBehavior>
       </el-tab-pane>
       <el-tab-pane label="失信">
-        <VDiscredit></VDiscredit>
+        <VDiscredit :searchData="searchData"></VDiscredit>
       </el-tab-pane>
       <el-tab-pane label="被执行">
-        <VExcuted></VExcuted>
+        <VExcuted :searchData="searchData"></VExcuted>
       </el-tab-pane>
     </el-tabs>
   </div>
@@ -43,7 +40,7 @@ import VApply from './Apply'
 import VExcuted from './Excuted'
 import VDiscredit from './Discredit'
 import VBehavior from './Behavior'
-
+import trade from '../../configs/json/trade.json'
 export default {
   name: 'VCreditQuery',
   data() {
@@ -51,25 +48,44 @@ export default {
       searchData: {
         name: '',
         idcardNum: '',
-        tradeType: ''
+        tradeType: 'A1'
       },
-      tradeList: [
-        'IT', '农业'
-      ],
-      isLoading: false
+      tradeList: []
     }
   },
   components: {
     VApply, VExcuted, VDiscredit, VBehavior
   },
+  created() {
+    trade.forEach((item, index) => {
+      var obj = {
+        value: '',
+        label: '',
+        children: []
+      }
+      obj.value = item.key;
+      obj.label = item.value;
+      item.list.forEach((subItem, subIndex) => {
+        var subObj = {}
+        subObj['value'] = subItem.key;
+        subObj['label'] = subItem.value;
+        obj.children.push(subObj);
+      });
+      this.tradeList.push(obj);
+    });
+  },
   methods: {
-    doQuery() {
-      this.isLoading = true;
+    doChangeTrade(value) {
+      this.searchData.tradeType = value[value.length - 1];
     }
   }
 }
 </script>
 
 <style lang="scss">
-
+.el-cascader-menu {
+  li {
+    font-size: 10px;
+  }
+}
 </style>

@@ -70,10 +70,10 @@ export default {
           }
         },
         legend: {
-          data: ['放款', '逾期']
+          data: ['放款金额', '逾期金额']
         },
         series: [{
-          name: '放款',
+          name: '放款金额',
           itemStyle: {
             normal: {
               color: '#FF005A',
@@ -90,7 +90,7 @@ export default {
           animationEasing: 'cubicInOut'
         },
         {
-          name: '逾期',
+          name: '逾期金额',
           smooth: true,
           type: 'line',
           itemStyle: {

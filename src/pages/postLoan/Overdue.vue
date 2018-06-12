@@ -35,7 +35,7 @@
         <template slot-scope="props">
           <el-table
             stripe
-            :data="props.row.itemList">
+            :data="props.row.payList">
             <el-table-column
               type="index"
               label="序号"
@@ -43,11 +43,19 @@
             </el-table-column>
             <el-table-column
               label="还款金额"
-              prop="item">
+              prop="payMoney">
+            </el-table-column>
+            <el-table-column
+              label="还款备注"
+              prop="repayComment">
+            </el-table-column>
+            <el-table-column
+              label="罚款金额"
+              prop="punishMoney">
             </el-table-column>
             <el-table-column
               label="还款时间"
-              prop="total">
+              prop="payDate">
             </el-table-column>
           </el-table>
         </template>
@@ -65,10 +73,12 @@
       </el-table-column>
       <el-table-column
         prop="mobileNum"
+        width="110px"
         label="手机号">
       </el-table-column>
       <el-table-column
         prop="identityCard"
+        width="160px"
         label="身份证号">
       </el-table-column>
       <el-table-column
@@ -101,7 +111,7 @@
         fixed="right"
         label="状态">
         <template slot-scope="scope">
-          <el-tag v-if="scope.row.status === '11101'" type="danger">待催收</el-tag>
+          <el-tag v-if="scope.row.actionType === 'Y'" type="danger">待催收</el-tag>
           <el-tag v-else type="primary">已催收</el-tag>
         </template>
       </el-table-column>
@@ -148,26 +158,28 @@
           <el-input v-model="dialogFormData.returnDate" placeholder="应还款时间" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="逾期天数">
-          <el-input v-model="dialogFormData.name" placeholder="逾期天数" :disabled="true"></el-input>
+          <el-input v-model="dialogFormData.dateCount" placeholder="逾期天数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="罚款金额">
           <el-input v-model="dialogFormData.punishMoney" placeholder="罚款金额"></el-input>
         </el-form-item>
         <el-form-item label="剩余金额">
-          <el-input v-model="dialogFormData.name" placeholder="剩余金额" :disabled="true"></el-input>
+          <el-input :value="getRemainMoney()" placeholder="剩余金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="本次还款金额">
           <el-input v-model="dialogFormData.payMoney" placeholder="本次还款金额"></el-input>
         </el-form-item>
         <el-form-item label="再还款时间">
           <el-date-picker
+            :disabled="isDisabledPicker"
+            value-format="yyyy-MM-dd"
             v-model="dialogFormData.remainReturnDate"
             type="date"
             placeholder="再还款时间">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="添加备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.name" placeholder="添加备注"></el-input>
+          <el-input autosize type="textarea" v-model="dialogFormData.comment" placeholder="添加备注"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -190,6 +202,7 @@ export default {
       isShowDialog: false,
       dialogFormData: {},
       selectIndex: 0,
+      isDisabledPicker: false,
       searchData: {
         telNum: '',
         name: '',
@@ -206,6 +219,20 @@ export default {
     this.fetchData();
   },
   methods: {
+    getRemainMoney() {
+      this.dialogFormData.grantMoney = this.dialogFormData.grantMoney ? parseInt(this.dialogFormData.grantMoney) : 0;
+      this.dialogFormData.punishMoney = this.dialogFormData.punishMoney ? parseInt(this.dialogFormData.punishMoney) : 0;
+      this.dialogFormData.payMoney = this.dialogFormData.payMoney ? parseInt(this.dialogFormData.payMoney) : 0;
+      let remainMoney = this.dialogFormData.grantMoney + this.dialogFormData.punishMoney - this.dialogFormData.payMoney;
+      if (remainMoney === 0) {
+        this.isDisabledPicker = true;
+        this.dialogFormData.remainReturnDate = '';
+      } else {
+        this.isDisabledPicker = false;
+      }
+
+      return remainMoney;
+    },
     fetchData(isSearch = false) {
       let obj = {
         currentPage: this.pageNum,
@@ -228,6 +255,7 @@ export default {
     doShowDialog(index) {
       this.isShowDialog = true;
       this.dialogFormData = this.dataList[index];
+      this.dialogFormData.payMoney = 0;
       this.selectIndex = index;
     },
     doSubmit() {
@@ -236,10 +264,11 @@ export default {
         orderVo: {
           orderId: this.dialogFormData.orderId
         },
-        payMoney: this.dialogFormData.repayMoney,
-        payDate: this.dialogFormData.applyMoney,
-        returnDate: this.dialogFormData.dateCount,
-        comment: this.dialogFormData.approveMoney
+        payMoney: this.dialogFormData.payMoney,
+        payDate: this.format.getCurrentDate(),
+        punishMoney: this.dialogFormData.punishMoney,
+        returnDate: this.dialogFormData.remainReturnDate,
+        comment: this.dialogFormData.comment
       }
       this.httpService.post(apiConfig.server.doRepay, obj, (res) => {
         this.isDisabledBtn = false;

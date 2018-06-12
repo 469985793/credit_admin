@@ -1,6 +1,22 @@
 <template>
   <div class="v_credit_discredit">
-    <el-form class="form_list_box" label-position="left" inline>
+    <el-form :inline="true">
+      <el-form-item>
+        <el-button type="primary" size="small" icon="el-icon-search" @click="isShowDialog = true">查询失信报告</el-button>
+      </el-form-item>
+    </el-form>
+    <el-dialog
+      title="失信雷达查询"
+      :visible.sync="isShowDialog"
+      width="30%">
+      <span>每次查询都是要花钱的哦~</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isShowDialog = false">取 消</el-button>
+        <el-button type="primary" @click="doQuery">确 定</el-button>
+      </span>
+    </el-dialog>
+    <el-tag class="title_box">失信人信息</el-tag>
+    <el-form v-if="!common.isEmptyObject(dataObj)" class="form_list_box" label-position="left" inline>
       <el-form-item label="失信人姓名">
         <span>{{dataObj.idHolder}}</span>
       </el-form-item>
@@ -11,7 +27,6 @@
         <span>{{dataObj.fee}}</span>
       </el-form-item>
     </el-form>
-    <el-tag class="title_box">失信人信息</el-tag>
     <el-table
       class="table_box"
       stripe
@@ -103,21 +118,31 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../../../configs/api/apiConfig'
 
 export default {
   name: 'VCreditDiscredit',
   data() {
     return {
+      customerId: this.$route.params.customerId,
+      loading: {},
+      isShowDialog: false,
       dataObj: []
     }
   },
-  created() {
-    this.fetchData();
-  },
   methods: {
-    fetchData() {
-      this.httpService.get('/api/discredit', (res) => {
+    doQuery() {
+      this.isShowDialog = false;
+      this.loading = this.$loading({
+        lock: true,
+        text: 'Loading',
+        spinner: 'el-icon-loading',
+        background: 'rgba(0, 0, 0, 0.7)'
+      });
+      this.httpService.get(apiConfig.server.discreditList + '/' + this.customerId, (res) => {
+        let message = res.data.data.errorMsg ? res.data.data.errorMsg : res.data.data.desc;
+        this.$message(message);
+        this.loading.close();
         this.dataObj = res.data.data;
       });
     }

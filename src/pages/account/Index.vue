@@ -55,14 +55,32 @@
         label="一级部门">
       </el-table-column>
       <el-table-column
-        width="200"
+        label="账号状态">
+        <template slot-scope="scope">
+          <el-tag v-if="scope.row.status === 'Y'" type="success">启用</el-tag>
+          <el-tag v-else type="danger">禁用</el-tag>
+        </template>
+      </el-table-column>
+      <el-table-column
+        width="280"
         label="操作">
         <template slot-scope="scope">
           <el-button @click.stop="doShowDialog('edit', scope.row.userId)" type="primary" size="small">修改</el-button>
           <el-button @click.stop="doShowDialog('detail', scope.row.userId)" type="danger" size="small">查看详情</el-button>
+          <el-button @click.stop="doShowResetPop(scope.row.userId)" type="success" size="small">重置密码</el-button>
         </template>
       </el-table-column>
     </el-table>
+    <el-dialog
+      title="重置密码"
+      :visible.sync="isShowResetPop"
+      width="30%">
+      <span>亲,您确定要重置密码么?</span>
+      <span slot="footer" class="dialog-footer">
+        <el-button @click="isShowResetPop = false">取 消</el-button>
+        <el-button type="primary" @click="doResetPwd">确 定</el-button>
+      </span>
+    </el-dialog>
     <el-pagination
       class="page_box"
       background
@@ -77,7 +95,7 @@
     <el-dialog :title="isEditDialog ? '更新信息' : '员工信息'" :visible.sync="isShowDialog">
       <el-form :model="dialogFormData" label-position="left" label-width="80px">
         <el-form-item label="员工编号">
-          <el-input v-model="dialogFormData.empId" placeholder="员工编号"></el-input>
+          <el-input v-model="dialogFormData.empId" placeholder="员工编号" disabled></el-input>
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="dialogFormData.name" placeholder="姓名"></el-input>
@@ -89,10 +107,15 @@
           <el-input v-model="dialogFormData.gender" placeholder="性别"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="dialogFormData.password" placeholder="密码"></el-input>
+          <el-input v-model="dialogFormData.password" type="password" placeholder="密码"></el-input>
         </el-form-item>
         <el-form-item label="生日">
-          <el-input v-model="dialogFormData.birthday" placeholder="生日"></el-input>
+          <el-date-picker
+            v-model="dialogFormData.birthday"
+            value-format="yyyy-MM-dd"
+            type="date"
+            placeholder="生日">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="电话号">
           <el-input v-model="dialogFormData.telePhone" placeholder="电话号"></el-input>
@@ -115,14 +138,17 @@
         <el-form-item v-if="dialogFormData.depa3"  label="三级部门">
           <el-input v-model="dialogFormData.depa3.name" placeholder="三级部门"></el-input>
         </el-form-item>
-        <el-form-item label="状态">
-          <el-input v-model="dialogFormData.status" placeholder="状态"></el-input>
+        <el-form-item label="账号状态">
+          <div>
+            <el-radio v-model="dialogFormData.status" label="Y" border>启用</el-radio>
+            <el-radio v-model="dialogFormData.status" label="N" border>禁用</el-radio>
+          </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isShowDialog = false">关闭</el-button>
         <template v-if="isEditDialog">
-          <el-button v-if="!isDisabledBtn" @click="doSubmit('edit')" type="primary">更新</el-button>
+          <el-button v-if="!isDisabledBtn && dialogFormData.empId !== '' && dialogFormData.name !== '' && dialogFormData.phone !== ''" @click="doSubmit('edit')" type="primary">更新</el-button>
           <el-button v-else type="primary" disabled>更新</el-button>
         </template>
       </div>
@@ -130,7 +156,7 @@
     <el-dialog title="新增员工" :visible.sync="isAddDialog">
       <el-form :model="addFormData" label-position="left" label-width="80px">
         <el-form-item label="员工编号">
-          <el-input v-model="addFormData.empId" placeholder="员工编号"></el-input>
+          <el-input v-model="addFormData.empId" placeholder="员工编号" @blur="doCheckStaff"></el-input>
         </el-form-item>
         <el-form-item label="姓名">
           <el-input v-model="addFormData.name" placeholder="姓名"></el-input>
@@ -142,10 +168,15 @@
           <el-input v-model="addFormData.gender" placeholder="性别"></el-input>
         </el-form-item>
         <el-form-item label="密码">
-          <el-input v-model="addFormData.password" placeholder="密码"></el-input>
+          <el-input v-model="addFormData.password" type="password" placeholder="密码"></el-input>
         </el-form-item>
         <el-form-item label="生日">
-          <el-input v-model="addFormData.birthday" placeholder="生日"></el-input>
+          <el-date-picker
+            v-model="addFormData.birthday"
+            value-format="yyyy-MM-dd"
+            type="date"
+            placeholder="生日">
+          </el-date-picker>
         </el-form-item>
         <el-form-item label="电话号">
           <el-input v-model="addFormData.telePhone" placeholder="电话号"></el-input>
@@ -168,14 +199,17 @@
         <el-form-item label="三级部门">
           <el-input v-model="addFormData.depa3.name" placeholder="三级部门"></el-input>
         </el-form-item>
-        <el-form-item label="状态">
-          <el-input v-model="addFormData.status" placeholder="状态"></el-input>
+        <el-form-item label="账号状态">
+          <div>
+            <el-radio v-model="addFormData.status" label="Y" border>启用</el-radio>
+            <el-radio v-model="addFormData.status" label="N" border>禁用</el-radio>
+          </div>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="isAddDialog = false">关闭</el-button>
         <template>
-          <el-button v-if="!isDisabledBtn" @click="doSubmit('add')" type="danger">新增</el-button>
+          <el-button v-if="!isDisabledBtn && addFormData.empId !== '' && addFormData.name !== '' && addFormData.phone !== ''" @click="doSubmit('add')" type="danger">新增</el-button>
           <el-button v-else type="danger" disabled>新增</el-button>
         </template>
       </div>
@@ -194,6 +228,8 @@ export default {
       isShowDialog: false,
       isAddDialog: false,
       isEditDialog: false,
+      isShowResetPop: false,
+      userId: '',
       dialogFormData: {},
       addFormData: {
         empId: '',
@@ -276,11 +312,32 @@ export default {
         this.dialogFormData = res.data.data;
       });
     },
+    doShowResetPop(userId) {
+      this.isShowResetPop = true;
+      this.userId = userId;
+    },
+    doResetPwd() {
+      this.httpService.get(apiConfig.server.resetPwd + '/' + this.userId, (res) => {
+        this.isShowResetPop = false;
+      });
+    },
+    doCheckStaff() {
+      this.httpService.get(apiConfig.server.checkStaff + '/' + this.addFormData.empId, (res) => {
+        if (res.data.data !== 0) {
+          this.addFormData.empId = '';
+          this.$message({
+            message: '员工编号重复, 请重新输入哦~',
+            type: 'warning'
+          });
+        }
+      });
+    },
     doSubmit(type) {
       this.isDisabledBtn = true;
       let data = type === 'add' ? this.addFormData : this.dialogFormData;
       let url;
       let obj = {
+        password: data.password,
         userId: data.userId,
         empId: data.empId,
         name: data.name,
@@ -295,7 +352,8 @@ export default {
         },
         depa2: {
           depaId: 4
-        }
+        },
+        status: data.status
       }
       switch (type) {
         case 'add':
@@ -338,6 +396,9 @@ export default {
 @import '../../assets/css/vars.scss';
 
 .v_account_container {
+  .el-date-editor.el-input {
+    width: 100%;
+  }
   .add_btn {
     border-radius: 20px;
   }

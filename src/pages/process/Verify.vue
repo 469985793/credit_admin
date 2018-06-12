@@ -48,12 +48,14 @@
       <el-table-column
         fixed="left"
         prop="mobileNum"
+        width="110px"
         label="手机号">
       </el-table-column>
       <el-table-column
         :show-overflow-tooltip="true"
         fixed="left"
         prop="identityCard"
+        width="160px"
         label="身份证号">
       </el-table-column>
       <el-table-column
@@ -71,20 +73,6 @@
       <el-table-column
         prop="sesameSeed"
         label="芝麻分">
-      </el-table-column>
-      <el-table-column
-        label="已认证"
-        width="180">
-        <template slot-scope="scope">
-          <div class="verify_item_box">
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-            <el-tag size="mini" type="success">支付宝</el-tag>
-          </div>
-        </template>
       </el-table-column>
       <el-table-column
         prop="payCount"
@@ -152,9 +140,6 @@
         </el-form-item>
         <el-form-item label="芝麻分">
           <el-input v-model="dialogFormData.sesameSeed" placeholder="芝麻分" :disabled="true"></el-input>
-        </el-form-item>
-        <el-form-item label="已认证">
-          <el-input v-model="dialogFormData.money" placeholder="已认证" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="结清次数">
           <el-input v-model="dialogFormData.payCount" placeholder="结清次数" :disabled="true"></el-input>
@@ -244,7 +229,7 @@ export default {
         dateCount: this.dialogFormData.dateCount,
         approveMoney: this.dialogFormData.approveMoney,
         finalFlag: type === 1 ? 'Y' : 'N',
-        finalCommment: this.dialogFormData.firstComment
+        finalCommment: this.dialogFormData.finalCommment
       }
       this.httpService.post(apiConfig.server.passVerify, obj, (res) => {
         this.isDisabledBtn = false;

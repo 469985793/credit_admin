@@ -9,7 +9,7 @@
         <div class="right_menu">
           <el-dropdown class="avatar_container" trigger="click">
             <div class="avatar_wrapper">
-              <img class="user_avatar" src="https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif?imageView2/1/w/80/h/80">
+              <img class="user_avatar" src="../assets/img/logoIcon.jpg">
               <i class="el-icon-caret-bottom"></i>
             </div>
             <el-dropdown-menu class="user-dropdown" slot="dropdown">
@@ -53,7 +53,7 @@ export default {
       this.isShowSideBar = !this.isShowSideBar;
     },
     doLogout() {
-      this.storage.cookie.delete('token');
+      this.storage.cookie.delete('back_token');
       this.$router.push({path: '/login'});
     }
   }
@@ -105,7 +105,8 @@ export default {
             .user_avatar {
               width: 40px;
               height: 40px;
-              border-radius: 10px;
+              border-radius: 20px;
+              border: 1px solid rgba(0, 0, 0, 0.1);
             }
             .el-icon-caret-bottom {
               position: absolute;

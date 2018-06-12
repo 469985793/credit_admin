@@ -1,60 +1,66 @@
 <template>
   <div class="v_operator__callrecord_container">
-    <el-table
-      class="table_box"
-      stripe
-      :data="dataList">
-      <el-table-column type="expand">
-        <template slot-scope="props">
-          <el-form class="form_list_box" label-position="left" inline>
-            <el-form-item label="记录总数">
-              <span>{{ props.row.total_size }}</span>
-            </el-form-item>
-            <el-form-item label=月份>
-              <span>{{ props.row.billMonth }}</span>
-            </el-form-item>
-            <el-form-item label="对方号码">
-              <span>{{ props.row.peer_number }}</span>
-            </el-form-item>
-            <el-form-item label="呼出地">
-              <span>{{ props.row.location }}</span>
-            </el-form-item>
-            <el-form-item label="通话地类型">
-              <span>{{ props.row.location_type }}</span>
-            </el-form-item>
-            <el-form-item label="主叫被叫">
-              <span>{{ props.row.dial_type }}</span>
-            </el-form-item>
-            <el-form-item label="通话费(分)">
-              <span>{{ props.row.fee }}</span>
-            </el-form-item>
-            <el-form-item label="通话时间">
-              <span>{{ props.row.time }}</span>
-            </el-form-item>
-            <el-form-item label="通话时长(s)">
-              <span>{{ props.row.duration }}</span>
-            </el-form-item>
-          </el-form>
-        </template>
-      </el-table-column>
-      <el-table-column
-        type="index"
-        label="序号"
-        width="60">
-      </el-table-column>
-      <el-table-column
-        label="对方号码"
-        prop="peer_number">
-      </el-table-column>
-      <el-table-column
-        label="呼出地"
-        prop="location">
-      </el-table-column>
-      <el-table-column
-        label="主叫被叫"
-        prop="dial_type">
-      </el-table-column>
-    </el-table>
+    <div v-for="(callItem, index) in dataList" :key="index">
+      <div class="title_box">
+        <el-tag>账单时间{{callItem.bill_month}}</el-tag>
+        <el-tag>通话总数{{callItem.total_size}}</el-tag>
+      </div>
+      <el-table
+        class="table_box"
+        stripe
+        :data="callItem.items">
+        <el-table-column type="expand">
+          <template slot-scope="props">
+            <el-form class="form_list_box" label-position="left" inline>
+              <el-form-item label="记录总数">
+                <span>{{ props.row.total_size }}</span>
+              </el-form-item>
+              <el-form-item label=月份>
+                <span>{{ props.row.billMonth }}</span>
+              </el-form-item>
+              <el-form-item label="对方号码">
+                <span>{{ props.row.peer_number }}</span>
+              </el-form-item>
+              <el-form-item label="呼出地">
+                <span>{{ props.row.location }}</span>
+              </el-form-item>
+              <el-form-item label="通话地类型">
+                <span>{{ props.row.location_type }}</span>
+              </el-form-item>
+              <el-form-item label="主叫被叫">
+                <span>{{ props.row.dial_type }}</span>
+              </el-form-item>
+              <el-form-item label="通话费(分)">
+                <span>{{ props.row.fee }}</span>
+              </el-form-item>
+              <el-form-item label="通话时间">
+                <span>{{ props.row.time }}</span>
+              </el-form-item>
+              <el-form-item label="通话时长(s)">
+                <span>{{ props.row.duration }}</span>
+              </el-form-item>
+            </el-form>
+          </template>
+        </el-table-column>
+        <el-table-column
+          type="index"
+          label="序号"
+          width="60">
+        </el-table-column>
+        <el-table-column
+          label="对方号码"
+          prop="peer_number">
+        </el-table-column>
+        <el-table-column
+          label="呼出地"
+          prop="location">
+        </el-table-column>
+        <el-table-column
+          label="主叫被叫"
+          prop="dial_type">
+        </el-table-column>
+      </el-table>
+    </div>
   </div>
 </template>
 
@@ -78,8 +84,15 @@ export default {
 @import '../../../../assets/css/vars.scss';
 
 .v_operator__callrecord_container {
-  height: 100%;
+  height: 100vh;
   overflow-y: auto;
+  .title_box {
+    padding: 25px 0;
+    line-height: 25px;
+    background: #eff7f4;
+    display: flex;
+    justify-content: space-around;
+  }
   .table_box {
     width: 100%;
     .form_list_box {

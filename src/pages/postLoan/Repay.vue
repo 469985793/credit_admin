@@ -47,11 +47,13 @@
       <el-table-column
         fixed="left"
         prop="mobileNum"
+        width="110px"
         label="手机号">
       </el-table-column>
       <el-table-column
         fixed="left"
         prop="identityCard"
+        width="160px"
         label="身份证号">
       </el-table-column>
       <el-table-column
@@ -276,7 +278,7 @@ export default {
         payMoney: parseInt(this.dialogFormData.repayMoney),
         payDate: this.format.getCurrentDate(),
         returnDate: this.dialogFormData.returnDate,
-        repayComment: this.dialogFormData.approveMoney
+        repayComment: this.dialogFormData.repayComment
       }
       this.httpService.post(apiConfig.server.doRepay, obj, (res) => {
         this.isDisabledBtn = false;

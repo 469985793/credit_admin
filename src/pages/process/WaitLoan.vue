@@ -47,12 +47,14 @@
       <el-table-column
         fixed
         prop="mobileNum"
+        width="110px"
         label="手机号">
       </el-table-column>
       <el-table-column
         fixed
         :show-overflow-tooltip="true"
         prop="identityCard"
+        width="160px"
         label="身份证号">
       </el-table-column>
       <el-table-column

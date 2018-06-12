@@ -12,8 +12,7 @@ import {storage} from './storage'
 import { Message } from 'element-ui'
 
 axios.interceptors.request.use((config) => {
-  let token = storage.localStorage.get('token');
-
+  let token = storage.cookie.get('back_token');
   if (token !== null) {
     config.headers.token = token;
   }
@@ -31,7 +30,7 @@ axios.interceptors.response.use((response) => {
   return response;
 }, (error) => {
   Message.error({
-    message: '出了点小差错,好忧伤~'
+    message: '出了点小差错'
   });
   return Promise.reject(error);
 });

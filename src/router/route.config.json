@@ -13,12 +13,6 @@
         "meta": { "title": "控制面板", "icon": "example" }
       },
       {
-        "path": "/authority",
-        "name": "authority",
-        "component": "/authority/Index",
-        "meta": { "title": "权限管理", "icon": "example" }
-      },
-      {
         "path": "/creditQuery",
         "name": "creditQuery",
         "component": "/creditQuery/Index",

@@ -72,7 +72,7 @@ export default {
           this.httpService.post(apiConfig.server.login, obj, (res) => {
             this.isLoading = false;
             if (res.data.data.success === true) {
-              this.storage.localStorage.set('token', res.data.data.token);
+              this.storage.cookie.set('back_token', res.data.data.token);
               this.$router.push({path: '/'});
             } else {
               this.$message({

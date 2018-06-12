@@ -68,6 +68,7 @@ export default {
   name: 'VCustomerDetailApply',
   data() {
     return {
+      customerId: this.$route.params.customerId,
       isLoading: false,
       pageNum: 1,
       pageSize: 10,
@@ -98,25 +99,15 @@ export default {
   },
   methods: {
     fetchBillData() {
-      let obj = {
-        orderNo: '201806030922570142000241',
-        mobile: '18610744321'
-      }
-      this.httpService.post(apiConfig.server.operatorBill, obj, (res) => {
-        this.orderObj = JSON.parse(res.data.data);
+      this.httpService.get(apiConfig.server.operatorBill + '/' + this.customerId, (res) => {
+        let data = res.data.data;
+        this.orderObj = JSON.parse(data).data;
       });
     },
     fetchReportData() {
-      let obj = {
-        orderNo: '201806030922570142000241',
-        mobile: '18610744321',
-        name: '孙长青',
-        idcard: '622301199104199175'
-      }
-
-      this.httpService.post(apiConfig.server.opratorReport, obj, (res) => {
-        this.operatorObj = JSON.parse(res.data.data);
-        console.log(this.operatorObj);
+      this.httpService.get(apiConfig.server.operatorReport + '/' + this.customerId, (res) => {
+        let data = res.data.data;
+        this.operatorObj = JSON.parse(data).data;
       });
     }
   }

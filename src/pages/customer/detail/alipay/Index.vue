@@ -24,7 +24,7 @@
 </template>
 
 <script>
-// import { apiConfig } from '../../configs/api/apiConfig'
+import { apiConfig } from '../../../../configs/api/apiConfig'
 import VBaseInfo from './BaseInfo'
 import VTradeInfo from './TradeInfo'
 import VRecentTrader from './RecentTrader'
@@ -36,6 +36,7 @@ export default {
   name: 'VAlipay',
   data() {
     return {
+      customerId: this.$route.params.customerId,
       dataObj: {}
     }
   },
@@ -47,7 +48,7 @@ export default {
   },
   methods: {
     fetchData() {
-      this.httpService.get('/api/alipay', (res) => {
+      this.httpService.get(apiConfig.server.alipay + '/' + this.customerId, (res) => {
         this.dataObj = res.data.data.data;
       });
     }
