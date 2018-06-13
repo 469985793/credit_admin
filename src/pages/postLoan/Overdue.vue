@@ -268,7 +268,7 @@ export default {
         payDate: this.format.getCurrentDate(),
         punishMoney: this.dialogFormData.punishMoney,
         returnDate: this.dialogFormData.remainReturnDate,
-        comment: this.dialogFormData.comment
+        repayComment: this.dialogFormData.comment
       }
       this.httpService.post(apiConfig.server.doRepay, obj, (res) => {
         this.isDisabledBtn = false;
