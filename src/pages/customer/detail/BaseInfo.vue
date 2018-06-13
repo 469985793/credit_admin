@@ -1,5 +1,9 @@
 <template>
-  <div class="v_customer_detail_baseinfo">
+  <div class="v_customer_detail_baseinfo"      
+      v-loading="isLoading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)">
     <el-tag class="title_box">基本信息</el-tag>
     <el-form class="form_list_box" label-position="left" inline>
       <el-form-item label="姓名">
@@ -43,7 +47,7 @@
       </el-form-item>
     </el-form>
     <el-tag class="title_box">补充信息</el-tag>
-    <el-form class="form_list_box" label-position="left" inline>
+    <el-form class="form_list_box" label-position="left" inline v-if="!common.isEmptyObject(otherInfoObj)">
       <el-form-item label="月收入">
         <span>{{otherInfoObj.salary}}</span>
       </el-form-item>
@@ -85,6 +89,7 @@ export default {
   name: 'VCustomerDetailBaseInfo',
   data() {
     return {
+      isLoading: true,
       customerId: this.$route.params.customerId,
       baseInfoObj: {},
       otherInfoObj: {}
@@ -92,16 +97,17 @@ export default {
   },
   created() {
     this.fectchBaseInfo();
-    this.fectchOtherInfo();
   },
   methods: {
     fectchBaseInfo() {
       this.httpService.get(apiConfig.server.baseInfo + '/' + this.customerId, (res) => {
         this.baseInfoObj = res.data.data;
+        this.fectchOtherInfo();
       });
     },
     fectchOtherInfo() {
       this.httpService.get(apiConfig.server.otherInfo + '/' + this.customerId, (res) => {
+        this.isLoading = false;
         this.otherInfoObj = res.data.data;
       });
     }

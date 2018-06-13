@@ -3,7 +3,11 @@
     <el-table
       class="table_box"
       stripe
-      :data="dataList">
+      :data="dataList"
+      v-loading="isLoading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)">
       <el-table-column type="expand">
         <template slot-scope="props">
           <el-form class="form_list_box" label-position="left" inline>
@@ -72,6 +76,7 @@ export default {
   name: 'VCreditExcuted',
   data() {
     return {
+      isLoading: true,
       customerId: this.$route.params.customerId,
       dataList: []
     }
@@ -83,7 +88,7 @@ export default {
     fetchData() {
       this.httpService.get(apiConfig.server.excuteList + '/' + this.customerId, (res) => {
         this.dataList = res.data.data;
-        console.log(this.dataList);
+        this.isLoading = false;
       });
     }
   }
