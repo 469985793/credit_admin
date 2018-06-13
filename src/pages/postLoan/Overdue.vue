@@ -161,25 +161,33 @@
           <el-input v-model="dialogFormData.dateCount" placeholder="逾期天数" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="罚款金额">
-          <el-input v-model="dialogFormData.punishMoney" placeholder="罚款金额"></el-input>
+          <el-input v-model="formData.punishMoney" placeholder="罚款金额"></el-input>
         </el-form-item>
         <el-form-item label="剩余金额">
           <el-input :value="getRemainMoney()" placeholder="剩余金额" :disabled="true"></el-input>
         </el-form-item>
         <el-form-item label="本次还款金额">
-          <el-input v-model="dialogFormData.payMoney" placeholder="本次还款金额"></el-input>
+          <el-input v-model="formData.repayMoney" placeholder="本次还款金额"></el-input>
+        </el-form-item>
+        <el-form-item label="本次还款时间">
+          <el-date-picker
+            value-format="yyyy-MM-dd"
+            v-model="formData.repayDate"
+            type="date"
+            placeholder="本次还款时间">
+            </el-date-picker>
         </el-form-item>
         <el-form-item label="再还款时间">
           <el-date-picker
             :disabled="isDisabledPicker"
             value-format="yyyy-MM-dd"
-            v-model="dialogFormData.remainReturnDate"
+            v-model="formData.remainReturnDate"
             type="date"
             placeholder="再还款时间">
             </el-date-picker>
         </el-form-item>
         <el-form-item label="添加备注">
-          <el-input autosize type="textarea" v-model="dialogFormData.comment" placeholder="添加备注"></el-input>
+          <el-input autosize type="textarea" v-model="formData.overdueComment" placeholder="添加备注"></el-input>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -201,6 +209,13 @@ export default {
       isDisabledBtn: false,
       isShowDialog: false,
       dialogFormData: {},
+      formData: {
+        punishMoney: 0,
+        repayMoney: 0,
+        repayDate: this.format.getCurrentDate(),
+        remainReturnDate: '',
+        overdueComment: ''
+      },
       selectIndex: 0,
       isDisabledPicker: false,
       searchData: {
@@ -220,17 +235,17 @@ export default {
   },
   methods: {
     getRemainMoney() {
-      this.dialogFormData.grantMoney = this.dialogFormData.grantMoney ? parseInt(this.dialogFormData.grantMoney) : 0;
-      this.dialogFormData.punishMoney = this.dialogFormData.punishMoney ? parseInt(this.dialogFormData.punishMoney) : 0;
-      this.dialogFormData.payMoney = this.dialogFormData.payMoney ? parseInt(this.dialogFormData.payMoney) : 0;
-      let remainMoney = this.dialogFormData.grantMoney + this.dialogFormData.punishMoney - this.dialogFormData.payMoney;
+      let grantMoney = this.dialogFormData.grantMoney ? parseInt(this.dialogFormData.grantMoney) : 0;
+      let punishMoney = this.formData.punishMoney ? parseInt(this.formData.punishMoney) : 0;
+      let repayMoney = this.formData.repayMoney ? parseInt(this.formData.repayMoney) : 0;
+      let remainMoney = grantMoney + punishMoney - repayMoney;
+
       if (remainMoney === 0) {
         this.isDisabledPicker = true;
-        this.dialogFormData.remainReturnDate = '';
+        this.formData.remainReturnDate = '';
       } else {
         this.isDisabledPicker = false;
       }
-
       return remainMoney;
     },
     fetchData(isSearch = false) {
@@ -255,7 +270,6 @@ export default {
     doShowDialog(index) {
       this.isShowDialog = true;
       this.dialogFormData = this.dataList[index];
-      this.dialogFormData.payMoney = 0;
       this.selectIndex = index;
     },
     doSubmit() {
@@ -264,13 +278,13 @@ export default {
         orderVo: {
           orderId: this.dialogFormData.orderId
         },
-        payMoney: this.dialogFormData.payMoney,
-        payDate: this.format.getCurrentDate(),
-        punishMoney: this.dialogFormData.punishMoney,
-        returnDate: this.dialogFormData.remainReturnDate,
-        repayComment: this.dialogFormData.comment
+        payMoney: parseInt(this.formData.repayMoney),
+        payDate: this.formData.repayDate,
+        punishMoney: parseInt(this.formData.punishMoney),
+        returnDate: this.formData.remainReturnDate,
+        repayComment: this.formData.overdueComment
       }
-      this.httpService.post(apiConfig.server.doRepay, obj, (res) => {
+      this.httpService.post(apiConfig.server.doChase, obj, (res) => {
         this.isDisabledBtn = false;
         this.isShowDialog = false;
         this.dataList.splice(this.selectIndex, 1);

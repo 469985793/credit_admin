@@ -1,6 +1,10 @@
 <template>
   <div class="v_customer_detail_operator_container">
-    <el-tabs class="tab_box" tab-position="right">
+    <el-tabs class="tab_box" tab-position="right"
+      v-loading="isLoading"
+      element-loading-text="拼命加载中"
+      element-loading-spinner="el-icon-loading"
+      element-loading-background="rgba(0, 0, 0, 0.8)">
       <el-tab-pane label="个人信息">
         <VBaseInfo :data="orderObj"></VBaseInfo>
       </el-tab-pane>
@@ -69,7 +73,7 @@ export default {
   data() {
     return {
       customerId: this.$route.params.customerId,
-      isLoading: false,
+      isLoading: true,
       pageNum: 1,
       pageSize: 10,
       totalData: 0,
@@ -95,17 +99,18 @@ export default {
   },
   created() {
     this.fetchBillData();
-    this.fetchReportData();
   },
   methods: {
     fetchBillData() {
       this.httpService.get(apiConfig.server.operatorBill + '/' + this.customerId, (res) => {
         let data = res.data.data;
         this.orderObj = JSON.parse(data).data;
+        this.fetchReportData();
       });
     },
     fetchReportData() {
       this.httpService.get(apiConfig.server.operatorReport + '/' + this.customerId, (res) => {
+        this.isLoading = false;
         let data = res.data.data;
         this.operatorObj = JSON.parse(data).data;
       });
